@@ -44,6 +44,21 @@ class TodosController extends Controller
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        $newStatus = '';
+
+        if ($status == 'done') {
+            $newStatus = 'open';
+        } else {
+            $newStatus = 'done';
+        }
+
+        Todos::where('id', $id)->update(['status' => $newStatus]);
+    }
+
     public function delete(Request $request): RedirectResponse
     {
         $id = $request->id;

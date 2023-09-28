@@ -34,6 +34,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
     Route::post('/addTodo', [TodosController::class, 'add'])->name('todos.add');
+    Route::post('/updateTodo', [TodosController::class, 'update'])->name('todos.update');
     Route::post('/deleteTodo', [TodosController::class, 'delete'])->name('todos.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
