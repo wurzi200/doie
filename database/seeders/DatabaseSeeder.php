@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Roles;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,29 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Roles::insert([
+            'id' => 1,
+            'level' => 10,
+            'name' => 'user',
+        ]);
+
+        Roles::insert([
+            'id' => 2,
+            'level' => 100,
+            'name' => 'editor',
+        ]);
+
+        Roles::insert([
+            'id' => 3,
+            'level' => 1000,
+            'name' => 'admin',
+        ]);
+
+        Roles::insert([
+            'id' => 4,
+            'level' => 9999,
+            'name' => 'superadmin',
+        ]);
     }
 }

@@ -11,12 +11,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $currentUser = $request->user();
-        if ($currentUser->role_id < 999) {
-            $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->orderByDesc('role_id')->get();
-        } else {
-            $users = User::with('organization')->orderByDesc('role_id')->get();
-        }
 
+        if ($currentUser->role->level < 9999) {
+            $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
+        } else {
+            $users = User::with('organization')->with('role')->orderByDesc('role_id')->get();
+        }
 
         return Inertia::render('Users/ListView', [
             'users' => $users

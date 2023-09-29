@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Roles::class);
+    }
 }

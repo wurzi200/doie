@@ -42,7 +42,7 @@ export default function UsersList({ users }) {
                   {user.organization.name}
                 </td>
                 <td class="px-6 py-4">
-                  {user.role_id}
+                  {user.role.name}
                 </td>
                 <td class="px-6 py-4">
                   <a href="#" class="font-medium text-blue-600  hover:underline">Edit</a>
