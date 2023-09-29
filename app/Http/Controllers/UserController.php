@@ -14,9 +14,9 @@ class UserController extends Controller
         $requiredLevel = PermissionsController::checkRequiredLevel('view_all_users');
 
         if ($requiredLevel) {
-            $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
-        } else {
             $users = User::with('organization')->with('role')->orderByDesc('role_id')->get();
+        } else {
+            $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
         }
 
         return Inertia::render('Users/ListView', [

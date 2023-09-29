@@ -10,12 +10,13 @@ class OrganizationController extends Controller
 {
     public function index(Request $request)
     {
-        $currentUser = $request->user();
+        $currentUser = auth()->user();
+        $requiredLevel = PermissionsController::checkRequiredLevel('view_all_organizations');
 
-        if ($currentUser->role_id < 999) {
-            $organizations = Organization::where('id',  $currentUser->organization_id)->get();
-        } else {
+        if ($requiredLevel) {
             $organizations = Organization::get();
+        } else {
+            $organizations = Organization::where('id',  $currentUser->organization_id)->get();
         }
 
         return Inertia::render('Organizations/ListView', [

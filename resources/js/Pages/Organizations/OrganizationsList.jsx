@@ -1,27 +1,27 @@
 
 export default function OrganizationsList({ organizations }) {
   return (
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
-      <table class="w-full text-sm text-left text-gray-500 ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+      <table className="w-full text-sm text-left text-gray-500 ">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               organization
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
 
             </th>
           </tr>
         </thead>
         <tbody>
-          {organizations.map((organization) => {
+          {organizations.map((organization, i) => {
             return (
-              <tr class="bg-white border-b ">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+              <tr className="bg-white border-b" key={i}>
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   {organization.name}
                 </th>
-                <td class="px-6 py-4">
-                  <a href="#" class="font-medium text-blue-600  hover:underline">Edit</a>
+                <td className="px-6 py-4">
+                  <a href="#" className="font-medium text-blue-600  hover:underline">Edit</a>
                 </td>
               </tr>
             )
