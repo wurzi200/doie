@@ -18,7 +18,8 @@ export default function All({ auth, todos }) {
     axios.post('/addTodo', data)
       .then(
         settoDoDescription(''),
-        router.reload()
+        router.reload(),
+        window.location.reload(),
       )
       .catch(error => {
         console.log("ERROR:: ", error.response.data);

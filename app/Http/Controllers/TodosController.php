@@ -16,14 +16,14 @@ class TodosController extends Controller
 {
     public function index()
     {
-        $todos = Todos::where('user_id', Auth::id())->get();
+        $todos = Todos::where('user_id', Auth::id())->orderByDesc('status')->get();
 
         return Inertia::render('Todos/All', [
             'todos' => $todos
         ]);
     }
 
-    public function add(Request $request)
+    public function add(Request $request): RedirectResponse
     {
         $request->validate([
             'description' => 'required',
@@ -38,13 +38,10 @@ class TodosController extends Controller
         $todos->status = 'open';
         $todos->save();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Todo successfully created',
-        ]);
+        return Redirect::route('todos.index')->with('status', 200);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $id = $request->id;
         $status = $request->status;
@@ -57,6 +54,8 @@ class TodosController extends Controller
         }
 
         Todos::where('id', $id)->update(['status' => $newStatus]);
+
+        return Redirect::route('todos.index')->with('status', 200);
     }
 
     public function delete(Request $request): RedirectResponse
