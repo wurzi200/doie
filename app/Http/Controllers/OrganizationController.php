@@ -8,9 +8,15 @@ use Inertia\Inertia;
 
 class OrganizationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $organizations = Organization::get();
+        $currentUser = $request->user();
+
+        if ($currentUser->role_id < 999) {
+            $organizations = Organization::where('id',  $currentUser->organization_id)->get();
+        } else {
+            $organizations = Organization::get();
+        }
 
         return Inertia::render('Organizations/ListView', [
             'organizations' => $organizations
