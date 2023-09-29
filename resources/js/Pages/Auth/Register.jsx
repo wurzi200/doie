@@ -9,6 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        lastname: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -32,7 +33,7 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Firstname" />
 
                     <TextInput
                         id="name"
@@ -46,6 +47,23 @@ export default function Register() {
                     />
 
                     <InputError message={errors.name} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="lastname" value="Lastname" />
+
+                    <TextInput
+                        id="lastname"
+                        name="lastname"
+                        value={data.lastname}
+                        className="mt-1 block w-full"
+                        autoComplete="lastname"
+                        isFocused={true}
+                        onChange={(e) => setData('lastname', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.lastname} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -112,6 +130,6 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </GuestLayout >
     );
 }

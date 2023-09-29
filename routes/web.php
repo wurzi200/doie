@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodosController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +33,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
-    Route::post('/addTodo', [TodosController::class, 'add'])->name('todos.add');
-    Route::post('/updateTodo', [TodosController::class, 'update'])->name('todos.update');
-    Route::post('/deleteTodo', [TodosController::class, 'delete'])->name('todos.delete');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    // Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
+    // Route::post('/addTodo', [TodosController::class, 'add'])->name('todos.add');
+    // Route::post('/updateTodo', [TodosController::class, 'update'])->name('todos.update');
+    // Route::post('/deleteTodo', [TodosController::class, 'delete'])->name('todos.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
