@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderByDesc('role_id')->get();
+        $users = User::with('organization')->orderByDesc('role_id')->get();
 
         return Inertia::render('Users/ListView', [
             'users' => $users

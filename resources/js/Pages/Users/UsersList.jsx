@@ -39,7 +39,7 @@ export default function UsersList({ users }) {
                   {user.email}
                 </td>
                 <td class="px-6 py-4">
-                  {user.organization_id}
+                  {user.organization.name}
                 </td>
                 <td class="px-6 py-4">
                   {user.role_id}

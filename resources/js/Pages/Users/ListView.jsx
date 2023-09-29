@@ -4,7 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import UsersList from "./UsersList";
 
 export default function UsersListView({ auth, users }) {
-
+  console.log(users);
   return (
     <AuthenticatedLayout
       user={auth.user}
