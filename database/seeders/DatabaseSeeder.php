@@ -61,5 +61,11 @@ class DatabaseSeeder extends Seeder
         //     'required_level' => 9000,
         //     'name' => 'view_all_organizations',
         // ]);
+
+        // Permissions::insert([
+        //     'id' => 3,
+        //     'required_level' => 9000,
+        //     'name' => 'view_all_roles',
+        // ]);
     }
 }

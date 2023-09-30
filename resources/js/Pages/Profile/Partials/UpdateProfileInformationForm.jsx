@@ -6,16 +6,15 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Combobox, Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '', user, organizations }) {
+export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '', user, organizations, roles }) {
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
         lastname: user.lastname,
-        role: user.role.name,
+        role_id: user.role.id,
         email: user.email,
         organization_id: user.organization_id
     });
-    console.log(data.organization_id);
 
     const submit = (e) => {
         e.preventDefault();
@@ -90,7 +89,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                             <SearchableDropdown
                                 options={organizations}
                                 onChange={(e) => setData('organization_id', e.id)}
-                                defaultSelected={organizations.find(option => option.id === data.organization_id)}
+                                defaultId={data.organization_id}
                             />
 
                             <InputError className="mt-2" message={errors.organozation_id} />
@@ -98,17 +97,13 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         <div className="mb-4">
                             <InputLabel htmlFor="role" value="Role" />
 
-                            <TextInput
-                                id="role"
-                                type="text"
-                                className="mt-1 block w-full"
-                                value={data.role}
-                                onChange={(e) => setData('role', e.target.value)}
-                                required
-                                autoComplete="username"
+                            <SearchableDropdown
+                                options={roles}
+                                onChange={(e) => setData('role_id', e.id)}
+                                defaultId={data.role_id}
                             />
 
-                            <InputError className="mt-2" message={errors.email} />
+                            <InputError className="mt-2" message={errors.organozation_id} />
                         </div>
                     </div>
                 </div>
