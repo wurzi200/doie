@@ -23,4 +23,8 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function edit()
+    {
+    }
 }

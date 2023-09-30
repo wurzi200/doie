@@ -3,15 +3,19 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Combobox, Transition } from '@headlessui/react';
+import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
-    const user = usePage().props.auth.user;
+export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '', user, organizations }) {
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
+        lastname: user.lastname,
+        role: user.role.name,
         email: user.email,
+        organization_id: user.organization_id
     });
+    console.log(data.organization_id);
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,36 +34,83 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                <div className="flex flex-wrap md:flex-nowrap">
+                    <div className="w-full md:mr-4">
+                        <div className="mb-4">
+                            <InputLabel htmlFor="name" value="Firstname" />
 
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
+                            <TextInput
+                                id="name"
+                                className="mt-1 block w-full"
+                                value={data.name}
+                                onChange={(e) => setData('name', e.target.value)}
+                                required
+                                isFocused
+                                autoComplete="name"
+                            />
 
-                    <InputError className="mt-2" message={errors.name} />
-                </div>
+                            <InputError className="mt-2" message={errors.name} />
+                        </div>
 
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                        <div className="mb-4">
+                            <InputLabel htmlFor="lastname" value="Lastname" />
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
+                            <TextInput
+                                id="lastname"
+                                className="mt-1 block w-full"
+                                value={data.lastname}
+                                onChange={(e) => setData('lastname', e.target.value)}
+                                required
+                                isFocused
+                                autoComplete="lastname"
+                            />
 
-                    <InputError className="mt-2" message={errors.email} />
+                            <InputError className="mt-2" message={errors.lastname} />
+                        </div>
+                        <div className="mb-4">
+                            <InputLabel htmlFor="email" value="Email" />
+
+                            <TextInput
+                                id="email"
+                                type="email"
+                                className="mt-1 block w-full"
+                                value={data.email}
+                                onChange={(e) => setData('email', e.target.value)}
+                                required
+                                autoComplete="username"
+                            />
+
+                            <InputError className="mt-2" message={errors.email} />
+                        </div>
+                    </div>
+                    <div className="w-full md:ml-4">
+                        <div className="mb-4">
+                            <InputLabel htmlFor="organization" value="Organization" />
+
+                            <SearchableDropdown
+                                options={organizations}
+                                onChange={(e) => setData('organization_id', e.id)}
+                                defaultSelected={organizations.find(option => option.id === data.organization_id)}
+                            />
+
+                            <InputError className="mt-2" message={errors.organozation_id} />
+                        </div>
+                        <div className="mb-4">
+                            <InputLabel htmlFor="role" value="Role" />
+
+                            <TextInput
+                                id="role"
+                                type="text"
+                                className="mt-1 block w-full"
+                                value={data.role}
+                                onChange={(e) => setData('role', e.target.value)}
+                                required
+                                autoComplete="username"
+                            />
+
+                            <InputError className="mt-2" message={errors.email} />
+                        </div>
+                    </div>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
