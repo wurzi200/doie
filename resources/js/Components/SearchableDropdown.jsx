@@ -20,9 +20,9 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
     <div className="w-full">
       <Combobox onChange={onChange} value={options.find(option => option.id === defaultId)}>
         <div className="relative mt-1">
-          <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+          <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+              className="border border-gray-300 text-gray-900 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full p-2.5"
               displayValue={(option) => option.name}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -50,7 +50,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
                   <Combobox.Option
                     key={option.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : 'text-gray-900'
                       }`
                     }
                     value={option}

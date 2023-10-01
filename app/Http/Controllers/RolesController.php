@@ -33,7 +33,7 @@ class RolesController extends Controller
         if ($requiredLevel) {
             $roles = Roles::get();
         } else {
-            $roles = Roles::where('name', '!=', 'superadmin')->get();
+            $roles = Roles::where('level', '<=', $currentUser->role->level)->get();
         }
 
         return $roles;
