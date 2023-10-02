@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,21 @@ class PasswordController extends Controller
         ]);
 
         $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return back();
+    }
+    //Change password of $userId
+    public function change(Request $request, $userId): RedirectResponse
+    {
+        $user = User::where('id', $userId)->with('organization')->with('role')->orderByDesc('role_id')->first();
+
+        $validated = $request->validate([
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $user->update([
             'password' => Hash::make($validated['password']),
         ]);
 

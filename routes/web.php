@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodosController;
@@ -45,6 +46,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::group(['middleware' => ['auth', 'superadmin']], function () {
+        Route::get('/user/{userId}', [UserController::class, 'edit'])->name('user.edit');
+        Route::patch('/user/{userId}/update', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+        Route::put('changePassword/{userId}/update', [PasswordController::class, 'change'])->name('changePassword.update');
+    });
 });
 
 require __DIR__ . '/auth.php';

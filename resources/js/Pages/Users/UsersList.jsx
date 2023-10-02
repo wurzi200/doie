@@ -45,13 +45,11 @@ export default function UsersList({ users }) {
                   {user.role.name}
                 </td>
                 <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-blue-600  hover:underline">Edit</a>
+                  <a href={route('user.edit', user.id)} className="font-medium text-blue-600  hover:underline">Edit</a>
                 </td>
               </tr>
             )
-          }
-
-          )}
+          })}
         </tbody>
       </table>
     </div>
