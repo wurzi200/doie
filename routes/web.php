@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TodosController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -48,11 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::group(['middleware' => ['auth', 'superadmin']], function () {
+    Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
         Route::get('/user/{userId}', [UserController::class, 'edit'])->name('user.edit');
         Route::patch('/user/{userId}/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
         Route::put('changePassword/{userId}/update', [PasswordController::class, 'change'])->name('changePassword.update');
+
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
     });
 });
 
