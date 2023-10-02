@@ -16,9 +16,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $currentUser = auth()->user();
-
-        $users = User::with('organization')->get();
+        $users = User::with('organization')->with('roles')->get();
 
         // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
 
