@@ -17,13 +17,10 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $requiredLevel = PermissionsController::checkRequiredLevel('view_all_users');
 
-        if ($requiredLevel) {
-            $users = User::with('organization')->with('role')->orderByDesc('role_id')->get();
-        } else {
-            $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
-        }
+        $users = User::with('organization')->get();
+
+        // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
 
         return Inertia::render('Users/ListView', [
             'users' => $users
@@ -32,16 +29,14 @@ class UserController extends Controller
 
     public function edit(Request $request, $userId): Response
     {
-        $user = User::where('id', $userId)->with('organization')->with('role')->orderByDesc('role_id')->first();
+        $user = User::where('id', $userId)->with('organization')->first();
         $organizations = OrganizationController::getOrganizations();
-        $roles = RolesController::getRoles();
 
         return Inertia::render('User/Edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'user' => $user,
             'organizations' => $organizations,
-            'roles' => $roles,
         ]);
     }
 
@@ -50,7 +45,7 @@ class UserController extends Controller
      */
     public function update(ProfileUpdateRequest $request, $userId): RedirectResponse
     {
-        $user = User::where('id', $userId)->with('organization')->with('role')->orderByDesc('role_id')->first();
+        $user = User::where('id', $userId)->with('organization')->first();
 
         $user->fill($request->validated());
 

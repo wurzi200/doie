@@ -19,16 +19,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        $user = User::where('id',  $request->user()->id)->with('organization')->with('role')->orderByDesc('role_id')->first();
+        $user = User::where('id',  $request->user()->id)->with('organization')->first();
         $organizations = OrganizationController::getOrganizations();
-        $roles = RolesController::getRoles();
 
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'user' => $user,
             'organizations' => $organizations,
-            'roles' => $roles,
         ]);
     }
 

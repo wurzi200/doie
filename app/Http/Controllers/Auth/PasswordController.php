@@ -30,7 +30,7 @@ class PasswordController extends Controller
     //Change password of $userId
     public function change(Request $request, $userId): RedirectResponse
     {
-        $user = User::where('id', $userId)->with('organization')->with('role')->orderByDesc('role_id')->first();
+        $user = User::where('id', $userId)->with('organization')->first();
 
         $validated = $request->validate([
             'password' => ['required', Password::defaults(), 'confirmed'],

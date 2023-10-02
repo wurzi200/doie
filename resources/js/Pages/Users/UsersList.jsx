@@ -17,9 +17,9 @@ export default function UsersList({ users }) {
             <th scope="col" className="px-6 py-3">
               organization
             </th>
-            <th scope="col" className="px-6 py-3">
+            {/* <th scope="col" className="px-6 py-3">
               role
-            </th>
+            </th> */}
             <th scope="col" className="px-6 py-3">
 
             </th>
@@ -41,9 +41,9 @@ export default function UsersList({ users }) {
                 <td className="px-6 py-4">
                   {user.organization.name}
                 </td>
-                <td className="px-6 py-4">
+                {/* <td className="px-6 py-4">
                   {user.role.name}
-                </td>
+                </td> */}
                 <td className="px-6 py-4">
                   <a href={route('user.edit', user.id)} className="font-medium text-blue-600  hover:underline">Edit</a>
                 </td>

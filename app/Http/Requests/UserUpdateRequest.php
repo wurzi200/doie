@@ -19,7 +19,6 @@ class UserUpdateRequest extends FormRequest
       'name' => ['string', 'max:255'],
       'lastname' => ['string', 'max:255'],
       'organization_id' => ['integer'],
-      'role_id' => ['integer'],
       'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
     ];
   }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\PermissionsController;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,7 @@ class SuperAdminMiddleware
     {
         $user = Auth::user();
 
-        if ($user->role_id == 4) {
+        if ($user) {
             return $next($request);
         } else {
             // abort(403, 'Wrong Accept Header');

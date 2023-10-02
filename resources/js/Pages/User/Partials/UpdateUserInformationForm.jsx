@@ -6,12 +6,11 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Combobox, Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function UpdateUserInformation({ mustVerifyEmail, status, className = '', user, organizations, roles }) {
+export default function UpdateUserInformation({ mustVerifyEmail, status, className = '', user, organizations }) {
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
         lastname: user.lastname,
-        role_id: user.role.id,
         email: user.email,
         organization_id: user.organization_id
     });
@@ -94,7 +93,7 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
 
                             <InputError className="mt-2" message={errors.organozation_id} />
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <InputLabel htmlFor="role" value="Role" />
 
                             <SearchableDropdown
@@ -104,7 +103,7 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
                             />
 
                             <InputError className="mt-2" message={errors.organozation_id} />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
