@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,14 +28,16 @@ class UserController extends Controller
 
     public function edit(Request $request, $userId): Response
     {
-        $user = User::where('id', $userId)->with('organization')->first();
+        $user = User::where('id', $userId)->with('organization')->with('roles')->first();
         $organizations = OrganizationController::getOrganizations();
+        $roles = Role::get();
 
         return Inertia::render('User/Edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'user' => $user,
             'organizations' => $organizations,
+            'roles' => $roles,
         ]);
     }
 
@@ -43,14 +46,15 @@ class UserController extends Controller
      */
     public function update(ProfileUpdateRequest $request, $userId): RedirectResponse
     {
-        $user = User::where('id', $userId)->with('organization')->first();
+        $user = User::where('id', $userId)->first();
+        $role = Role::where('id', $request->get('role_id'))->first();
 
+        $user->syncRoles($role);
         $user->fill($request->validated());
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
-
         $user->save();
 
         return Redirect::route('user.edit', $userId);
