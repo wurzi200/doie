@@ -15,7 +15,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
-  console.log(options);
+
   return (
     <div className="w-full">
       <Combobox onChange={onChange} value={options.find(option => option.id === defaultId)}>

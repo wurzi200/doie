@@ -50,11 +50,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('/user/{userId}', [UserController::class, 'edit'])->name('user.edit');
         Route::patch('/user/{userId}/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
         Route::put('changePassword/{userId}/update', [PasswordController::class, 'change'])->name('changePassword.update');
+
+        Route::get('/role/{roleId}', [RoleController::class, 'edit'])->name('role.edit');
+        Route::post('/togglePermission', [RoleController::class, 'togglePermission'])->name('role.update');
+
+
 
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');

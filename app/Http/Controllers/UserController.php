@@ -26,19 +26,25 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(Request $request, $userId): Response
+    public function edit(Request $request, $userId)
     {
-        $user = User::where('id', $userId)->with('organization')->with('roles')->first();
-        $organizations = OrganizationController::getOrganizations();
-        $roles = Role::get();
+        $check = $request->user()->can('edit_user');
 
-        return Inertia::render('User/Edit', [
-            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'user' => $user,
-            'organizations' => $organizations,
-            'roles' => $roles,
-        ]);
+        if (true) {
+            $user = User::where('id', $userId)->with('organization')->with('roles')->first();
+            $organizations = OrganizationController::getOrganizations();
+            $roles = Role::get();
+
+            return Inertia::render('Users/Edit', [
+                'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+                'status' => session('status'),
+                'user' => $user,
+                'organizations' => $organizations,
+                'roles' => $roles,
+            ]);
+        } else {
+            return Redirect::to('/users');
+        }
     }
 
     /**
