@@ -37,20 +37,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
-
-    // Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
-    // Route::post('/addTodo', [TodosController::class, 'add'])->name('todos.add');
-    // Route::post('/updateTodo', [TodosController::class, 'update'])->name('todos.update');
-    // Route::post('/deleteTodo', [TodosController::class, 'delete'])->name('todos.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
     Route::group(['middleware' => ['auth']], function () {
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+        Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+        Route::put('/user/store', [UserController::class, 'store'])->name('user.store');
+
         Route::get('/user/{userId}', [UserController::class, 'edit'])->name('user.edit');
         Route::patch('/user/{userId}/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
@@ -63,6 +61,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
     });
+
+    Route::group(['middleware' => ['auth', 'permission:edit_user']], function () {
+    });
+
+    Route::group(['middleware' => ['auth', 'permission:edit_organization']], function () {
+    });
+
+    Route::group(['middleware' => ['auth', 'permission:edit_role']], function () {
+    });
+
+    Route::group(['middleware' => ['auth', 'permission:edit_permission']], function () {
+    });
 });
+
+// Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
+// Route::post('/addTodo', [TodosController::class, 'add'])->name('todos.add');
+// Route::post('/updateTodo', [TodosController::class, 'update'])->name('todos.update');
+// Route::post('/deleteTodo', [TodosController::class, 'delete'])->name('todos.delete');
 
 require __DIR__ . '/auth.php';

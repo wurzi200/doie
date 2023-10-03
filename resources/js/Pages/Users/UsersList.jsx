@@ -38,7 +38,7 @@ export default function UsersList({ users }) {
                   {user.email}
                 </td>
                 <td className="px-6 py-4">
-                  {user.organization.name}
+                  {user.organization && user.organization.name}
                 </td>
                 <td className="px-6 py-4">
                   {user.roles[0] && user.roles[0].name}

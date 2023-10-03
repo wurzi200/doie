@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Role;
@@ -78,6 +82,46 @@ class UserController extends Controller
         $user = User::where('id', $userId)->with('organization')->with('role')->first();
 
         $user->delete();
+        return Redirect::to('/users');
+    }
+
+    public function create()
+    {
+        $roles = Role::get();
+        $organizations = Organization::get();
+        // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
+
+        return Inertia::render('Users/Create', [
+            'organizations' => $organizations,
+            'roles' => $roles,
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255', Rule::unique(User::class),
+            'organization_id' => 'required',
+            'password' => ['required', 'confirmed', Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'organization_id' => $request->organization_id,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if ($request->role) {
+            $user->assignRole($request->role);
+        } else {
+            $user->assignRole('user');
+        }
+
         return Redirect::to('/users');
     }
 }

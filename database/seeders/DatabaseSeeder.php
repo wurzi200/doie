@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use App\Models\Permissions;
 use App\Models\Roles;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,8 +28,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(PermissionSeeder::class);
 
         // \App\Models\Organization::factory(10)->create();
-        // $this->call(SuperAdminSeeder::class);
+        // $this->call(DefaultUserSeeder::class);
 
         // \App\Models\User::factory(10)->create();
+
+        $role = Role::where('name', 'super-admin')->first();
+        $role->givePermissionTo(Permission::all());
     }
 }
