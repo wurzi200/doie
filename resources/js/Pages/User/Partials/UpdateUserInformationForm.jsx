@@ -13,7 +13,7 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
         lastname: user.lastname,
         email: user.email,
         organization_id: user.organization_id,
-        role_id: user.roles[0].id
+        role_id: user.roles[0] && user.roles[0].id
     });
 
     const submit = (e) => {
@@ -98,9 +98,9 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
                             <InputLabel htmlFor="role" value="Role" />
 
                             <SearchableDropdown
-                                options={roles}
+                                options={roles && roles}
                                 onChange={(e) => setData('role_id', e.id)}
-                                defaultId={data.role_id}
+                                defaultId={data.role_id && data.role_id}
                             />
 
                             <InputError className="mt-2" message={errors.organozation_id} />
