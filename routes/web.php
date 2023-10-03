@@ -60,7 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/togglePermission', [RoleController::class, 'togglePermission'])->name('role.update');
 
 
-
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
     });

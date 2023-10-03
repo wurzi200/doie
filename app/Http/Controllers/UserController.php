@@ -75,7 +75,7 @@ class UserController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = User::where('id', $userId)->with('organization')->with('role')->orderByDesc('role_id')->first();
+        $user = User::where('id', $userId)->with('organization')->with('role')->first();
 
         $user->delete();
         return Redirect::to('/users');
