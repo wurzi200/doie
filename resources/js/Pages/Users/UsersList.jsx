@@ -1,5 +1,6 @@
-
+import Pagination from "@/Components/Pagination";
 export default function UsersList({ users }) {
+  console.log(users);
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
       <table className="w-full text-sm text-left text-gray-500 ">
@@ -25,7 +26,7 @@ export default function UsersList({ users }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, i) => {
+          {users.data.map((user, i) => {
             return (
               <tr className="bg-white border-b" key={i}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">

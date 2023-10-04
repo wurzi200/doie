@@ -1,8 +1,9 @@
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import UsersList from "./UsersList";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import Pagination from "@/Components/Pagination";
 
 
 export default function UsersListView({ auth, users }) {
@@ -16,10 +17,15 @@ export default function UsersListView({ auth, users }) {
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
-            <div className="p-6 text-gray-900 w-full">Users</div>
-            <a href={route('user.create')} className="p-5">
-              <AiOutlineUserAdd className="text-3xl">+</AiOutlineUserAdd>
-            </a>
+            <div className="p-6 text-gray-900">Users</div>
+            <div className="w-full p-4">
+              <Pagination class="mt-6" links={users.links} />
+            </div>
+            <div className="m-auto mr-4">
+              <a href={route('user.create')} className="">
+                <AiOutlineUserAdd className="text-3xl">+</AiOutlineUserAdd>
+              </a>
+            </div>
           </div>
           {users && <UsersList users={users}></UsersList>}
         </div>
