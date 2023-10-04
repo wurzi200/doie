@@ -11,14 +11,9 @@ class OrganizationController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-
-
-
-        $organizations = Organization::get();
+        $organizations = Organization::paginate('10');
 
         // $organizations = Organization::where('id',  $currentUser->organization_id)->get();
-
-
         return Inertia::render('Organizations/ListView', [
             'organizations' => $organizations
         ]);

@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import UsersList from "./OrganizationsList";
 import OrganizationsList from "./OrganizationsList";
+import Pagination from "@/Components/Pagination";
 
 export default function OrganizationsListView({ auth, organizations }) {
 
@@ -18,7 +19,9 @@ export default function OrganizationsListView({ auth, organizations }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900 w-full">Organizations</div>
           </div>
+          <Pagination class="mt-6" links={organizations.links} />
           <OrganizationsList organizations={organizations}></OrganizationsList>
+          <Pagination class="mt-6" links={organizations.links} />
         </div>
       </div>
 

@@ -7,22 +7,19 @@ use App\Http\Requests\UserCreationRequest;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
-use Inertia\Response;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('organization')->with('roles')->paginate('5');
+        $users = User::with('organization')->with('roles')->paginate('10');
 
         // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
 

@@ -1,6 +1,5 @@
 import Pagination from "@/Components/Pagination";
 export default function UsersList({ users }) {
-  console.log(users);
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
       <table className="w-full text-sm text-left text-gray-500 ">

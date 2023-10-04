@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 import React from 'react';
-import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 
 export default function Pagination({ links }) {
 
@@ -14,7 +13,7 @@ export default function Pagination({ links }) {
 
   return (
     links.length > 3 && (
-      <div className="">
+      <div className=" bg-white mt-4 mb-4 p-4 sm:rounded-lg">
         <div className="flex flex-wrap">
           {links.map((link, i) => (
             link.url === null ? // if

@@ -19,7 +19,6 @@ export default function UsersListView({ auth, users }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900">Users</div>
             <div className="w-full p-4">
-              <Pagination class="mt-6" links={users.links} />
             </div>
             <div className="m-auto mr-4">
               <a href={route('user.create')} className="">
@@ -27,7 +26,9 @@ export default function UsersListView({ auth, users }) {
               </a>
             </div>
           </div>
+          <Pagination class="mt-6" links={users.links} />
           {users && <UsersList users={users}></UsersList>}
+          <Pagination class="mt-6" links={users.links} />
         </div>
       </div>
 

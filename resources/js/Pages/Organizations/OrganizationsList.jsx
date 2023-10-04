@@ -14,7 +14,7 @@ export default function OrganizationsList({ organizations }) {
           </tr>
         </thead>
         <tbody>
-          {organizations.map((organization, i) => {
+          {organizations.data.map((organization, i) => {
             return (
               <tr className="bg-white border-b" key={i}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
