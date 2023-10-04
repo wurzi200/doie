@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UserCreationRequest;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -87,26 +88,22 @@ class UserController extends Controller
 
     public function create()
     {
+        $currentUser = auth()->user();
         $roles = Role::get();
         $organizations = Organization::get();
-        // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
 
         return Inertia::render('Users/Create', [
             'organizations' => $organizations,
             'roles' => $roles,
+            'user' => $currentUser,
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(UserCreationRequest $request): RedirectResponse
     {
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255', Rule::unique(User::class),
-            'organization_id' => 'required',
-            'password' => ['required', 'confirmed', Password::defaults()],
-        ]);
+
+        $request->user()->fill($request->validated());
 
         $user = User::create([
             'name' => $request->name,

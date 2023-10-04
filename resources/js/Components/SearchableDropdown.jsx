@@ -5,7 +5,6 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 export default function SearchableDropdown({ options, defaultId, onChange }) {
 
   const [query, setQuery] = useState('')
-
   const filteredoptions =
     query === ''
       ? options
@@ -22,7 +21,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className="border border-gray-300 text-gray-900 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full p-2.5"
+              className="border border-gray-300 text-gray-900 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full"
               displayValue={(option) => option.name}
               onChange={(event) => setQuery(event.target.value)}
             />

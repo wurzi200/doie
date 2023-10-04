@@ -3,16 +3,16 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Combobox, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function CreateUserInformation({ mustVerifyEmail, status, className = '', organizations, roles }) {
+export default function CreateUserInformation({ mustVerifyEmail, status, className = '', organizations, roles, user }) {
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     name: '',
     lastname: '',
     email: '',
-    organization_id: '',
+    organization_id: user.organization_id,
     role: '',
     password: '',
     password_confirmation: '',
@@ -25,49 +25,17 @@ export default function CreateUserInformation({ mustVerifyEmail, status, classNa
   };
 
   return (
-    <section className={className}>
-      <header>
-        <h2 className="text-lg font-medium text-gray-900">Create a new User</h2>
+    <form onSubmit={submit} className="mt-6 space-y-6">
+      <section className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+        <header>
+          <h2 className="text-lg font-medium text-gray-900">Create a new User</h2>
 
-        <p className="mt-1 text-sm text-gray-600">
-          hehe
-        </p>
-      </header>
-
-      <form onSubmit={submit} className="mt-6 space-y-6">
+          <p className="mt-1 mb-4 text-sm text-gray-600">
+            User details
+          </p>
+        </header>
         <div className="flex flex-wrap md:flex-nowrap">
           <div className="w-full md:mr-4">
-            <div className="mb-4">
-              <InputLabel htmlFor="name" value="Firstname" />
-
-              <TextInput
-                id="name"
-                className="mt-1 block w-full"
-                value={data.name}
-                onChange={(e) => setData('name', e.target.value)}
-                required
-                isFocused
-                autoComplete="name"
-              />
-
-              <InputError className="mt-2" message={errors.name} />
-            </div>
-
-            <div className="mb-4">
-              <InputLabel htmlFor="lastname" value="Lastname" />
-
-              <TextInput
-                id="lastname"
-                className="mt-1 block w-full"
-                value={data.lastname}
-                onChange={(e) => setData('lastname', e.target.value)}
-                required
-                isFocused
-                autoComplete="lastname"
-              />
-
-              <InputError className="mt-2" message={errors.lastname} />
-            </div>
             <div className="mb-4">
               <InputLabel htmlFor="email" value="Email" />
 
@@ -83,86 +51,98 @@ export default function CreateUserInformation({ mustVerifyEmail, status, classNa
 
               <InputError className="mt-2" message={errors.email} />
             </div>
-            <div>
-              <InputLabel htmlFor="password" value="New Password" />
+            <div className="mb-4">
+              <InputLabel htmlFor="name" value="Firstname" />
 
               <TextInput
-                id="password"
-                value={data.password}
-                onChange={(e) => setData('password', e.target.value)}
-                type="password"
+                id="name"
                 className="mt-1 block w-full"
-                autoComplete="new-password"
+                value={data.name}
+                onChange={(e) => setData('name', e.target.value)}
+                required
+                isFocused
+                autoComplete="given-name"
               />
 
-              <InputError message={errors.password} className="mt-2" />
+              <InputError className="mt-2" message={errors.name} />
             </div>
 
-            <div>
-              <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+            <div className="mb-4">
+              <InputLabel htmlFor="lastname" value="Lastname" />
 
               <TextInput
-                id="password_confirmation"
-                value={data.password_confirmation}
-                onChange={(e) => setData('password_confirmation', e.target.value)}
-                type="password"
+                id="lastname"
                 className="mt-1 block w-full"
-                autoComplete="new-password"
+                value={data.lastname}
+                onChange={(e) => setData('lastname', e.target.value)}
+                required
+                isFocused
+                autoComplete="family-name"
               />
 
-              <InputError message={errors.password_confirmation} className="mt-2" />
+              <InputError className="mt-2" message={errors.lastname} />
             </div>
-          </div>
-          <div className="w-full md:ml-4">
-            <div className="mb-4">
-              <InputLabel htmlFor="organization" value="Organization" />
+            <div className="md:flex">
+              <div className="w-full md:mr-2">
+                <div className="mb-4">
+                  <InputLabel htmlFor="password" value="Password" />
 
-              <SearchableDropdown
-                options={organizations}
-                onChange={(e) => setData('organization_id', e.id)}
-                defaultId={data.organization_id}
-              />
+                  <TextInput
+                    id="password"
+                    value={data.password}
+                    onChange={(e) => setData('password', e.target.value)}
+                    type="password"
+                    className="mt-1 block w-full"
+                    autoComplete="new-password"
+                  />
 
-              <InputError className="mt-2" message={errors.organozation_id} />
-            </div>
-            <div className="mb-4">
-              <InputLabel htmlFor="role" value="Role" />
+                  <InputError message={errors.password} className="mt-2" />
+                </div>
 
-              <SearchableDropdown
-                options={roles && roles}
-                onChange={(e) => setData('role', e.name)}
-                defaultId={data.role.id && data.role.id}
-              />
+                <div className="mb-4">
+                  <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
 
-              <InputError className="mt-2" message={errors.organozation_id} />
+                  <TextInput
+                    id="password_confirmation"
+                    value={data.password_confirmation}
+                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                    type="password"
+                    className="mt-1 block w-full"
+                    autoComplete="new-password"
+                  />
+
+                  <InputError message={errors.password_confirmation} className="mt-2" />
+                </div>
+              </div>
+              <div className="w-full md:ml-2">
+                <div className="mb-4">
+                  <InputLabel htmlFor="organization" value="Organization" />
+
+                  <SearchableDropdown
+                    options={organizations}
+                    onChange={(e) => setData('organization_id', e.id)}
+                    defaultId={data.organization_id}
+                  />
+
+                  <InputError className="mt-2" message={errors.organozation_id} />
+                </div>
+                <div className="mb-4">
+                  <InputLabel htmlFor="role" value="Role" />
+
+                  <SearchableDropdown
+                    options={roles && roles}
+                    onChange={(e) => setData('role', e.name)}
+                    defaultId={data.role.id && data.role.id}
+                  />
+
+                  <InputError className="mt-2" message={errors.organozation_id} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {mustVerifyEmail && user.email_verified_at === null && (
-          <div>
-            <p className="text-sm mt-2 text-gray-800">
-              Your email address is unverified.
-              <Link
-                href={route('verification.send')}
-                method="post"
-                as="button"
-                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Click here to re-send the verification email.
-              </Link>
-            </p>
-
-            {status === 'verification-link-sent' && (
-              <div className="mt-2 font-medium text-sm text-green-600">
-                A new verification link has been sent to your email address.
-              </div>
-            )}
-          </div>
-        )}
-
-        <div className="flex items-center gap-4">
-          <PrimaryButton disabled={processing}>Save</PrimaryButton>
+        <div className="flex items-center gap-4 mt-4">
+          <PrimaryButton disabled={processing}>Create</PrimaryButton>
 
           <Transition
             show={recentlySuccessful}
@@ -171,10 +151,10 @@ export default function CreateUserInformation({ mustVerifyEmail, status, classNa
             leave="transition ease-in-out"
             leaveTo="opacity-0"
           >
-            <p className="text-sm text-gray-600">Saved.</p>
+            <p className="text-sm text-gray-600">Created.</p>
           </Transition>
         </div>
-      </form>
-    </section>
+      </section>
+    </form >
   );
 }

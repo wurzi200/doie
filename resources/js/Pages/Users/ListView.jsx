@@ -2,7 +2,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import UsersList from "./UsersList";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { AiOutlineUserAdd } from "react-icons/ai";
+
 
 export default function UsersListView({ auth, users }) {
   return (
@@ -16,8 +17,8 @@ export default function UsersListView({ auth, users }) {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900 w-full">Users</div>
-            <a href={route('user.create')}>
-              <PrimaryButton className="m-4">Create</PrimaryButton>
+            <a href={route('user.create')} className="p-5">
+              <AiOutlineUserAdd className="text-3xl">+</AiOutlineUserAdd>
             </a>
           </div>
           {users && <UsersList users={users}></UsersList>}
