@@ -4,6 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import RoleList from "./RoleList";
 import Pagination from "@/Components/Pagination";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { BiPlus } from "react-icons/bi";
 
 
 export default function UsersListView({ auth, roles }) {
@@ -20,7 +21,7 @@ export default function UsersListView({ auth, roles }) {
             <div className="p-6 text-gray-900 w-full">Roles</div>
             <div className="m-auto mr-4">
               <a href={route('role.create')} className="">
-                <AiOutlineUserAdd className="text-3xl">+</AiOutlineUserAdd>
+                <BiPlus className="text-3xl text-gray-600">+</BiPlus>
               </a>
             </div>
           </div>

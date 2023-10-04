@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import UsersList from "./UsersList";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { BiUserPlus } from "react-icons/bi";
 import Pagination from "@/Components/Pagination";
 
 
@@ -19,8 +19,8 @@ export default function UsersListView({ auth, users }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900">Users</div>
             <div className="m-auto mr-4">
-              <a href={route('user.create')} className="">
-                <AiOutlineUserAdd className="text-3xl">+</AiOutlineUserAdd>
+              <a href={route('user.create')} className="text-gray-600">
+                <BiUserPlus className="text-3xl">+</BiUserPlus>
               </a>
             </div>
           </div>

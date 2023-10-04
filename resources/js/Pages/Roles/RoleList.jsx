@@ -1,3 +1,4 @@
+import { BiEdit, BiEditAlt, BiTrash, BiTrashAlt } from "react-icons/bi"
 
 export default function RoleList({ roles }) {
   return (
@@ -22,8 +23,7 @@ export default function RoleList({ roles }) {
             </th> */}
             <th scope="col" className="px-6 py-3">
             </th>
-            <th scope="col" className="px-6 py-3">
-            </th>
+
           </tr>
         </thead>
         <tbody>
@@ -45,11 +45,13 @@ export default function RoleList({ roles }) {
                 {/* <td className="px-6 py-4">
                   {user.role.name}
                 </td> */}
-                <td className="px-6 py-4">
-                  <a href={route('role.edit', role.id)} className="font-medium text-blue-600  hover:underline">Edit</a>
-                </td>
-                <td className="px-6 py-4">
-                  <a href={route('role.delete', role.id)} className="font-medium text-blue-600  hover:underline">Delete</a>
+                <td className="px-6 py-4 flex justify-around">
+                  <a href={route('role.edit', role.id)} className="hover:underline">
+                    <BiEditAlt className="text-gray-600 text-xl" />
+                  </a>
+                  <a href={route('role.delete', role.id)} className="hover:underline">
+                    <BiTrash className="text-gray-600 text-xl" />
+                  </a>
                 </td>
               </tr>
             )

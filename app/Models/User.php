@@ -50,6 +50,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected function getDefaultGuardName(): string
+    {
+        return 'web';
+    }
 
     public function organization(): BelongsTo
     {

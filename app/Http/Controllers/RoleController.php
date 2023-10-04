@@ -16,7 +16,6 @@ class RoleController extends Controller
     {
         $currentUser = auth()->user();
         $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
-
         return Inertia::render('Roles/ListView', [
             'roles' => $roles
         ]);
@@ -71,8 +70,9 @@ class RoleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $role = Role::create([
-            'name' => $request->name,
-            'guard_name' => 'web-' . $request->organization_id,
+            'name' => $request->name . '-' . $request->organization_id,
+            'display_name' => $request->name,
+            'guard_name' => 'web',
             'organization_id' => $request->organization_id,
         ]);
 

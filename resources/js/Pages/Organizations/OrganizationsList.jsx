@@ -1,3 +1,4 @@
+import { BiEdit, BiEditAlt, BiTrash } from "react-icons/bi"
 
 export default function OrganizationsList({ organizations }) {
   return (
@@ -20,8 +21,13 @@ export default function OrganizationsList({ organizations }) {
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   {organization.name}
                 </th>
-                <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-blue-600  hover:underline">Edit</a>
+                <td className="px-6 py-4 flex justify-around">
+                  <a href={route('organization.edit', organization.id)} className="hover:underline">
+                    <BiEditAlt className="text-gray-600 text-xl" />
+                  </a>
+                  <a href={route('organization.delete', organization.id)} className="hover:underline">
+                    <BiTrash className="text-gray-600 text-xl" />
+                  </a>
                 </td>
               </tr>
             )

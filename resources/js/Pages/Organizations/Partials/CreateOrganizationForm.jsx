@@ -6,27 +6,26 @@ import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function CreateRoleInformation({ mustVerifyEmail, status, className = '', organizations, roles, user }) {
+export default function CreateOrganizationInformation({ user }) {
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     name: '',
-    organization_id: user.organization_id,
   });
 
   const submit = (e) => {
     e.preventDefault();
 
-    put(route('role.store'));
+    put(route('organization.store'));
   };
 
   return (
     <form onSubmit={submit} className="mt-6 space-y-6">
       <section className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
         <header>
-          <h2 className="text-lg font-medium text-gray-900">Create a new Role</h2>
+          <h2 className="text-lg font-medium text-gray-900">Create a new Organization</h2>
 
           <p className="mt-1 mb-4 text-sm text-gray-600">
-            Role details
+            Organization details
           </p>
         </header>
         <div className="flex flex-wrap md:flex-nowrap">
@@ -44,17 +43,6 @@ export default function CreateRoleInformation({ mustVerifyEmail, status, classNa
               />
 
               <InputError className="mt-2" message={errors.name} />
-            </div>
-            <div className="mb-4">
-              <InputLabel htmlFor="organization" value="Organization" />
-
-              <SearchableDropdown
-                options={organizations}
-                onChange={(e) => setData('organization_id', e.id)}
-                defaultId={data.organization_id}
-              />
-
-              <InputError className="mt-2" message={errors.organozation_id} />
             </div>
           </div>
         </div >

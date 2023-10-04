@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(10)->create();
 
-        $role = Role::where('name', 'super-admin')->first();
+        $role = Role::where('name', 'super-admin-1')->first();
         $role->givePermissionTo(Permission::all());
     }
 }

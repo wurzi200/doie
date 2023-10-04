@@ -1,4 +1,4 @@
-import Pagination from "@/Components/Pagination";
+import { BiEdit, BiEditAlt } from "react-icons/bi";
 export default function UsersList({ users }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
@@ -44,7 +44,9 @@ export default function UsersList({ users }) {
                   {user.roles[0] && user.roles[0].name}
                 </td>
                 <td className="px-6 py-4">
-                  <a href={route('user.edit', user.id)} className="font-medium text-blue-600  hover:underline">Edit</a>
+                  <a href={route('user.edit', user.id)} className="hover:underline">
+                    <BiEditAlt className="text-gray-600 text-xl" />
+                  </a>
                 </td>
               </tr>
             )

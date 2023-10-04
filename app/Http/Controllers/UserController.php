@@ -30,12 +30,13 @@ class UserController extends Controller
 
     public function edit(Request $request, $userId)
     {
+        $currentUser = $request->user();
         $check = $request->user()->can('edit_user');
 
         if (true) {
             $user = User::where('id', $userId)->with('organization')->with('roles')->first();
             $organizations = OrganizationController::getOrganizations();
-            $roles = Role::get();
+            $roles = Role::where('organization_id', $currentUser->organization_id)->get();
 
             return Inertia::render('Users/Edit', [
                 'mustVerifyEmail' => $user instanceof MustVerifyEmail,
@@ -86,7 +87,7 @@ class UserController extends Controller
     public function create()
     {
         $currentUser = auth()->user();
-        $roles = Role::get();
+        $roles = Role::where('organization_id', $currentUser->organization_id)->get();
         $organizations = Organization::get();
 
         return Inertia::render('Users/Create', [

@@ -38,6 +38,11 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
+    Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create');
+    Route::put('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
+    Route::get('/organization/{organizationId}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
+    Route::patch('/organization/{organizationId}/update', [OrganizationController::class, 'update'])->name('organization.update');
+    Route::get('/organization/{organizationId}/delete', [OrganizationController::class, 'delete'])->name('organization.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

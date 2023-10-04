@@ -20,7 +20,7 @@ class DefaultUserSeeder extends Seeder
             'email_verified_at' => now(),
             'organization_id' => 1,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
-        ])->assignRole('user');
+        ])->assignRole('user-1');
 
         $user = User::create([
             'name' => 'editor',
@@ -29,7 +29,7 @@ class DefaultUserSeeder extends Seeder
             'email_verified_at' => now(),
             'organization_id' => 1,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
-        ])->assignRole('editor');
+        ])->assignRole('editor-1');
 
         $user = User::create([
             'name' => 'admin',
@@ -38,7 +38,7 @@ class DefaultUserSeeder extends Seeder
             'email_verified_at' => now(),
             'organization_id' => 1,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
-        ])->assignRole('admin');
+        ])->assignRole('admin-1');
 
         $user = User::create([
             'name' => 'superadmin',
@@ -47,6 +47,6 @@ class DefaultUserSeeder extends Seeder
             'email_verified_at' => now(),
             'organization_id' => 1,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
-        ])->assignRole('super-admin');
+        ])->assignRole('super-admin-1');
     }
 }

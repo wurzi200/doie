@@ -1,3 +1,4 @@
+import { BiTrash, BiTrashAlt } from "react-icons/bi"
 
 export default function PermissionList({ permissions }) {
   return (
@@ -45,7 +46,9 @@ export default function PermissionList({ permissions }) {
                   {user.permission.name}
                 </td> */}
                 <td className="px-6 py-4">
-                  <a href={'/'} className="font-medium text-blue-600  hover:underline">Edit</a>
+                  <a href={'/'} className="font-medium text-blue-600  hover:underline">
+                    <BiTrash className="text-gray-600 text-xl" />
+                  </a>
                 </td>
               </tr>
             )
