@@ -26,7 +26,7 @@ export default function PermissionList({ permissions }) {
           </tr>
         </thead>
         <tbody>
-          {permissions.map((permission, i) => {
+          {permissions.data.map((permission, i) => {
             return (
               <tr className="bg-white border-b" key={i}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">

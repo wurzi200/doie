@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import PermissionList from "./PermissionList";
+import Pagination from "@/Components/Pagination";
 
 export default function UsersListView({ auth, permissions }) {
   return (
@@ -17,7 +18,12 @@ export default function UsersListView({ auth, permissions }) {
             <div className="p-6 text-gray-900 w-full">Permission</div>
           </div>
           {
-            permissions && <PermissionList permissions={permissions}></PermissionList>
+            permissions &&
+            <>
+              <Pagination class="mt-6" links={permissions.links} />
+              <PermissionList permissions={permissions}></PermissionList>
+              <Pagination class="mt-6" links={permissions.links} />
+            </>
           }
         </div>
       </div>

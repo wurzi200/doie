@@ -26,9 +26,13 @@ export default function UsersListView({ auth, users }) {
               </a>
             </div>
           </div>
-          <Pagination class="mt-6" links={users.links} />
-          {users && <UsersList users={users}></UsersList>}
-          <Pagination class="mt-6" links={users.links} />
+          {users &&
+            <>
+              <Pagination class="mt-6" links={users.links} />
+              <UsersList users={users}></UsersList>
+              <Pagination class="mt-6" links={users.links} />
+            </>
+          }
         </div>
       </div>
 

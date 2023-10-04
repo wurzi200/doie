@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import RoleList from "./RoleList";
+import Pagination from "@/Components/Pagination";
 
 export default function UsersListView({ auth, roles }) {
   return (
@@ -16,7 +17,13 @@ export default function UsersListView({ auth, roles }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900 w-full">Roles</div>
           </div>
-          {roles && <RoleList roles={roles}></RoleList>}
+          {roles &&
+            <>
+              <Pagination class="mt-6" links={roles.links} />
+              <RoleList roles={roles}></RoleList>
+              <Pagination class="mt-6" links={roles.links} />
+            </>
+          }
         </div>
       </div>
 

@@ -26,7 +26,7 @@ export default function RoleList({ roles }) {
           </tr>
         </thead>
         <tbody>
-          {roles.map((role, i) => {
+          {roles.data.map((role, i) => {
             return (
               <tr className="bg-white border-b" key={i}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
