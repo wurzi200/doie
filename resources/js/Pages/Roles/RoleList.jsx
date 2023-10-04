@@ -21,7 +21,8 @@ export default function RoleList({ roles }) {
               role
             </th> */}
             <th scope="col" className="px-6 py-3">
-
+            </th>
+            <th scope="col" className="px-6 py-3">
             </th>
           </tr>
         </thead>
@@ -46,6 +47,9 @@ export default function RoleList({ roles }) {
                 </td> */}
                 <td className="px-6 py-4">
                   <a href={route('role.edit', role.id)} className="font-medium text-blue-600  hover:underline">Edit</a>
+                </td>
+                <td className="px-6 py-4">
+                  <a href={route('role.delete', role.id)} className="font-medium text-blue-600  hover:underline">Delete</a>
                 </td>
               </tr>
             )

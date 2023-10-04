@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -11,7 +14,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::paginate('10');
+        $currentUser = auth()->user();
+        $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
 
         return Inertia::render('Roles/ListView', [
             'roles' => $roles
@@ -29,6 +33,15 @@ class RoleController extends Controller
         ]);
     }
 
+    public function delete($roleId)
+    {
+        $role = Role::where('id', $roleId)->first();
+
+        $role->delete();
+
+        return Redirect::route('roles.index');
+    }
+
     public function togglePermission(Request $request)
     {
         $value = $request->input('value');
@@ -42,5 +55,29 @@ class RoleController extends Controller
         } else {
             $role->givePermissionTo($permission);
         }
+    }
+
+    public function create()
+    {
+        $currentUser = auth()->user();
+        $organizations = Organization::get();
+
+        return Inertia::render('Roles/Create', [
+            'organizations' => $organizations,
+            'user' => $currentUser,
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $role = Role::create([
+            'name' => $request->name,
+            'guard_name' => 'web-' . $request->organization_id,
+            'organization_id' => $request->organization_id,
+        ]);
+
+        $role->save();
+
+        return Redirect::route('roles.index');
     }
 }
