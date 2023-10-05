@@ -41,7 +41,7 @@ export default function UsersList({ users }) {
                   {user.organization && user.organization.name}
                 </td>
                 <td className="px-6 py-4">
-                  {user.roles[0] && user.roles[0].name}
+                  {user.roles[0] && user.roles[0].display_name}
                 </td>
                 <td className="px-6 py-4">
                   <a href={route('user.edit', user.id)} className="hover:underline">

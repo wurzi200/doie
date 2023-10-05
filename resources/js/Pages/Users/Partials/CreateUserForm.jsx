@@ -6,7 +6,7 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function CreateUserInformation({ mustVerifyEmail, status, className = '', organizations, roles, user }) {
+export default function CreateUserInformation({ organizations, roles, user }) {
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     name: '',
@@ -135,7 +135,7 @@ export default function CreateUserInformation({ mustVerifyEmail, status, classNa
                     defaultId={data.role.id && data.role.id}
                   />
 
-                  <InputError className="mt-2" message={errors.organozation_id} />
+                  <InputError className="mt-2" message={errors.role} />
                 </div>
               </div>
             </div>

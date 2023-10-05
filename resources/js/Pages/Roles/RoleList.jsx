@@ -10,6 +10,9 @@ export default function RoleList({ roles }) {
               id
             </th>
             <th scope="col" className="px-6 py-3">
+              dispaly name
+            </th>
+            <th scope="col" className="px-6 py-3">
               name
             </th>
             <th scope="col" className="px-6 py-3">
@@ -33,6 +36,9 @@ export default function RoleList({ roles }) {
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   {role.id}
                 </th>
+                <td className="px-6 py-4">
+                  {role.display_name}
+                </td>
                 <td className="px-6 py-4">
                   {role.name}
                 </td>
