@@ -6,6 +6,7 @@ use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -69,8 +70,16 @@ class RoleController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $role = Role::create([
+        $request->merge([ // change request name
             'name' => $request->name . '-' . $request->organization_id,
+        ]);
+
+        $request->validate([
+            'name' => ['required', Rule::unique(Role::class)],
+        ]);
+
+        $role = Role::create([
+            'name' => $request->name,
             'display_name' => $request->name,
             'guard_name' => 'web',
             'organization_id' => $request->organization_id,
