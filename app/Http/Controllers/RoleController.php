@@ -22,6 +22,13 @@ class RoleController extends Controller
         ]);
     }
 
+    public function getRoles()
+    {
+        $currentUser = auth()->user();
+        $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
+        return $roles;
+    }
+
     public function edit($roleId)
     {
         $permissions = Permission::all();

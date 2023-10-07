@@ -19,9 +19,16 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('organization')->with('roles')->paginate('10');
+        $currentUser = auth()->user();
+        $currentUser->can('show_user');
 
-        // $users = User::where('organization_id',  $currentUser->organization_id)->with('organization')->with('role')->orderByDesc('role_id')->get();
+        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
+
+        if ($superAdminCheck) {
+            $users = User::with('organization')->with('roles')->paginate('10');
+        } else {
+            $users = User::where('organization_id', $currentUser->organization_id)->with('organization')->with('roles')->paginate('10');
+        }
 
         return Inertia::render('Users/ListView', [
             'users' => $users
@@ -30,24 +37,20 @@ class UserController extends Controller
 
     public function edit(Request $request, $userId)
     {
-        $currentUser = $request->user();
-        $check = $request->user()->can('edit_user');
+        $currentUser = auth()->user();
+        $currentUser->can('edit_user');
 
-        if (true) {
-            $user = User::where('id', $userId)->with('organization')->with('roles')->first();
-            $organizations = OrganizationController::getOrganizations();
-            $roles = Role::where('organization_id', $currentUser->organization_id)->get();
+        $user = User::where('id', $userId)->with('organization')->with('roles')->first();
+        $organizations = OrganizationController::getOrganizations();
+        $roles = Role::where('organization_id', $currentUser->organization_id)->get();
 
-            return Inertia::render('Users/Edit', [
-                'mustVerifyEmail' => $user instanceof MustVerifyEmail,
-                'status' => session('status'),
-                'user' => $user,
-                'organizations' => $organizations,
-                'roles' => $roles,
-            ]);
-        } else {
-            return Redirect::to('/users');
-        }
+        return Inertia::render('Users/Edit', [
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'user' => $user,
+            'organizations' => $organizations,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -55,6 +58,9 @@ class UserController extends Controller
      */
     public function update(ProfileUpdateRequest $request, $userId): RedirectResponse
     {
+        $currentUser = auth()->user();
+        $currentUser->can('edit_user');
+
         $user = User::where('id', $userId)->first();
         $role = Role::where('id', $request->get('role_id'))->first();
 
@@ -74,6 +80,9 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $userId): RedirectResponse
     {
+        $currentUser = auth()->user();
+        $currentUser->can('edit_user');
+
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);
@@ -87,6 +96,8 @@ class UserController extends Controller
     public function create()
     {
         $currentUser = auth()->user();
+        $currentUser->can('create_user');
+
         $roles = Role::where('organization_id', $currentUser->organization_id)->get();
         $organizations = Organization::get();
 
@@ -99,7 +110,8 @@ class UserController extends Controller
 
     public function store(UserCreationRequest $request): RedirectResponse
     {
-
+        $currentUser = auth()->user();
+        $currentUser->can('create_user');
 
         $request->user()->fill($request->validated());
 

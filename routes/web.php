@@ -37,52 +37,63 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
-    Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create');
-    Route::put('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
-    Route::get('/organization/{organizationId}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
-    Route::patch('/organization/{organizationId}/update', [OrganizationController::class, 'update'])->name('organization.update');
-    Route::get('/organization/{organizationId}/delete', [OrganizationController::class, 'delete'])->name('organization.delete');
-
+    //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::group(['middleware' => ['auth']], function () {
+    // Users
+    Route::group(['middleware' => ['auth', 'permission:show_users']], function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    });
 
+    Route::group(['middleware' => ['auth', 'permission:create_users']], function () {
         Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
         Route::put('/user/store', [UserController::class, 'store'])->name('user.store');
+    });
 
+    Route::group(['middleware' => ['auth', 'permission:edit_users']], function () {
         Route::get('/user/{userId}', [UserController::class, 'edit'])->name('user.edit');
         Route::patch('/user/{userId}/update', [UserController::class, 'update'])->name('user.update');
-        Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
         Route::put('changePassword/{userId}/update', [PasswordController::class, 'change'])->name('changePassword.update');
+        Route::delete('/user/{userId}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+    });
 
+    // Organizations
+    Route::group(['middleware' => ['auth', 'permission:show_organizations']], function () {
+        Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
+    });
 
+    Route::group(['middleware' => ['auth', 'permission:create_organizations']], function () {
+        Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create');
+        Route::put('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
+    });
 
+    Route::group(['middleware' => ['auth', 'permission:edit_organizations']], function () {
+        Route::get('/organization/{organizationId}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
+        Route::patch('/organization/{organizationId}/update', [OrganizationController::class, 'update'])->name('organization.update');
+        Route::get('/organization/{organizationId}/delete', [OrganizationController::class, 'delete'])->name('organization.delete');
+    });
 
+    //Roles
+    Route::group(['middleware' => ['auth', 'permission:show_roles']], function () {
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    });
+
+    Route::group(['middleware' => ['auth', 'permission:create_roles']], function () {
         Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
         Route::put('/role/store', [RoleController::class, 'store'])->name('role.store');
+    });
+
+    Route::group(['middleware' => ['auth', 'permission:edit_roles']], function () {
         Route::get('/role/{roleId}/edit', [RoleController::class, 'edit'])->name('role.edit');
         Route::get('/role/{roleId}/delete', [RoleController::class, 'delete'])->name('role.delete');
         Route::post('/togglePermission', [RoleController::class, 'togglePermission'])->name('role.update');
-
-        Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
     });
 
-    Route::group(['middleware' => ['auth', 'permission:edit_user']], function () {
-    });
 
-    Route::group(['middleware' => ['auth', 'permission:edit_organization']], function () {
-    });
 
-    Route::group(['middleware' => ['auth', 'permission:edit_role']], function () {
-    });
-
-    Route::group(['middleware' => ['auth', 'permission:edit_permission']], function () {
-    });
+    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
 });
 
 // Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');

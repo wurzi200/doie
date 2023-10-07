@@ -13,9 +13,18 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'edit_user']);
-        Permission::create(['name' => 'edit_organization']);
-        Permission::create(['name' => 'edit_role']);
+        Permission::create(['name' => 'show_users']);
+        Permission::create(['name' => 'create_users']);
+        Permission::create(['name' => 'edit_users']);
+
+        Permission::create(['name' => 'show_organizations']);
+        Permission::create(['name' => 'create_organizations']);
+        Permission::create(['name' => 'edit_organizations']);
+
+        Permission::create(['name' => 'show_roles']);
+        Permission::create(['name' => 'create_roles']);
+        Permission::create(['name' => 'edit_roles']);
+
         Permission::create(['name' => 'edit_permission']);
     }
 }
