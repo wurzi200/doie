@@ -1,6 +1,6 @@
-import { BiEdit, BiEditAlt } from "react-icons/bi";
+import { BiEditAlt } from "react-icons/bi";
 export default function UsersList({ users }) {
-  console.log(users);
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
       <table className="w-full text-sm text-left text-gray-500 ">
@@ -42,7 +42,7 @@ export default function UsersList({ users }) {
                   {user.organization && user.organization.name}
                 </td>
                 <td className="px-6 py-4">
-                  {user.roles[0] && user.roles[0].display_name}
+                  {user.roles && user.roles[0].display_name}
                 </td>
                 <td className="px-6 py-4">
                   <a href={route('user.edit', user.id)} className="hover:underline">
