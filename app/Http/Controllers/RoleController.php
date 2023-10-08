@@ -77,6 +77,7 @@ class RoleController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $display_name = $request->name;
         $request->merge([ // change request name
             'name' => $request->name . '-' . $request->organization_id,
         ]);
@@ -87,7 +88,7 @@ class RoleController extends Controller
 
         $role = Role::create([
             'name' => $request->name,
-            'display_name' => $request->name,
+            'display_name' => $display_name,
             'guard_name' => 'web',
             'organization_id' => $request->organization_id,
         ]);

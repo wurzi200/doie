@@ -20,8 +20,6 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $currentUser->can('show_user');
-
         $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
         if ($superAdminCheck) {
@@ -38,7 +36,6 @@ class UserController extends Controller
     public function edit(Request $request, $userId)
     {
         $currentUser = auth()->user();
-        $currentUser->can('edit_user');
 
         $user = User::where('id', $userId)->with('organization')->with('roles')->first();
         $organizations = OrganizationController::getOrganizations();
@@ -58,9 +55,6 @@ class UserController extends Controller
      */
     public function update(ProfileUpdateRequest $request, $userId): RedirectResponse
     {
-        $currentUser = auth()->user();
-        $currentUser->can('edit_user');
-
         $user = User::where('id', $userId)->first();
         $role = Role::where('id', $request->get('role_id'))->first();
 
@@ -80,9 +74,6 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $userId): RedirectResponse
     {
-        $currentUser = auth()->user();
-        $currentUser->can('edit_user');
-
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);
@@ -110,9 +101,6 @@ class UserController extends Controller
 
     public function store(UserCreationRequest $request): RedirectResponse
     {
-        $currentUser = auth()->user();
-        $currentUser->can('create_user');
-
         $request->user()->fill($request->validated());
 
         $user = User::create([

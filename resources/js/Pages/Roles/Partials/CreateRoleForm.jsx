@@ -6,7 +6,7 @@ import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 
-export default function CreateRoleInformation({ mustVerifyEmail, status, className = '', organizations, roles, user }) {
+export default function CreateRoleInformation({ organizations, user }) {
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     name: '',
