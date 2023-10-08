@@ -7,7 +7,6 @@ import Pagination from "@/Components/Pagination";
 
 
 export default function UsersListView({ auth, users }) {
-  console.log(auth.permissions);
   return (
     <AuthenticatedLayout
       user={auth.user}
