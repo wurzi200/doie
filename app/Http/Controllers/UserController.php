@@ -23,7 +23,7 @@ class UserController extends Controller
         $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
         if ($superAdminCheck) {
-            $users = User::with('organization')->with('roles')->paginate('10');
+            $users = User::with('organization')->with('roles')->with('permissions')->paginate('10');
         } else {
             $users = User::where('organization_id', $currentUser->organization_id)->with('organization')->with('roles')->paginate('10');
         }
