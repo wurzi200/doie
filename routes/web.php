@@ -88,7 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'permission:edit_roles']], function () {
         Route::get('/role/{roleId}/edit', [RoleController::class, 'edit'])->name('role.edit');
         Route::get('/role/{roleId}/delete', [RoleController::class, 'delete'])->name('role.delete');
-        Route::post('/togglePermission', [RoleController::class, 'togglePermission'])->name('role.update');
+        Route::patch('/role/{roleId}/update', [RoleController::class, 'update'])->name('role.update');
+        Route::post('/togglePermission', [RoleController::class, 'togglePermission'])->name('role.togglePermission');
     });
 
 

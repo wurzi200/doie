@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleUpdateRequest;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,13 +32,43 @@ class RoleController extends Controller
 
     public function edit($roleId)
     {
+        $currentUser = auth()->user();
+
         $permissions = Permission::all();
         $role = Role::where('id', $roleId)->with('permissions')->first();
+        $organization = Organization::where('id', $currentUser->organization_id)->first();
 
         return Inertia::render('Roles/Edit', [
             'role' => $role,
             'permissions' => $permissions,
+            'organization' => $organization,
         ]);
+    }
+
+    public function update(Request $request, $roleId): RedirectResponse
+    {
+        $role = Role::where('id', $roleId)->first();
+
+        $display_name = $request->name;
+
+        $request->merge([ // change request name
+            'name' => $request->name . '-' . $request->organization_id,
+        ]);
+
+        $request->validate([
+            'name' => ['required', Rule::unique(Role::class)],
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+            'display_name' => $display_name,
+            'guard_name' => 'web',
+            'organization_id' => $request->organization_id,
+        ]);
+
+        $role->save();
+
+        return Redirect::route('role.edit', $roleId);
     }
 
     public function delete($roleId)
