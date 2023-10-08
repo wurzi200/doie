@@ -28,7 +28,7 @@ export default function UsersListView({ auth, roles }) {
           {roles &&
             <>
               <Pagination class="mt-6" links={roles.links} />
-              <RoleList roles={roles}></RoleList>
+              <RoleList auth={auth} roles={roles}></RoleList>
               <Pagination class="mt-6" links={roles.links} />
             </>
           }

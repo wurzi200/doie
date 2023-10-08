@@ -7,6 +7,7 @@ import Pagination from "@/Components/Pagination";
 
 
 export default function UsersListView({ auth, users }) {
+  console.log(auth.permissions);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -19,15 +20,17 @@ export default function UsersListView({ auth, users }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900">Users</div>
             <div className="m-auto mr-4">
-              <a href={route('user.create')} className="text-gray-600">
-                <BiUserPlus className="text-3xl">+</BiUserPlus>
-              </a>
+              {auth.permissions.find((permission => permission.name === 'create_users')) &&
+                <a href={route('user.create')} className="text-gray-600">
+                  <BiUserPlus className="text-3xl">+</BiUserPlus>
+                </a>
+              }
             </div>
           </div>
           {users &&
             <>
               <Pagination class="mt-6" links={users.links} />
-              <UsersList users={users}></UsersList>
+              <UsersList auth={auth} users={users}></UsersList>
               <Pagination class="mt-6" links={users.links} />
             </>
           }
