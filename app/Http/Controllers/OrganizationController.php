@@ -14,8 +14,13 @@ class OrganizationController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $organizations = Organization::paginate('10');
+        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
+        if ($superAdminCheck) {
+            $organizations = Organization::paginate('10');
+        } else {
+            $organizations = Organization::where('id', $currentUser->organization_id)->paginate('10');
+        }
         // $organizations = Organization::where('id',  $currentUser->organization_id)->get();
         return Inertia::render('Organizations/ListView', [
             'organizations' => $organizations

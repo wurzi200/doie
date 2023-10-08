@@ -17,7 +17,13 @@ class RoleController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
+        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
+
+        if ($superAdminCheck) {
+            $roles = Role::paginate('10');
+        } else {
+            $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
+        }
         return Inertia::render('Roles/ListView', [
             'roles' => $roles
         ]);
