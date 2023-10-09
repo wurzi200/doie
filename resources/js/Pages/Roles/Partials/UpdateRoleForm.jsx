@@ -47,7 +47,7 @@ export default function UpdateRoleForm({ role, organization }) {
           </div>
         </div >
         <div className="flex items-center gap-4 mt-4">
-          <PrimaryButton disabled={processing}>Create</PrimaryButton>
+          <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
           <Transition
             show={recentlySuccessful}
@@ -56,7 +56,7 @@ export default function UpdateRoleForm({ role, organization }) {
             leave="transition ease-in-out"
             leaveTo="opacity-0"
           >
-            <p className="text-sm text-gray-600">Created.</p>
+            <p className="text-sm text-gray-600">Saved.</p>
           </Transition>
         </div>
       </section >

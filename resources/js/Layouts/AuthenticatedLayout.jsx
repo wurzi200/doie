@@ -24,9 +24,6 @@ export default function Authenticated({ auth, user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                {/* <NavLink href={route('todos.index')} active={route().current('todos.*')}>
-                                    ToDos
-                                </NavLink> */}
                                 {auth.permissions.find((permission => permission.name === 'show_users')) &&
 
                                     <NavLink href={route('users.index')} active={route().current('users.*')}>
@@ -61,7 +58,6 @@ export default function Authenticated({ auth, user, header, children }) {
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
-
                                                 <svg
                                                     className="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -119,21 +115,26 @@ export default function Authenticated({ auth, user, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
-                        {/* <ResponsiveNavLink href={route('todos.index')} active={route().current('todos.*')}>
-                            ToDos
-                        </ResponsiveNavLink> */}
-                        <ResponsiveNavLink href={route('users.index')} active={route().current('users.*')}>
-                            Users
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('organizations.index')} active={route().current('organizations.*')}>
-                            Organization
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('roles.index')} active={route().current('roles.*')}>
-                            Roles
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('permissions.index')} active={route().current('permissions.*')}>
-                            Permissions
-                        </ResponsiveNavLink>
+                        {auth.permissions.find((permission => permission.name === 'show_users')) &&
+                            <ResponsiveNavLink href={route('users.index')} active={route().current('users.*')}>
+                                Users
+                            </ResponsiveNavLink>
+                        }
+                        {auth.permissions.find((permission => permission.name === 'show_organizations')) &&
+                            <ResponsiveNavLink href={route('organizations.index')} active={route().current('organizations.*')}>
+                                Organization
+                            </ResponsiveNavLink>
+                        }
+                        {auth.permissions.find((permission => permission.name === 'show_roles')) &&
+                            <ResponsiveNavLink href={route('roles.index')} active={route().current('roles.*')}>
+                                Roles
+                            </ResponsiveNavLink>
+                        }
+                        {user.roles.find((role => role.name === 'super-admin-1')) &&
+                            <ResponsiveNavLink href={route('permissions.index')} active={route().current('permissions.*')}>
+                                Permissions
+                            </ResponsiveNavLink>
+                        }
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
