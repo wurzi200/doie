@@ -81,30 +81,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                             <InputError className="mt-2" message={errors.email} />
                         </div>
                     </div>
-                    <div className="w-full md:ml-4">
-                        <div className="mb-4">
-                            <InputLabel htmlFor="organization" value="Organization" />
-
-                            <SearchableDropdown
-                                options={organizations}
-                                onChange={(e) => setData('organization_id', e.id)}
-                                defaultId={data.organization_id}
-                            />
-
-                            <InputError className="mt-2" message={errors.organozation_id} />
-                        </div>
-                        {/* <div className="mb-4">
-                            <InputLabel htmlFor="role" value="Role" />
-
-                            <SearchableDropdown
-                                options={roles}
-                                onChange={(e) => setData('role_id', e.id)}
-                                defaultId={data.role_id}
-                            />
-
-                            <InputError className="mt-2" message={errors.organozation_id} />
-                        </div> */}
-                    </div>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

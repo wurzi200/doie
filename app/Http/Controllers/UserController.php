@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserCreationRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,9 +52,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update the user's profile information.
+     * Update other user's profile information.
      */
-    public function update(ProfileUpdateRequest $request, $userId): RedirectResponse
+    public function update(UserUpdateRequest $request, $userId): RedirectResponse
     {
         $user = User::where('id', $userId)->first();
         $role = Role::where('id', $request->get('role_id'))->first();
@@ -114,7 +115,7 @@ class UserController extends Controller
         if ($request->role) {
             $user->assignRole($request->role);
         } else {
-            $user->assignRole('user');
+            $user->assignRole('newuser');
         }
 
         return Redirect::to('/users');

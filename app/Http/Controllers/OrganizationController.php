@@ -31,9 +31,14 @@ class OrganizationController extends Controller
     {
         $currentUser = auth()->user();
 
-        $organizations = Organization::get();
+        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
-        //$organizations = Organization::where('id',  $currentUser->organization_id)->get();
+        if ($superAdminCheck) {
+            $organizations = Organization::get();
+        } else {
+            $organizations = Organization::where('id', $currentUser->organization_id)->get();
+        }
+
         return $organizations;
     }
 

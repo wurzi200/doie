@@ -15,12 +15,10 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('userId');
         return [
             'name' => ['string', 'max:255'],
             'lastname' => ['string', 'max:255'],
-            'organization_id' => ['integer'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($userId)],
+            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
 }
