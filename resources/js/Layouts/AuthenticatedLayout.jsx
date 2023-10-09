@@ -5,7 +5,8 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ auth, user, header, children }) {
+    console.log(user);
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     return (
         <div className="min-h-screen bg-gray-100">
@@ -26,18 +27,27 @@ export default function Authenticated({ user, header, children }) {
                                 {/* <NavLink href={route('todos.index')} active={route().current('todos.*')}>
                                     ToDos
                                 </NavLink> */}
-                                <NavLink href={route('users.index')} active={route().current('users.*')}>
-                                    Users
-                                </NavLink>
-                                <NavLink href={route('organizations.index')} active={route().current('organizations.*')}>
-                                    Organization
-                                </NavLink>
-                                <NavLink href={route('roles.index')} active={route().current('roles.*')}>
-                                    Roles
-                                </NavLink>
-                                <NavLink href={route('permissions.index')} active={route().current('permissions.*')}>
-                                    Permissions
-                                </NavLink>
+                                {auth.permissions.find((permission => permission.name === 'show_users')) &&
+
+                                    <NavLink href={route('users.index')} active={route().current('users.*')}>
+                                        Users
+                                    </NavLink>
+                                }
+                                {auth.permissions.find((permission => permission.name === 'show_organizations')) &&
+                                    <NavLink href={route('organizations.index')} active={route().current('organizations.*')}>
+                                        Organization
+                                    </NavLink>
+                                }
+                                {auth.permissions.find((permission => permission.name === 'show_roles')) &&
+                                    <NavLink href={route('roles.index')} active={route().current('roles.*')}>
+                                        Roles
+                                    </NavLink>
+                                }
+                                {user.roles.find((role => role.name === 'super-admin-1')) &&
+                                    <NavLink href={route('permissions.index')} active={route().current('permissions.*')}>
+                                        Permissions
+                                    </NavLink>
+                                }
                             </div>
                         </div>
 

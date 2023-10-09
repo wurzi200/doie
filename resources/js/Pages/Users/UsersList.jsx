@@ -45,7 +45,7 @@ export default function UsersList({ auth, users }) {
                   {user.roles[0] && user.roles[0].display_name}
                 </td>
                 <td className="px-6 py-4">
-                  {auth.permissions.find((permission => permission.name === 'create_users')) &&
+                  {auth.permissions.find((permission => permission.name === 'edit_users')) &&
                     <a href={route('user.edit', user.id)} className="hover:underline">
                       <BiEditAlt className="text-gray-600 text-xl" />
                     </a>

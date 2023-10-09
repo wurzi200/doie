@@ -5,6 +5,7 @@ import CreateRoleInformation from './Partials/CreateRoleForm';
 export default function Create({ auth, mustVerifyEmail, status, user, organizations }) {
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Role</h2>}
     >

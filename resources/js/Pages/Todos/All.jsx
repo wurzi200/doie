@@ -28,6 +28,7 @@ export default function All({ auth, todos }) {
 
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={< h2 className="font-semibold text-xl text-gray-800 leading-tight" > JUST DO IT</h2 >}
     >

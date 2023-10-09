@@ -8,6 +8,7 @@ import CreateUserInformation from './Partials/CreateUserForm';
 export default function Create({ auth, mustVerifyEmail, status, user, organizations, roles }) {
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
     >

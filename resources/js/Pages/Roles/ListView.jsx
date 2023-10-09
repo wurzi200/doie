@@ -10,6 +10,7 @@ import { BiPlus } from "react-icons/bi";
 export default function UsersListView({ auth, roles }) {
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={< h2 className="font-semibold text-xl text-gray-800 leading-tight" > Roles</h2 >}
     >
@@ -20,9 +21,11 @@ export default function UsersListView({ auth, roles }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900 w-full">Roles</div>
             <div className="m-auto mr-4">
-              <a href={route('role.create')} className="">
-                <BiPlus className="text-3xl text-gray-600">+</BiPlus>
-              </a>
+              {auth.permissions.find((permission => permission.name === 'create_roles')) &&
+                <a href={route('role.create')} className="">
+                  <BiPlus className="text-3xl text-gray-600">+</BiPlus>
+                </a>
+              }
             </div>
           </div>
           {roles &&

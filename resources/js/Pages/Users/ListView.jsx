@@ -9,6 +9,7 @@ import Pagination from "@/Components/Pagination";
 export default function UsersListView({ auth, users }) {
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight" > Users</h2 >}
     >

@@ -5,6 +5,7 @@ import CreateOrganizationInformation from './Partials/CreateOrganizationForm';
 export default function Create({ auth, user }) {
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Organization</h2>}
     >

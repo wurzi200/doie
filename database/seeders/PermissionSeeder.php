@@ -18,13 +18,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit_users']);
 
         Permission::create(['name' => 'show_organizations']);
-        Permission::create(['name' => 'create_organizations']);
         Permission::create(['name' => 'edit_organizations']);
 
         Permission::create(['name' => 'show_roles']);
         Permission::create(['name' => 'create_roles']);
         Permission::create(['name' => 'edit_roles']);
-
-        Permission::create(['name' => 'edit_permission']);
     }
 }

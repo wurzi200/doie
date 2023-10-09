@@ -21,9 +21,6 @@ export default function PermissionList({ permissions }) {
             {/* <th scope="col" className="px-6 py-3">
               permission
             </th> */}
-            <th scope="col" className="px-6 py-3">
-
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -41,14 +38,6 @@ export default function PermissionList({ permissions }) {
                 </td>
                 <td className="px-6 py-4">
                   {permission.created_at}
-                </td>
-                {/* <td className="px-6 py-4">
-                  {user.permission.name}
-                </td> */}
-                <td className="px-6 py-4">
-                  <a href={'/'} className="font-medium text-blue-600  hover:underline">
-                    <BiTrash className="text-gray-600 text-xl" />
-                  </a>
                 </td>
               </tr>
             )

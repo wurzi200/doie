@@ -10,6 +10,7 @@ export default function OrganizationsListView({ auth, organizations }) {
 
   return (
     <AuthenticatedLayout
+      auth={auth}
       user={auth.user}
       header={< h2 className="font-semibold text-xl text-gray-800 leading-tight" > Organizations</h2 >}
     >
@@ -20,15 +21,17 @@ export default function OrganizationsListView({ auth, organizations }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
             <div className="p-6 text-gray-900 w-full">Organizations</div>
             <div className="m-auto mr-4">
-              <a href={route('organization.create')} className="">
-                <BiPlus className="text-3xl text-gray-600">+</BiPlus>
-              </a>
+              {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
+                <a href={route('organization.create')} className="">
+                  <BiPlus className="text-3xl text-gray-600">+</BiPlus>
+                </a>
+              }
             </div>
           </div>
           {organizations &&
             <>
               <Pagination class="mt-6" links={organizations.links} />
-              <OrganizationsList organizations={organizations}></OrganizationsList>
+              <OrganizationsList auth={auth} organizations={organizations}></OrganizationsList>
               <Pagination class="mt-6" links={organizations.links} />
             </>
           }
