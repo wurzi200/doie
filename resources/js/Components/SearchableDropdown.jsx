@@ -9,7 +9,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
     query === ''
       ? options
       : options.filter((option) =>
-        option.display_name ? option.display_name : option.name
+        option.name
           .toLowerCase()
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
