@@ -1,23 +1,26 @@
 'use client';
 
 import { useState } from 'react';
+import { DarkThemeToggle, Flowbite } from 'flowbite-react';
+
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+
+import { backgroundMain, backgroundSecondary, border, textMain, textSecondary } from '../constants';
+
 
 export default function NavbarWithDropdown({ auth, user }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
   return (
-    <nav className="bg-white border-b border-gray-100">
+    <nav className={`${backgroundSecondary + border} border-b`}>
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="shrink-0 flex items-center">
               <Link href="/">
-                <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                <ApplicationLogo className={`${textMain} block h-9 w-auto fill-current`} />
               </Link>
             </div>
 
@@ -49,6 +52,7 @@ export default function NavbarWithDropdown({ auth, user }) {
             </div> */}
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
+            <DarkThemeToggle />
             <div className="ml-3 relative">
               <Dropdown>
                 <Dropdown.Trigger>
@@ -109,7 +113,7 @@ export default function NavbarWithDropdown({ auth, user }) {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   )
 }
 

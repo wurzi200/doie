@@ -2,12 +2,13 @@
 
 import { Sidebar } from 'flowbite-react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import { backgroundMain, backgroundSecondary, border, textMain } from '../constants';
 
 export default function Sidenav() {
 
   const theme = {
     "root": {
-      "base": "bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 h-screen",
+      "base": `${backgroundSecondary + border} border-r px-2 py-2.5  sm:px-4 h-screen`,
       "rounded": {
         "on": "rounded",
         "off": ""

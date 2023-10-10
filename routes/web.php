@@ -40,7 +40,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::group(['middleware' => ['auth', 'role:super-admin-1']], function () {
 
     Route::middleware('auth')->group(function () {

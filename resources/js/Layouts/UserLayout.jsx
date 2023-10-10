@@ -1,18 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
 import Sidenav from '@/Components/Sidenav';
 import DefaultNavbar from '@/Components/DefaultNavbar';
+import { backgroundMain, backgroundSecondary, border, textMain } from '../constants';
+
 
 export default function UserLayout({ auth, user, header, children }) {
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className={`${backgroundMain} min-h-screen`}>
       <nav>
         <DefaultNavbar auth={auth} user={user} />
       </nav>
@@ -24,11 +20,10 @@ export default function UserLayout({ auth, user, header, children }) {
         </div>
         <div className="w-full">
           {header && (
-            <header className="bg-white shadow">
-              <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+            <header className={`${backgroundSecondary + border} border-b shadow`}>
+              <div className={backgroundSecondary + `max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-white`}>{header}</div>
             </header>
           )}
-
           <main>{children}</main>
         </div>
       </div>
