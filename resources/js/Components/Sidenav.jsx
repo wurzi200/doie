@@ -9,7 +9,7 @@ export default function Sidenav() {
 
   const theme = {
     "root": {
-      "base": `${backgroundSecondary + border} border-r px-2 py-2.5  sm:px-4 h-screen`,
+      "base": `${backgroundSecondary + border} border-r px-2 py-2.5  sm:px-4 h-full`,
       "rounded": {
         "on": "rounded",
         "off": ""
