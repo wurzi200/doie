@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.0.18",
+        "flowbite-react": "^0.6.4",
         "react-icons": "^4.11.0"
     },
     "version": "0.1.0"
