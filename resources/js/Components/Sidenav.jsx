@@ -1,8 +1,9 @@
 'use client';
 
 import { Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards, HiLogout } from 'react-icons/hi';
 import { backgroundMain, backgroundSecondary, border, textMain } from '../constants';
+import { Link } from '@inertiajs/react';
 
 export default function Sidenav() {
 
@@ -63,21 +64,6 @@ export default function Sidenav() {
           >
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Collapse
-            icon={HiChartPie}
-            label="Settings"
-            open={route().current('users.*') || route().current('organizations.*') || route().current('roles.*')}
-          >
-            <Sidebar.Item href={route('users.index')} active={route().current('users.*')}>
-              Users
-            </Sidebar.Item>
-            <Sidebar.Item href={route('organizations.index')} active={route().current('organizations.*')}>
-              Organization
-            </Sidebar.Item>
-            <Sidebar.Item href={route('roles.index')} active={route().current('roles.*')}>
-              Roles
-            </Sidebar.Item>
-          </Sidebar.Collapse>
           <Sidebar.Item
             href="#"
             icon={HiInbox}
@@ -102,24 +88,40 @@ export default function Sidenav() {
               Products
             </p>
           </Sidebar.Item>
-          <Sidebar.Item
-            href="#"
-            icon={HiArrowSmRight}
+          <Sidebar.Collapse
+            icon={HiChartPie}
+            label="Settings"
+            open={route().current('users.*') || route().current('organizations.*') || route().current('roles.*')}
           >
-            <p>
-              Sign In
-            </p>
-          </Sidebar.Item>
-          <Sidebar.Item
-            href="#"
-            icon={HiTable}
+            <Sidebar.Item href={route('users.index')} active={route().current('users.*')}>
+              Users
+            </Sidebar.Item>
+            <Sidebar.Item href={route('organizations.index')} active={route().current('organizations.*')}>
+              Organization
+            </Sidebar.Item>
+            <Sidebar.Item href={route('roles.index')} active={route().current('roles.*')}>
+              Roles
+            </Sidebar.Item>
+          </Sidebar.Collapse>
+          <hr />
+
+          <Link
+            className="w-full text-left"
+            href={route('logout')}
+            method={"post"}
+            as="button"
           >
-            <p>
-              Sign Up
-            </p>
-          </Sidebar.Item>
+            <Sidebar.Item
+              icon={HiLogout}
+            >
+              <p>
+                Log Out
+              </p>
+            </Sidebar.Item>
+          </Link>
+
         </Sidebar.ItemGroup>
       </Sidebar.Items>
-    </Sidebar>
+    </Sidebar >
   )
 }
