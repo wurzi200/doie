@@ -91,7 +91,7 @@ class UserController extends Controller
         $currentUser->can('create_user');
 
         $roles = Role::where('organization_id', $currentUser->organization_id)->get();
-        $organizations = Organization::get();
+        $organizations = OrganizationController::getOrganizations();
 
         return Inertia::render('Users/Create', [
             'organizations' => $organizations,

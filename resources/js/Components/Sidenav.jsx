@@ -1,7 +1,7 @@
 'use client';
 
 import { Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards, HiLogout } from 'react-icons/hi';
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards, HiLogout, HiCog, HiCalculator, HiOfficeBuilding } from 'react-icons/hi';
 import { backgroundMain, backgroundSecondary, border, textMain } from '../constants';
 import { Link } from '@inertiajs/react';
 
@@ -66,30 +66,22 @@ export default function Sidenav() {
           </Sidebar.Item>
           <Sidebar.Item
             href="#"
-            icon={HiInbox}
+            icon={HiCalculator}
           >
             <p>
-              Inbox
-            </p>
-          </Sidebar.Item>
-          <Sidebar.Item
-            href={route('users.index')} active={route().current('users.*')}
-            icon={HiUser}
-          >
-            <p>
-              Users
+              Calculation
             </p>
           </Sidebar.Item>
           <Sidebar.Item
             href="#"
-            icon={HiShoppingBag}
+            icon={HiOfficeBuilding}
           >
             <p>
-              Products
+              Objects
             </p>
           </Sidebar.Item>
           <Sidebar.Collapse
-            icon={HiChartPie}
+            icon={HiCog}
             label="Settings"
             open={route().current('users.*') || route().current('organizations.*') || route().current('roles.*')}
           >

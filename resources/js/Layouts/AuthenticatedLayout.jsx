@@ -21,7 +21,7 @@ export default function Authenticated({ auth, user, header, children }) {
                 <div className="w-full ml-64 overflow-y-auto relative pt-16">
                     {header && (
                         <header className={`${backgroundSecondary + border} border-b shadow`}>
-                            <div className={backgroundSecondary + `mx-auto py-6 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-white`}>{header}</div>
+                            <div className={`${backgroundSecondary + textMain} mx-auto py-6 px-4 sm:px-6 lg:px-8`}>{header}</div>
                         </header>
                     )}
                     <main>{children}</main>

@@ -52,7 +52,7 @@ export default function NavbarWithDropdown({ auth, user }) {
             </div> */}
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
-            <DarkThemeToggle />
+            <DarkThemeToggle className="hidden" />
             <div className="ml-3 relative">
               <Dropdown>
                 <Dropdown.Trigger>
