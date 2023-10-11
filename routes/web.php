@@ -32,11 +32,13 @@ Route::get('/', function () {
     ]);
 });
 
-
 Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/calculator', function () {
+    return Inertia::render('Calculator');
+})->middleware(['auth', 'verified'])->name('calculator');
 
 Route::middleware('auth')->group(function () {
     //Profile
