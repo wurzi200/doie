@@ -40,7 +40,7 @@ class UserController extends Controller
 
         $user = User::where('id', $userId)->with('organization')->with('roles')->first();
         $organizations = OrganizationController::getOrganizations();
-        $roles = Role::where('organization_id', $currentUser->organization_id)->get();
+        $roles = Role::where('organization_id', $user->organization_id)->get();
 
         return Inertia::render('Users/Edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
