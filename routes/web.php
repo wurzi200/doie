@@ -37,9 +37,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
+
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

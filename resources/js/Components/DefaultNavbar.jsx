@@ -8,6 +8,7 @@ import Dropdown from '@/Components/Dropdown';
 import { Link } from '@inertiajs/react';
 
 import { backgroundMain, backgroundSecondary, border, textMain, textSecondary } from '../constants';
+import NavLink from './NavLink';
 
 
 export default function NavbarWithDropdown({ auth, user }) {
@@ -24,32 +25,13 @@ export default function NavbarWithDropdown({ auth, user }) {
               </Link>
             </div>
 
-            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                Dashboard
-              </NavLink>
-              {auth.permissions.find((permission => permission.name === 'show_users')) &&
-
-                <NavLink href={route('users.index')} active={route().current('users.*')}>
-                  Users
-                </NavLink>
-              }
-              {auth.permissions.find((permission => permission.name === 'show_organizations')) &&
-                <NavLink href={route('organizations.index')} active={route().current('organizations.*')}>
-                  Organization
-                </NavLink>
-              }
-              {auth.permissions.find((permission => permission.name === 'show_roles')) &&
-                <NavLink href={route('roles.index')} active={route().current('roles.*')}>
-                  Roles
-                </NavLink>
-              }
+            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               {user.roles.find((role => role.name === 'super-admin-1')) &&
                 <NavLink href={route('permissions.index')} active={route().current('permissions.*')}>
                   Permissions
                 </NavLink>
               }
-            </div> */}
+            </div>
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
             <DarkThemeToggle />

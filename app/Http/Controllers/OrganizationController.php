@@ -11,16 +11,24 @@ use Inertia\Inertia;
 
 class OrganizationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $currentUser = auth()->user();
+        $search = $request->query('search');
 
         if (checkIfSuperAdminAndOrganization()) {
-            $organizations = Organization::paginate('10');
+            $organizations = Organization::where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
+                ->paginate(10)->withQueryString();
         } else {
-            $organizations = Organization::where('id', $currentUser->organization_id)->paginate('10');
+            $organizations = Organization::where('id', $currentUser->organization_id)
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%");
+                })
+                ->paginate(10)->withQueryString();
         }
-        // $organizations = Organization::where('id',  $currentUser->organization_id)->get();
+
         return Inertia::render('Organizations/ListView', [
             'organizations' => $organizations
         ]);

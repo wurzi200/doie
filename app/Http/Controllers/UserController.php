@@ -30,7 +30,7 @@ class UserController extends Controller
                     $query->where('name', 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
-                ->paginate(10);
+                ->paginate(10)->withQueryString();
         } else {
             $users = User::where('organization_id', $currentUser->organization_id)
                 ->with(['organization', 'roles'])
@@ -41,7 +41,7 @@ class UserController extends Controller
                     $query->where('name', 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
-                ->paginate(10);
+                ->paginate(10)->withQueryString();
         }
 
         return Inertia::render('Users/ListView', [

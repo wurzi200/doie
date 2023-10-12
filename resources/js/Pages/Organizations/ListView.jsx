@@ -5,6 +5,7 @@ import UsersList from "./OrganizationsList";
 import OrganizationsList from "./OrganizationsList";
 import Pagination from "@/Components/Pagination";
 import { BiPlus } from "react-icons/bi";
+import Search from "@/Components/Search";
 
 export default function OrganizationsListView({ auth, organizations }) {
 
@@ -19,7 +20,8 @@ export default function OrganizationsListView({ auth, organizations }) {
       <div className="py-12">
         <div className="mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
-            <div className="p-6 text-gray-900 w-full">Organizations</div>
+            <div className="p-6 text-gray-900">Organizations</div>
+            {auth.user.roles.find((role => role.name === 'super-admin-1')) && <Search />}
             <div className="m-auto mr-4">
               {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
                 <a href={route('organization.create')} className="">
