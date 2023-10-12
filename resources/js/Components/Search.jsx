@@ -2,6 +2,8 @@ import { router } from "@inertiajs/react";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useState, useEffect } from "react";
+import { TextInputStyle, backgroundTertiary, border } from "@/constants";
+import { HiSearch } from "react-icons/hi";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,14 +39,16 @@ export default function Search() {
   return (
     <>
       <TextInput
-        className="m-4"
+        className={`border m-4`}
         placeholder="Search..."
         value={searchTerm}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
+        iconLeft={<HiSearch />}
+        iconRight={<HiSearch />}
 
       />
-      <PrimaryButton className="my-4" onClick={handleSearch}>
+      <PrimaryButton className="my-4 " onClick={handleSearch}>
         Search
       </PrimaryButton>
     </>
