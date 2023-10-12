@@ -19,24 +19,36 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $currentUser = auth()->user();
+        $search = $request->query('search');
 
         if (checkIfSuperAdminAndOrganization()) {
-            $users = User::with(['organization', 'roles'])->paginate('10');
+            $users = User::with(['organization', 'roles'])
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                })
+                ->paginate(10);
         } else {
             $users = User::where('organization_id', $currentUser->organization_id)
                 ->with(['organization', 'roles'])
                 ->whereDoesntHave('roles', function ($query) {
                     $query->where('name', 'super-admin-1');
-                })->paginate('10');
+                })
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                })
+                ->paginate(10);
         }
 
         return Inertia::render('Users/ListView', [
             'users' => $users
         ]);
     }
+
     public function getUserById($userId)
     {
         $user = User::where('id', $userId)->with('organization')->with('roles')->first();
