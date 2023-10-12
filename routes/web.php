@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -36,9 +37,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/calculator', function () {
-    return Inertia::render('Calculator');
-})->middleware(['auth', 'verified'])->name('calculator');
+Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
 
 Route::middleware('auth')->group(function () {
     //Profile

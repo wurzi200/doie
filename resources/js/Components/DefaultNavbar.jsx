@@ -52,7 +52,7 @@ export default function NavbarWithDropdown({ auth, user }) {
             </div> */}
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
-            <DarkThemeToggle className="hidden" />
+            <DarkThemeToggle />
             <div className="ml-3 relative">
               <Dropdown>
                 <Dropdown.Trigger>
@@ -77,7 +77,6 @@ export default function NavbarWithDropdown({ auth, user }) {
                     </button>
                   </span>
                 </Dropdown.Trigger>
-
                 <Dropdown.Content>
                   <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                   <Dropdown.Link href={route('logout')} method="post" as="button">

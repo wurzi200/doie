@@ -8,6 +8,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,9 +25,13 @@ class UserController extends Controller
         $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
         if ($superAdminCheck) {
-            $users = User::with('organization')->with('roles')->paginate('10');
+            $users = User::with(['organization', 'roles'])->paginate('10');
         } else {
-            $users = User::where('organization_id', $currentUser->organization_id)->with('organization')->with('roles')->paginate('10');
+            $users = User::where('organization_id', $currentUser->organization_id)
+                ->with(['organization', 'roles'])
+                ->whereDoesntHave('roles', function ($query) {
+                    $query->where('name', 'super-admin-1');
+                })->paginate('10');
         }
 
         return Inertia::render('Users/ListView', [

@@ -13,12 +13,12 @@ export default function Authenticated({ auth, user, header, children }) {
                 <DefaultNavbar auth={auth} user={user} />
             </nav>
             <div className="flex">
-                <div>
+                <div className='hidden md:block'>
                     <aside className="fixed left-0 top-0 z-30 pt-16 h-full">
                         <Sidenav />
                     </aside>
                 </div>
-                <div className="w-full ml-64 overflow-y-auto relative pt-16">
+                <div className="w-full md:ml-64 overflow-y-auto relative pt-16">
                     {header && (
                         <header className={`${backgroundSecondary + border} border-b shadow`}>
                             <div className={`${backgroundSecondary + textMain} mx-auto py-6 px-4 sm:px-6 lg:px-8`}>{header}</div>

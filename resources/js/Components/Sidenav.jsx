@@ -65,7 +65,7 @@ export default function Sidenav() {
             Dashboard
           </Sidebar.Item>
           <Sidebar.Item
-            href="#"
+            href={route('calculation.create')} active={route().current('calulation')}
             icon={HiCalculator}
           >
             <p>
