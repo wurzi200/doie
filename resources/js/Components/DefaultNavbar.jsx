@@ -6,6 +6,7 @@ import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import { Link } from '@inertiajs/react';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 import { backgroundMain, backgroundSecondary, border, textMain, textSecondary } from '../constants';
 import NavLink from './NavLink';
@@ -57,7 +58,12 @@ export default function NavbarWithDropdown({ auth, user }) {
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
 
-            <DarkThemeToggle onClick={toggleTheme} />
+            <button
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center h-8 rounded-md w-8 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400"
+            >
+              {isDarkMode ? <FaSun className="h-4 w-4" /> : <FaMoon className="h-4 w-4" />}
+            </button>
             <div className="ml-3 relative">
               <Dropdown>
                 <Dropdown.Trigger>
