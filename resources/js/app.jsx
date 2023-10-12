@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { useEffect } from 'react';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -15,9 +16,7 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <Flowbite>
-                <App {...props} />
-            </ Flowbite>
+            <App {...props} />
         );
     },
     progress: {

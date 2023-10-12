@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 
 import ApplicationLogo from '@/Components/ApplicationLogo';
@@ -13,6 +13,28 @@ import NavLink from './NavLink';
 
 export default function NavbarWithDropdown({ auth, user }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const storedTheme = localStorage.getItem('color-theme');
+    setIsDarkMode(storedTheme === 'dark' || (!storedTheme && prefersDarkMode));
+  }, []);
+
+  function toggleTheme() {
+    setIsDarkMode(prevIsDarkMode => {
+      const newIsDarkMode = !prevIsDarkMode;
+      localStorage.setItem('color-theme', newIsDarkMode ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', newIsDarkMode);
+      return newIsDarkMode;
+    });
+  }
 
   return (
     <nav className={`${backgroundSecondary + border} border-b`}>
@@ -34,7 +56,8 @@ export default function NavbarWithDropdown({ auth, user }) {
             </div>
           </div>
           <div className="hidden sm:flex sm:items-center sm:ml-6">
-            <DarkThemeToggle />
+
+            <DarkThemeToggle onClick={toggleTheme} />
             <div className="ml-3 relative">
               <Dropdown>
                 <Dropdown.Trigger>
