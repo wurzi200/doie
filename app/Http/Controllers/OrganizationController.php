@@ -14,9 +14,8 @@ class OrganizationController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
-        if ($superAdminCheck) {
+        if (checkIfSuperAdminAndOrganization()) {
             $organizations = Organization::paginate('10');
         } else {
             $organizations = Organization::where('id', $currentUser->organization_id)->paginate('10');
@@ -31,9 +30,7 @@ class OrganizationController extends Controller
     {
         $currentUser = auth()->user();
 
-        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
-
-        if ($superAdminCheck) {
+        if (checkIfSuperAdminAndOrganization()) {
             $organizations = Organization::get();
         } else {
             $organizations = Organization::where('id', $currentUser->organization_id)->get();

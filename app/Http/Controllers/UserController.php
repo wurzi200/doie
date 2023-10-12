@@ -22,9 +22,8 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $superAdminCheck = $currentUser->hasRole('super-admin-1'); // check if user is Superadmin
 
-        if ($superAdminCheck) {
+        if (checkIfSuperAdminAndOrganization()) {
             $users = User::with(['organization', 'roles'])->paginate('10');
         } else {
             $users = User::where('organization_id', $currentUser->organization_id)
