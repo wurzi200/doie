@@ -38,12 +38,15 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+    public function getUserById($userId)
+    {
+        $user = User::where('id', $userId)->with('organization')->with('roles')->first();
+        return $user;
+    }
 
     public function edit(Request $request, $userId)
     {
-        $currentUser = auth()->user();
-
-        $user = User::where('id', $userId)->with('organization')->with('roles')->first();
+        $user = $this->getUserById($userId);
         $organizations = OrganizationController::getOrganizations();
         $roles = Role::where('organization_id', $user->organization_id)->get();
 
@@ -61,7 +64,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $userId): RedirectResponse
     {
-        $user = User::where('id', $userId)->first();
+        $user = $this->getUserById($userId);
         $role = Role::where('id', $request->get('role_id'))->first();
 
         $user->syncRoles($role);
@@ -84,7 +87,7 @@ class UserController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = User::where('id', $userId)->with('organization')->with('role')->first();
+        $user = $this->getUserById($userId);
 
         $user->delete();
         return Redirect::to('/users');
@@ -93,7 +96,6 @@ class UserController extends Controller
     public function create()
     {
         $currentUser = auth()->user();
-        $currentUser->can('create_user');
 
         $roles = Role::where('organization_id', $currentUser->organization_id)->get();
         $organizations = OrganizationController::getOrganizations();
@@ -120,7 +122,7 @@ class UserController extends Controller
         if ($request->role) {
             $user->assignRole($request->role);
         } else {
-            $user->assignRole('newuser');
+            $user->assignRole('newuser-0');
         }
 
         return Redirect::to('/users');
