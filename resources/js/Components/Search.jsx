@@ -44,9 +44,6 @@ export default function Search() {
         value={searchTerm}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        iconLeft={<HiSearch />}
-        iconRight={<HiSearch />}
-
       />
       <PrimaryButton className="my-4 " onClick={handleSearch}>
         Search
