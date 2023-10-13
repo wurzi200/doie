@@ -80,6 +80,7 @@ export default function Sidenav() {
               Objects
             </p>
           </Sidebar.Item>
+          <hr />
           <Sidebar.Collapse
             icon={HiCog}
             label="Settings"

@@ -22,9 +22,9 @@ export default function OrganizationsList({ auth, organizations }) {
                 <th scope="row" className={`px-6 py-4 font-medium ${textMain} whitespace-nowrap `}>
                   {organization.name}
                 </th>
-                <td className="px-6 py-4 flex justify-around">
+                <td className="px-6 py-4 flex justify-end">
                   {auth.permissions.find((permission => permission.name === 'edit_organizations')) &&
-                    <a href={route('organization.edit', organization.id)} className="hover:underline">
+                    <a href={route('organization.edit', organization.id)} className="hover:underline mr-4">
                       <BiEditAlt className={`text-2xl ${textSecondary}`} />
                     </a>
                   }

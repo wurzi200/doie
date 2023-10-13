@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('calculations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('organization_id')->constrained();
             $table->bigInteger('cost');
             $table->bigInteger('special');
             $table->bigInteger('residual');
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->integer('duration');
             $table->integer('type');
             $table->bigInteger('rate');
-            $table->integer('organization_id');
             $table->timestamps();
         });
     }

@@ -11,7 +11,6 @@ import { backgroundSecondary, blockInvalidChar, border, textMain, textSecondary 
 
 import { PiCurrencyEurBold, PiPercentBold } from 'react-icons/pi';
 
-
 export default function CreateCalculationForm({ organizations, roles, user }) {
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
@@ -31,7 +30,7 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
 
   return (
     <form onSubmit={submit} className={`space-y-6`}>
-      <section className={`${backgroundSecondary} ${border} border lg:w-1/2 sm:p-8 shadow sm:rounded-lg`}>
+      <section className={`${backgroundSecondary} ${border} border p-4 lg:w-1/2 sm:p-6 shadow sm:rounded-lg`}>
         <header>
           <h2 className={`${textMain} text-lg font-medium`}>Calculation</h2>
 
