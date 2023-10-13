@@ -17,7 +17,6 @@ export default function NavbarWithDropdown({ auth, user }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-
     const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const storedTheme = localStorage.getItem('color-theme');
     setIsDarkMode(storedTheme === 'dark' || (!storedTheme && prefersDarkMode));
@@ -59,7 +58,7 @@ export default function NavbarWithDropdown({ auth, user }) {
             >
               {isDarkMode ? <FaSun className="h-4 w-4" /> : <FaMoon className="h-4 w-4" />}
             </button>
-            <div className="ml-3 relative">
+            <div className="ml-3 relative hidden">
               <Dropdown>
                 <Dropdown.Trigger>
                   <span className="inline-flex rounded-md">

@@ -96,7 +96,14 @@ export default function Sidenav() {
             </Sidebar.Item>
           </Sidebar.Collapse>
           <hr />
-
+          <Sidebar.Item
+            href={route('profile.edit')} active={route().current('profile.*')}
+            icon={HiUser}
+          >
+            <p>
+              Profile
+            </p>
+          </Sidebar.Item>
           <Link
             className="w-full text-left"
             href={route('logout')}
@@ -111,7 +118,6 @@ export default function Sidenav() {
               </p>
             </Sidebar.Item>
           </Link>
-
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar >
