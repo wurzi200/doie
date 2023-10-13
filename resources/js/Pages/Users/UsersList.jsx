@@ -4,8 +4,8 @@ export default function UsersList({ auth, users }) {
 
   return (
     <div className={`relative overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
-      <table className={`w-full text-md text-left text-gray-500`}>
-        <thead className={`${backgroundTertiary} text-xs uppercase`}>
+      <table className={`w-full text-md text-left`}>
+        <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
           <tr>
             <th scope={`col`} className={`px-6 py-3`}>
               firstname
@@ -30,7 +30,7 @@ export default function UsersList({ auth, users }) {
           {users.data.map((user, i) => {
             return (
               <tr className={`${backgroundSecondary} ${border} ${textSecondary} border-b`} key={i}>
-                <th scope={`row`} className={`${textMain} font-bold px-6 py-4 whitespace-nowrap`}>
+                <th scope={`row`} className={`${textMain} px-6 py-4 whitespace-nowrap`}>
                   {user.name}
                 </th>
                 <td className={`px-6 py-4`}>

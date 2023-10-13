@@ -5,7 +5,7 @@ export default function OrganizationsList({ auth, organizations }) {
   return (
     <div className={`relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ${backgroundSecondary}`}>
       <table className={`w-full text-sm text-left ${textMain}`}>
-        <thead className={`text-xs uppercase ${backgroundTertiary} ${border}`}>
+        <thead className={`text-sm uppercase ${backgroundTertiary} ${border}`}>
           <tr>
             <th scope="col" className="px-6 py-3">
               organization

@@ -28,6 +28,7 @@ class UserController extends Controller
             $users = User::with(['organization', 'roles'])
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%")
+                        ->orWhere('lastname', 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
                 ->paginate(10)->withQueryString();
@@ -39,6 +40,7 @@ class UserController extends Controller
                 })
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%")
+                        ->orWhere('lastname', 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
                 ->paginate(10)->withQueryString();

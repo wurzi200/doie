@@ -12,7 +12,6 @@ import { backgroundSecondary, border, textMain, textSecondary } from "@/constant
 
 
 export default function UsersListView({ auth, users }) {
-  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <AuthenticatedLayout

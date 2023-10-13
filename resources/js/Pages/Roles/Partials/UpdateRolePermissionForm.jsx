@@ -24,7 +24,7 @@ export default function UpdateRolePermissionForm({ role, permissions }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
       <table className="w-full text-sm text-left text-gray-500 ">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        <thead className="text-sm text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3">
               name
