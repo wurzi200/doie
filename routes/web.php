@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
     });
 
-    Route::group(['middleware' => ['auth', 'user_has_permission:create_organizations']], function () {
+    Route::group(['middleware' => ['auth', 'role:super-admin-1']], function () {
         Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create');
         Route::put('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
     });

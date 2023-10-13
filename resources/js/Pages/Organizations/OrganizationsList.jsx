@@ -3,7 +3,7 @@ import { backgroundSecondary, textMain, border, backgroundTertiary, textSecondar
 
 export default function OrganizationsList({ auth, organizations }) {
   return (
-    <div className={`relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ${backgroundSecondary}`}>
+    <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
       <table className={`w-full text-sm text-left ${textMain}`}>
         <thead className={`text-sm uppercase ${backgroundTertiary} ${border}`}>
           <tr>
@@ -25,12 +25,12 @@ export default function OrganizationsList({ auth, organizations }) {
                 <td className="px-6 py-4 flex justify-around">
                   {auth.permissions.find((permission => permission.name === 'edit_organizations')) &&
                     <a href={route('organization.edit', organization.id)} className="hover:underline">
-                      <BiEditAlt className={`text-gray-600 text-xl ${textMain}`} />
+                      <BiEditAlt className={`text-2xl ${textSecondary}`} />
                     </a>
                   }
                   {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
                     <a href={route('organization.delete', organization.id)} className="hover:underline">
-                      <BiTrash className={`text-gray-600 text-xl ${textMain}`} />
+                      <BiTrash className={`text-2xl ${textSecondary}`} />
                     </a>
                   }
                 </td>

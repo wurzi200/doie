@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
             'organization_id' => null,
             'password' => Hash::make($request->password),
         ]);
-        $user->assignRole('newuser');
+        $user->assignRole('newuser-0');
 
         event(new Registered($user));
 

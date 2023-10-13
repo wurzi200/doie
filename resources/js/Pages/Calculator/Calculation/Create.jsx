@@ -7,7 +7,7 @@ export default function Create({ auth, mustVerifyEmail, status, user, organizati
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Calculation</h2>}
+      header={<h2 className="font-semibold text-xl leading-tight">Calculation</h2>}
     >
       <Head title="Profile" />
 

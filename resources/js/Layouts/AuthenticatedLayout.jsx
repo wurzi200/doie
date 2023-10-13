@@ -18,7 +18,7 @@ export default function Authenticated({ auth, user, header, children }) {
                         <Sidenav />
                     </aside>
                 </div>
-                <div className="w-full md:ml-64 overflow-y-auto relative pt-16">
+                <div className="w-full md:ml-64 relative pt-16">
                     {header && (
                         <header className={`${backgroundSecondary + border} border-b shadow`}>
                             <div className={`${backgroundSecondary + textMain} mx-auto py-6 px-4 sm:px-6 lg:px-8`}>{header}</div>

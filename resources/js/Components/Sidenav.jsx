@@ -83,15 +83,15 @@ export default function Sidenav() {
           <Sidebar.Collapse
             icon={HiCog}
             label="Settings"
-            open={route().current('users.*') || route().current('organizations.*') || route().current('roles.*')}
+            open={route().current('users.*') || route().current('user.*') || route().current('organizations.*') || route().current('roles.*') || route().current('role.*')}
           >
-            <Sidebar.Item href={route('users.index')} active={route().current('users.*')}>
+            <Sidebar.Item href={route('users.index')} active={route().current('users.*') || route().current('user.*')}>
               Users
             </Sidebar.Item>
             <Sidebar.Item href={route('organizations.index')} active={route().current('organizations.*')}>
               Organization
             </Sidebar.Item>
-            <Sidebar.Item href={route('roles.index')} active={route().current('roles.*')}>
+            <Sidebar.Item href={route('roles.index')} active={route().current('roles.*') || route().current('role.*')}>
               Roles
             </Sidebar.Item>
           </Sidebar.Collapse>

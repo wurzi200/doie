@@ -1,24 +1,25 @@
-import { BiTrash, BiTrashAlt } from "react-icons/bi"
+import { BiTrash, BiTrashAlt } from "react-icons/bi";
+import { backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from '@/Constants';
 
 export default function PermissionList({ permissions }) {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
-      <table className="w-full text-sm text-left text-gray-500 ">
-        <thead className="text-sm text-gray-700 uppercase bg-gray-50">
+    <div className={`relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ${backgroundSecondary}`}>
+      <table className={`w-full text-sm text-left ${textSecondary}`}>
+        <thead className={`text-sm ${textMain} uppercase ${backgroundTertiary}`}>
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className={`px-6 py-3`}>
               id
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className={`px-6 py-3`}>
               name
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className={`px-6 py-3`}>
               guard
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className={`px-6 py-3`}>
               created
             </th>
-            {/* <th scope="col" className="px-6 py-3">
+            {/* <th scope="col" className={`px-6 py-3`}>
               permission
             </th> */}
           </tr>
@@ -26,17 +27,17 @@ export default function PermissionList({ permissions }) {
         <tbody>
           {permissions.data.map((permission, i) => {
             return (
-              <tr className="bg-white border-b" key={i}>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+              <tr className={`${textSecondary} ${backgroundSecondary} ${border} border-b`} key={i}>
+                <th scope="row" className={`px-6 py-4 font-medium ${textMain} whitespace-nowrap `}>
                   {permission.id}
                 </th>
-                <td className="px-6 py-4">
+                <td className={`px-6 py-4`}>
                   {permission.name}
                 </td>
-                <td className="px-6 py-4">
+                <td className={`px-6 py-4`}>
                   {permission.guard_name}
                 </td>
-                <td className="px-6 py-4">
+                <td className={`px-6 py-4`}>
                   {permission.created_at}
                 </td>
               </tr>

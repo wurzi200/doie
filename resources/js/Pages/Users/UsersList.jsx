@@ -3,7 +3,7 @@ import { BiEditAlt } from "react-icons/bi";
 export default function UsersList({ auth, users }) {
 
   return (
-    <div className={`relative overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
+    <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
       <table className={`w-full text-md text-left`}>
         <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
           <tr>
@@ -48,7 +48,7 @@ export default function UsersList({ auth, users }) {
                 <td className={`px-6 py-4`}>
                   {auth.permissions.find((permission => permission.name === 'edit_users')) &&
                     <a href={route('user.edit', user.id)} className={`hover:underline`}>
-                      <BiEditAlt className={`${textMain} text-2xl`} />
+                      <BiEditAlt className={`${textSecondary} text-2xl`} />
                     </a>
                   }
                 </td>

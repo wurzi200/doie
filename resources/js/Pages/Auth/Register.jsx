@@ -40,7 +40,7 @@ export default function Register() {
                         name="name"
                         value={data.name}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="given-name"
                         isFocused={true}
                         onChange={(e) => setData('name', e.target.value)}
                         required
@@ -57,7 +57,7 @@ export default function Register() {
                         name="lastname"
                         value={data.lastname}
                         className="mt-1 block w-full"
-                        autoComplete="lastname"
+                        autoComplete="family-name"
                         isFocused={true}
                         onChange={(e) => setData('lastname', e.target.value)}
                         required
