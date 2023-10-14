@@ -1,6 +1,7 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import Select from '@/Components/Select';
 import { TextInput } from 'flowbite-react';
 
 import { Link, useForm, usePage } from '@inertiajs/react';
@@ -14,6 +15,11 @@ import { useState } from 'react';
 
 export default function CreateCalculationForm({ organizations, roles, user }) {
   const [rate, setRate] = useState(0);
+
+  const types = [
+    { id: 1, name: 'Vorschüssig', unavailable: false },
+    { id: 2, name: 'Nachschüssig', unavailable: false },
+  ]
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     cost: '123',
@@ -146,11 +152,11 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
                 <div className={`mb-4`}>
                   <InputLabel htmlFor={`type`} value={`Type`} />
 
-                  <TextInput
+                  <Select
                     id={`type`}
+                    options={types}
                     type={`number`}
                     className={`mt-1 block w-full`}
-                    value={data.type}
                     onKeyDown={blockInvalidChar}
                     onChange={(e) => setData('type', e.target.value)}
                     required
@@ -158,35 +164,6 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
 
                   <InputError message={errors.type} className={`mt-2`} />
                 </div>
-              </div>
-            </div>
-            <div className={`md:flex`}>
-              <div className={`w-full md:mr-2`}>
-
-              </div>
-              <div className={`w-full md:ml-2`}>
-                {/* <div className={`mb-4`}>
-                  <InputLabel htmlFor={`organization`} value={`Organization`} />
-
-                  <SearchableDropdown
-                    options={organizations}
-                    onChange={(e) => setData('organization_id', e.id)}
-                    defaultId={data.organization_id}
-                  />
-
-                  <InputError className={`mt-2`} message={errors.organozation_id} />
-                </div>
-                <div className={`mb-4`}>
-                  <InputLabel htmlFor={`role`} value={`Role`} />
-
-                  <SearchableDropdown
-                    options={roles && roles}
-                    onChange={(e) => setData('role', e.name)}
-                    defaultId={data.role.id && data.role.id}
-                  />
-
-                  <InputError className={`mt-2`} message={errors.role} />
-                </div> */}
               </div>
             </div>
           </div>
