@@ -10,23 +10,42 @@ import SearchableDropdown from '@/Components/SearchableDropdown';
 import { backgroundSecondary, blockInvalidChar, border, textMain, textSecondary } from '@/constants';
 
 import { PiCurrencyEurBold, PiPercentBold } from 'react-icons/pi';
+import { useState } from 'react';
 
 export default function CreateCalculationForm({ organizations, roles, user }) {
+  const [rate, setRate] = useState(0);
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
-    cost: '',
-    special: '',
-    residual: '',
-    duration: '',
-    interest: '',
-    type: '',
+    cost: '100',
+    special: '10',
+    residual: '10',
+    duration: '10',
+    interest: '1',
+    type: '1',
+    rate: '',
   });
 
   const submit = (e) => {
     e.preventDefault();
-
-    put(route('user.store'));
+    put(route('calculation.store'));
+    console.log("submitted");
+    // calculate();
   };
+
+  const calculate = (e) => {
+    e.preventDefault();
+    // do an axios request with route calculate and data as body
+
+    axios.post(route('calculate'), data)
+      .then(function (response) {
+        console.log(response.data);
+        setRate(response.data);
+        setData('rate', response.data)
+      })
+      .catch(function (error) {
+        console.log(error.response);
+      });
+  }
 
   return (
     <form onSubmit={submit} className={`space-y-6`}>
@@ -172,8 +191,11 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
             </div>
           </div>
         </div>
+        <div className={`${textMain}`}>Rate : {rate && rate} €</div>
         <div className={`flex items-center gap-4 mt-4`}>
-          <PrimaryButton disabled={processing}>Create</PrimaryButton>
+          <PrimaryButton onClick={calculate} disabled={processing}>Calculate</PrimaryButton>
+          <PrimaryButton type="submit" disabled={processing}>Create</PrimaryButton>
+
 
           <Transition
             show={recentlySuccessful}

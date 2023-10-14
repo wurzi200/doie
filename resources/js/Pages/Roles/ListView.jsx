@@ -2,7 +2,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import RoleList from "./RoleList";
 import Pagination from "@/Components/Pagination";
-import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
 
@@ -12,7 +11,7 @@ export default function UsersListView({ auth, roles }) {
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
-      header={<h2 className={`font-semibold text-xl text-gray-800 leading-tight`}>Roles</h2>}
+      header={<h2 className={`${textMain} font-semibold text-xlß leading-tight`}>Roles</h2>}
     >
       <Head title="All ToDos" />
 

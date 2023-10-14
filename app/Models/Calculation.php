@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Calculation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'organization_id',
+        'cost',
+        'duration',
+        'interest',
+        'residual',
+        'special',
+        'type',
+        'rate'
+    ];
 }

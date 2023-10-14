@@ -40,6 +40,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
+    Route::post('/calculate', [CalculationController::class, 'calculate'])->name('calculate');
+    Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
+
+
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
