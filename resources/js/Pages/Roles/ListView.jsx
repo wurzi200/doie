@@ -13,7 +13,7 @@ export default function UsersListView({ auth, roles }) {
       user={auth.user}
       header={<h2 className={`${textMain} font-semibold text-xlß leading-tight`}>Roles</h2>}
     >
-      <Head title="All ToDos" />
+      <Head title="Roles" />
 
       <div className={`py-12`}>
         <div className={`mx-auto sm:px-6 lg:px-8`}>

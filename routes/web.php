@@ -45,8 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
 
 
-    Route::get('/calcTypes', [CalculationTypeController::class, 'index'])->name('calcTypes.index');
-
+    Route::get('/calculationTypes', [CalculationTypeController::class, 'index'])->name('calculationTypes.index');
+    Route::get('/calculationTypes/create', [CalculationTypeController::class, 'create'])->name('calculationType.create');
+    Route::put('/calculationType/store', [CalculationTypeController::class, 'store'])->name('calculationType.store');
+    Route::get('/calculationType/{calculationType}/edit', [CalculationTypeController::class, 'edit'])->name('calculationType.edit');
+    Route::put('/calculationType/{calculationType}/update', [CalculationTypeController::class, 'update'])->name('calculationType.update');
+    Route::delete('/calculationType/{calculationType}/destroy', [CalculationTypeController::class, 'destroy'])->name('calculationType.destroy');
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

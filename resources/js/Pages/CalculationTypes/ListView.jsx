@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router, useRemember } from "@inertiajs/react";
 import CalculationTypeList from "./CalcuLaytionTypeList";
-import { BiUserPlus } from "react-icons/bi";
+import { BiPlus, BiUserPlus } from "react-icons/bi";
 import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -17,6 +17,8 @@ export default function CalculationTypesView({ auth, calculationTypes }) {
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
+      header={<h2 className={`${textMain} font-semibold text-xlß leading-tight`}>Calculation Types</h2>}
+
     >
       <Head title="Calculation Types" />
 
@@ -28,7 +30,7 @@ export default function CalculationTypesView({ auth, calculationTypes }) {
             <div className={`m-auto mr-4`}>
               {auth.permissions.find((permission => permission.name === 'create_calculation_types')) &&
                 <a href={route('calculationType.create')} className={`text-gray-600`}>
-                  <BiUserPlus className={`${textMain} text-3xl`}>+</BiUserPlus>
+                  <BiPlus className={`${textMain} text-3xl`} />
                 </a>
               }
             </div>
