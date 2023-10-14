@@ -16,7 +16,7 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
   const [rate, setRate] = useState(0);
 
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
-    cost: '100',
+    cost: '123',
     special: '10',
     residual: '10',
     duration: '10',

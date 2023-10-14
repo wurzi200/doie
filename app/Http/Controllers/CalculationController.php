@@ -14,11 +14,10 @@ class CalculationController extends Controller
 
     function getCalculationValues($cost, $interest, $duration, $special, $residual)
     {
-        $curreny = 'EUR';
-        $netValue = money(money_parse_by_decimal($cost, $curreny))->subtract(money(money_parse_by_decimal($special, $curreny)))->getAmount();
+        $netValue = money($cost)->subtract(money($special))->getAmount();
         $interestRate = ($interest / 100) / 12;
         $monthlyInterestRate = 1 + $interestRate;
-        $netResidualValue =  money(money_parse_by_decimal($residual, $curreny))->divide(pow($monthlyInterestRate, $duration))->getAmount();
+        $netResidualValue =  money($residual)->divide(pow($monthlyInterestRate, $duration))->getAmount();
         $annuityFactorInArrears = ((pow($monthlyInterestRate, $duration)) * $interestRate) / ((pow($monthlyInterestRate, $duration)) - 1);
         $annuityFactorInAdvance = $annuityFactorInArrears / $monthlyInterestRate;
 
@@ -41,7 +40,7 @@ class CalculationController extends Controller
         $annuityFactorInArrears = $calculationValues['annuityFactorInArrears'];
         $monthlyInterestRate = $calculationValues['monthlyInterestRate'];
 
-        $rateInArrears = (money($netValue)->subtract(money($netResidualValue)))->multiply($annuityFactorInArrears)->getAmount();
+        $rateInArrears = money($netValue)->subtract(money($netResidualValue))->multiply($annuityFactorInArrears)->getAmount();
         $rateInAdvance = money($rateInArrears)->divide($monthlyInterestRate)->getAmount();
 
 
@@ -53,13 +52,13 @@ class CalculationController extends Controller
 
     public function calculate(Request $request)
     {
-        $curreny = 'EUR';
-        $cost = $request->cost;
+        $currency = 'EUR';
+        $cost = money_parse_by_decimal($request->cost, $currency);
 
         $duration = $request->duration;
         $interest = $request->interest;
-        $residual = $request->residual;
-        $special = $request->special;
+        $residual = money_parse_by_decimal($request->residual, $currency);
+        $special = money_parse_by_decimal($request->special, $currency);
         $type = $request->type;
         $rate = 0;
 
@@ -67,7 +66,7 @@ class CalculationController extends Controller
 
         $rate = $this->calculateMonthlyPayment($calcValues, $type);
 
-        return money($rate, $curreny)->format();
+        return money($rate, $currency)->format();
     }
 
     public function create()
