@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
 
 
+    Route::get('/calcTypes', [CalculationTypeController::class, 'index'])->name('calcTypes.index');
+
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

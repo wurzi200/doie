@@ -28,7 +28,7 @@ export default function Select({ options, selected, onChange }) {
                 <Listbox.Option
                   key={optionId}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : `text-white`
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : `${textMain}`
                     }`
                   }
                   value={option}

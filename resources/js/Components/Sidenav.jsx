@@ -95,6 +95,9 @@ export default function Sidenav() {
             <Sidebar.Item href={route('roles.index')} active={route().current('roles.*') || route().current('role.*')}>
               Roles
             </Sidebar.Item>
+            <Sidebar.Item href={route('calcTypes.index')} active={route().current('calcTypes.*') || route().current('calcTypes.*')}>
+              Calculation Types
+            </Sidebar.Item>
           </Sidebar.Collapse>
           <hr />
           <Sidebar.Item
