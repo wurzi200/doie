@@ -1,14 +1,12 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { backgroundTertiary, textMain, textSecondary } from '../constants'
 
-export default function Select({ options }) {
-  const [selected, setSelected] = useState(options[0])
-
+export default function Select({ options, selected, onChange }) {
   return (
     <div className={`top-16 w-full`}>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={onChange}>
         <div className={`relative mt-1`}>
           <Listbox.Button className={`relative w-full cursor-default rounded-lg py-2.5 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm ${backgroundTertiary} ${textMain}`}>
             <span className={`block truncate `}>{selected.name}</span>
@@ -25,12 +23,12 @@ export default function Select({ options }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className={`absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${backgroundTertiary}`}>
+            <Listbox.Options className={`z-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${backgroundTertiary}`}>
               {options.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : ``
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : `text-white`
                     }`
                   }
                   value={option}

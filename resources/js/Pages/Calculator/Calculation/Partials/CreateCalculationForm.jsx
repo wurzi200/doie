@@ -27,20 +27,18 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
     residual: '10',
     duration: '10',
     interest: '1',
-    type: '1',
+    type: 1,
     rate: '',
   });
 
   const submit = (e) => {
     e.preventDefault();
+
     put(route('calculation.store'));
-    console.log("submitted");
-    // calculate();
   };
 
   const calculate = (e) => {
     e.preventDefault();
-    // do an axios request with route calculate and data as body
 
     axios.post(route('calculate'), data)
       .then(function (response) {
@@ -64,7 +62,7 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
           </p>
         </header>
         <div className={`flex flex-wrap md:flex-nowrap`}>
-          <div className={`w-full md:mr-4`}>
+          <div className={`w-full`}>
             <div className={`lg:flex`}>
               <div className={`w-full md:mr-2`}>
                 <div className={`mb-4`}>
@@ -157,8 +155,8 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
                     options={types}
                     type={`number`}
                     className={`mt-1 block w-full`}
-                    onKeyDown={blockInvalidChar}
-                    onChange={(e) => setData('type', e.target.value)}
+                    onChange={(e) => setData('type', e.id)}
+                    selected={types.find(types => types.id === data.type)}
                     required
                   />
 
@@ -168,7 +166,14 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
             </div>
           </div>
         </div>
-        <div className={`${textMain}`}>Rate : {rate && rate}</div>
+        <div>
+          <InputLabel htmlFor={`rate`} value={`Rate`} />
+          <TextInput
+            className='text-center'
+            value={rate}
+            disabled
+          />
+        </div>
         <div className={`flex items-center gap-4 mt-4`}>
           <PrimaryButton onClick={calculate} disabled={processing}>Calculate</PrimaryButton>
           <PrimaryButton type="submit" disabled={processing}>Create</PrimaryButton>
