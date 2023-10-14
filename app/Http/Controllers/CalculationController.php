@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 
 class CalculationController extends Controller
 {
+    private $currency = 'EUR';
 
     function getCalculationValues($cost, $interest, $duration, $special, $residual)
     {
@@ -43,7 +44,6 @@ class CalculationController extends Controller
         $rateInArrears = money($netValue)->subtract(money($netResidualValue))->multiply($annuityFactorInArrears)->getAmount();
         $rateInAdvance = money($rateInArrears)->divide($monthlyInterestRate)->getAmount();
 
-
         if ($type == 1) {
             return $rateInAdvance;
         }
@@ -52,13 +52,12 @@ class CalculationController extends Controller
 
     public function calculate(Request $request)
     {
-        $currency = 'EUR';
-        $cost = money_parse_by_decimal($request->cost, $currency);
+        $cost = money_parse_by_decimal($request->cost, $this->currency);
 
         $duration = $request->duration;
         $interest = $request->interest;
-        $residual = money_parse_by_decimal($request->residual, $currency);
-        $special = money_parse_by_decimal($request->special, $currency);
+        $residual = money_parse_by_decimal($request->residual, $this->currency);
+        $special = money_parse_by_decimal($request->special, $this->currency);
         $type = $request->type;
         $rate = 0;
 
@@ -66,7 +65,7 @@ class CalculationController extends Controller
 
         $rate = $this->calculateMonthlyPayment($calcValues, $type);
 
-        return money($rate, $currency)->format();
+        return money($rate, $this->currency)->format();
     }
 
     public function create()
@@ -85,19 +84,20 @@ class CalculationController extends Controller
 
     public function store(Request $request)
     {
+
         // $request->user()->fill($request->validated());
         $currentUser = auth()->user();
 
         $calculation = Calculation::create([
             'user_id' => $currentUser->id,
             'organization_id' => $currentUser->organization_id,
-            'cost' => $request->cost,
+            'cost' => money_parse_by_decimal($request->cost, $this->currency)->getAmount(),
             'duration' => $request->duration,
             'interest' => $request->interest,
-            'residual' => $request->residual,
-            'special' => $request->special,
+            'residual' => money_parse_by_decimal($request->residual, $this->currency)->getAmount(),
+            'special' => money_parse_by_decimal($request->special, $this->currency)->getAmount(),
             'type' => $request->type,
-            'rate' => $request->rate,
+            'rate' => money($request->rate, $this->currency)->getAmount(),
         ]);
         return Redirect::route('calculation.create', $calculation);
     }

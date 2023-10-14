@@ -191,7 +191,7 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
             </div>
           </div>
         </div>
-        <div className={`${textMain}`}>Rate : {rate && rate} €</div>
+        <div className={`${textMain}`}>Rate : {rate && rate}</div>
         <div className={`flex items-center gap-4 mt-4`}>
           <PrimaryButton onClick={calculate} disabled={processing}>Calculate</PrimaryButton>
           <PrimaryButton type="submit" disabled={processing}>Create</PrimaryButton>
