@@ -13,15 +13,22 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'show_users']);
-        Permission::create(['name' => 'create_users']);
-        Permission::create(['name' => 'edit_users']);
+        $permissions = [
+            ['name' => 'show_users'],
+            ['name' => 'create_users'],
+            ['name' => 'edit_users'],
+            ['name' => 'show_organizations'],
+            ['name' => 'edit_organizations'],
+            ['name' => 'show_roles'],
+            ['name' => 'create_roles'],
+            ['name' => 'edit_roles'],
+            ['name' => 'show_calculation_types'],
+            ['name' => 'create_calculation_types'],
+            ['name' => 'edit_calculation_types'],
+        ];
 
-        Permission::create(['name' => 'show_organizations']);
-        Permission::create(['name' => 'edit_organizations']);
-
-        Permission::create(['name' => 'show_roles']);
-        Permission::create(['name' => 'create_roles']);
-        Permission::create(['name' => 'edit_roles']);
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate($permission);
+        }
     }
 }

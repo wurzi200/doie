@@ -26,12 +26,13 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
 
-        \App\Models\Organization::factory(10)->create();
-        CalculationType::factory()->count(10)->create();
+
 
         $this->call(DefaultUserSeeder::class);
 
         \App\Models\User::factory(10)->create();
+        \App\Models\Organization::factory(10)->create();
+        CalculationType::factory()->count(10)->create();
 
         $role = Role::where('name', 'super-admin-1')->first();
         $role->givePermissionTo(Permission::all());

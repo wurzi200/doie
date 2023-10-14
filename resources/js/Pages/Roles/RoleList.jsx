@@ -55,10 +55,10 @@ export default function RoleList({ auth, roles }) {
                 <td className={`px-6 py-4 flex justify-end`}>
                   {auth.permissions.find((permission => permission.name === 'edit_roles')) &&
                     <>
-                      <a href={route('role.edit', role.id)} className={`hover:underline mr-4`}>
+                      <a href={route('role.edit', role.id)} className={`mr-4`}>
                         <BiEditAlt className={`${textSecondary} text-2xl`} />
                       </a>
-                      <a href={route('role.delete', role.id)} className={`hover:underline`}>
+                      <a href={route('role.delete', role.id)} >
                         <BiTrash className={`${textSecondary} text-2xl`} />
                       </a>
                     </>
