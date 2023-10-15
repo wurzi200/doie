@@ -5,6 +5,7 @@ import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Combobox, Transition } from '@headlessui/react';
 import SearchableDropdown from '@/Components/SearchableDropdown';
+import { textMain, textSecondary } from '@/constants';
 
 export default function UpdateUserInformation({ mustVerifyEmail, status, className = '', user, organizations, roles }) {
 
@@ -25,9 +26,9 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+                <h2 className={`${textMain} text-lg font-medium`}>Profile Information</h2>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <p className={`${textSecondary} mt-1 text-sm`}>
                     Update your account's profile information and email address.
                 </p>
             </header>

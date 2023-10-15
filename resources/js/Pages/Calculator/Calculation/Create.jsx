@@ -7,9 +7,9 @@ export default function Create({ auth, mustVerifyEmail, status, user, organizati
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
-      header={<h2 className="font-semibold text-xl leading-tight">Calculation</h2>}
+      header={<h2 className="font-semibold text-xl leading-tight">Create a new Calculation</h2>}
     >
-      <Head title="Profile" />
+      <Head title="Create a new Calculation" />
 
       <div className="py-8">
         <div className="mx-auto sm:px-6 lg:px-8 space-y-6">

@@ -6,6 +6,8 @@ import Modal from '@/Components/Modal';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
+import { textMain, textSecondary } from '@/constants';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function DeleteUserForm({ className = '', user = { user } }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
@@ -46,9 +48,9 @@ export default function DeleteUserForm({ className = '', user = { user } }) {
     return (
         <section className={`space-y-6 ${className}`}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Delete User</h2>
+                <h2 className={`${textMain} text-lg font-medium`}>Delete User</h2>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <p className={`${textSecondary} mt-1 text-sm`}>
                     Once the User is deleted, all of its resources and data will be permanently deleted. Before
                     deleting your account, please download any data or information that you wish to retain.
                 </p>
@@ -58,13 +60,13 @@ export default function DeleteUserForm({ className = '', user = { user } }) {
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900">
+                    <h2 className={`${textMain} text-lg font-medium`}>
                         Are you sure you want to delete the User?
                     </h2>
 
-                    <p className="mt-1 text-sm text-gray-600">
-                        Once The User is deleted, all of its resources and data will be permanently deleted. Please
-                        enter your password to confirm you would like to permanently delete this User.
+                    <p className={`${textSecondary} mt-1 text-sm`}>
+                        Once the User is deleted, all of its resources and data will be permanently deleted. Please enter your
+                        password to confirm you would like to permanently delete this User.
                     </p>
 
                     <div className="mt-6">
@@ -86,7 +88,7 @@ export default function DeleteUserForm({ className = '', user = { user } }) {
                     </div>
 
                     <div className="mt-6 flex justify-end">
-                        <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
+                        <PrimaryButton onClick={closeModal}>Cancel</PrimaryButton>
 
                         <DangerButton className="ml-3" disabled={processing}>
                             Delete User
