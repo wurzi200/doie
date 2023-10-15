@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\CalculationTypeController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -70,6 +71,11 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'user_has_permission:delete_calculations']], function () {
         Route::get('/calculations/{calculation}/delete', [CalculationController::class, 'destroy'])->name('calculation.destroy');
     });
+
+    Route::group(['middleware' => ['auth', 'user_has_permission:print_calculations']], function () {
+        Route::get('/calculation/{calculationId}/print', [DocumentController::class, 'printCalculation'])->name('calculation.print');
+    });
+
 
     // Route::get('/calculations/{calculation}', [CalculationController::class, 'show'])->name('calculation.show');
 
