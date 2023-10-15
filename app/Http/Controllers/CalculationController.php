@@ -144,9 +144,8 @@ class CalculationController extends Controller
     {
         $calculation = Calculation::find($calculationId);
 
-        if ($request->user()->organization_id != $calculation->organization_id) {
+        if ($request->user()->organization_id != $calculation->organization_id && !$request->user()->hasRole('super-admin-1')) {
             abort(403, 'Unauthorized action.');
-            return Redirect::route('calculations.index', $calculation);
         }
 
         $calculation->delete();

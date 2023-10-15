@@ -65,9 +65,13 @@ class CalculationTypeController extends Controller
         return Redirect::to('/calculationTypes');
     }
 
-    public function edit($calculationTypeId)
+    public function edit(Request $request, $calculationTypeId)
     {
         $calculationType = CalculationType::where('id', $calculationTypeId)->first();
+
+        if ($request->user()->organization_id != $calculationType->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         return Inertia::render('CalculationTypes/Edit', [
             'calculationType' => $calculationType,
@@ -77,6 +81,11 @@ class CalculationTypeController extends Controller
     public function update(CalculationTypeRequest $request, $calculationTypeId)
     {
         $calculationType = CalculationType::findOrFail($calculationTypeId);
+
+        if ($request->user()->organization_id != $calculationType->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $calculationType->fill($request->validated());
 
         $calculationType->save();
@@ -84,9 +93,13 @@ class CalculationTypeController extends Controller
         return Redirect::route('calculationType.edit', $calculationTypeId);
     }
 
-    public function destroy($calculationTypeId)
+    public function destroy(Request $request, $calculationTypeId)
     {
         $calculationType = CalculationType::findOrFail($calculationTypeId);
+
+        if ($request->user()->organization_id != $calculationType->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $calculationType->delete();
 

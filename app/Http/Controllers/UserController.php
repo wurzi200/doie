@@ -60,6 +60,11 @@ class UserController extends Controller
     public function edit(Request $request, $userId)
     {
         $user = $this->getUserById($userId);
+
+        if ($request->user()->organization_id != $user->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $organizations = OrganizationController::getOrganizations();
         $roles = Role::where('organization_id', $user->organization_id)->get();
 
@@ -78,6 +83,11 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $userId): RedirectResponse
     {
         $user = $this->getUserById($userId);
+
+        if ($request->user()->organization_id != $user->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $role = Role::where('id', $request->get('role_id'))->first();
 
         $user->syncRoles($role);
@@ -101,6 +111,10 @@ class UserController extends Controller
         ]);
 
         $user = $this->getUserById($userId);
+
+        if ($request->user()->organization_id != $user->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $user->delete();
         return Redirect::to('/users');

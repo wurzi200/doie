@@ -35,12 +35,17 @@ class RoleController extends Controller
         return $roles;
     }
 
-    public function edit($roleId)
+    public function edit(Request $request, $roleId)
     {
-        $currentUser = auth()->user();
+
+        $role = Role::where('id', $roleId)->with('permissions')->first();
+
+        if ($request->user()->organization_id != $role->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $permissions = Permission::all();
-        $role = Role::where('id', $roleId)->with('permissions')->first();
+        $currentUser = auth()->user();
         $organization = Organization::where('id', $currentUser->organization_id)->first();
 
         return Inertia::render('Roles/Edit', [
@@ -53,6 +58,10 @@ class RoleController extends Controller
     public function update(Request $request, $roleId): RedirectResponse
     {
         $role = Role::where('id', $roleId)->first();
+
+        if ($request->user()->organization_id != $role->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $display_name = $request->name;
 
@@ -76,9 +85,13 @@ class RoleController extends Controller
         return Redirect::route('role.edit', $roleId);
     }
 
-    public function delete($roleId)
+    public function delete(Request $request, $roleId)
     {
         $role = Role::where('id', $roleId)->first();
+
+        if ($request->user()->organization_id != $role->organization_id && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $role->delete();
 
@@ -103,7 +116,7 @@ class RoleController extends Controller
     public function create()
     {
         $currentUser = auth()->user();
-        $organizations = Organization::get();
+        $organizations = Organization::where('id', $currentUser->organization_id)->get();
 
         return Inertia::render('Roles/Create', [
             'organizations' => $organizations,
