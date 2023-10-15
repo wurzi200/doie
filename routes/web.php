@@ -40,23 +40,38 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/calculations', [CalculationController::class, 'index'])->name('calculations.index');
+    Route::group(['middleware' => ['auth', 'user_has_permission:show_calculation_types']], function () {
+        Route::get('/calculationTypes', [CalculationTypeController::class, 'index'])->name('calculationTypes.index');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:create_calculation_types']], function () {
+        Route::get('/calculationTypes/create', [CalculationTypeController::class, 'create'])->name('calculationType.create');
+        Route::put('/calculationType/store', [CalculationTypeController::class, 'store'])->name('calculationType.store');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:edit_calculation_types']], function () {
+        Route::get('/calculationType/{calculationType}/edit', [CalculationTypeController::class, 'edit'])->name('calculationType.edit');
+        Route::put('/calculationType/{calculationType}/update', [CalculationTypeController::class, 'update'])->name('calculationType.update');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:delete_calculation_types']], function () {
+        Route::get('/calculationType/{calculationType}/destroy', [CalculationTypeController::class, 'destroy'])->name('calculationType.destroy');
+    });
+
+    Route::group(['middleware' => ['auth', 'user_has_permission:show_calculations']], function () {
+        Route::get('/calculations', [CalculationController::class, 'index'])->name('calculations.index');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:create_calculations']], function () {
+        Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
+        Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
+        Route::post('/calculate', [CalculationController::class, 'calculate'])->name('calculate');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:edit_calculations']], function () {
+        Route::get('/calculations/{calculation}/edit', [CalculationController::class, 'edit'])->name('calculation.edit');
+        Route::patch('/calculations/{calculation}/update', [CalculationController::class, 'update'])->name('calculation.update');
+    });
+    Route::group(['middleware' => ['auth', 'user_has_permission:delete_calculations']], function () {
+        Route::get('/calculations/{calculation}/delete', [CalculationController::class, 'destroy'])->name('calculation.destroy');
+    });
+
     // Route::get('/calculations/{calculation}', [CalculationController::class, 'show'])->name('calculation.show');
-    Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
-    Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
-    Route::get('/calculations/{calculation}/edit', [CalculationController::class, 'edit'])->name('calculation.edit');
-    Route::patch('/calculations/{calculation}/update', [CalculationController::class, 'update'])->name('calculation.update');
-    Route::get('/calculations/{calculation}/delete', [CalculationController::class, 'destroy'])->name('calculation.destroy');
-
-    Route::post('/calculate', [CalculationController::class, 'calculate'])->name('calculate');
-
-
-    Route::get('/calculationTypes', [CalculationTypeController::class, 'index'])->name('calculationTypes.index');
-    Route::get('/calculationTypes/create', [CalculationTypeController::class, 'create'])->name('calculationType.create');
-    Route::put('/calculationType/store', [CalculationTypeController::class, 'store'])->name('calculationType.store');
-    Route::get('/calculationType/{calculationType}/edit', [CalculationTypeController::class, 'edit'])->name('calculationType.edit');
-    Route::put('/calculationType/{calculationType}/update', [CalculationTypeController::class, 'update'])->name('calculationType.update');
-    Route::get('/calculationType/{calculationType}/destroy', [CalculationTypeController::class, 'destroy'])->name('calculationType.destroy');
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
