@@ -21,8 +21,8 @@ export default function UsersListView({ auth, roles }) {
             <div className={`${textMain} p-6 w-full`}>Roles</div>
             <div className={`m-auto mr-4`}>
               {auth.permissions.find((permission => permission.name === 'create_roles')) &&
-                <a href={route('role.create')} className={`text-3xl text-gray-600`}>
-                  <BiPlus className={`${textSecondary}`}>+</BiPlus>
+                <a href={route('role.create')} className={`${textMain} text-3xl`}>
+                  <BiPlus>+</BiPlus>
                 </a>
               }
             </div>

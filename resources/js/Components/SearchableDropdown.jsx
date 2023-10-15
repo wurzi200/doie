@@ -22,7 +22,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
         <div className={`relative mt-1`}>
           <div className={`relative w-full cursor-default overflow-hidden rounded-md ${backgroundSecondary} text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm`}>
             <Combobox.Input
-              className={`${textSecondary} ${backgroundTertiary} ${border} border  focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full`}
+              className={`${textSecondary} ${backgroundTertiary} ${border} border focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full`}
               displayValue={(option) => option.display_name ? option.display_name : option.name}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -40,7 +40,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
             leaveTo={`opacity-0`}
             afterLeave={() => setQuery('')}
           >
-            <Combobox.Options className={`z-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md ${backgroundTertiary} border-b py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}>
+            <Combobox.Options className={`z-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md ${backgroundTertiary} py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}>
               {filteredoptions.length === 0 && query !== '' ? (
                 <div className={`relative cursor-default select-none py-2 px-4 ${textSecondary}`}>
                   Nothing found.
@@ -50,7 +50,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
                   <Combobox.Option
                     key={option.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${border} border-b ${active ? 'bg-indigo-500 text-white' : `${textSecondary}`
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-500 text-white' : `${textSecondary}`
                       }`
                     }
                     value={option}

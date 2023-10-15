@@ -150,7 +150,7 @@ class CalculationController extends Controller
             });
         }
 
-        $calculations = $query->paginate(10);
+        $calculations = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Calculator/Calculation/ListView', [
             'calculations' => $calculations,

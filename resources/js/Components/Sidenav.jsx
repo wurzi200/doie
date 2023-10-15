@@ -66,7 +66,7 @@ export default function Sidenav({ auth, user }) {
           </Sidebar.Item>
           {auth.permissions.find((permission => permission.name === 'create_calculations')) &&
             <Sidebar.Item
-              href={route('calculation.create')} active={route().current('calulation')}
+              href={route('calculation.create')} active={route().current('calculation.*')}
               icon={HiCalculator}
             >
               <p>
@@ -102,7 +102,8 @@ export default function Sidenav({ auth, user }) {
               route().current('organizations.*') ||
               route().current('roles.*') ||
               route().current('role.*') ||
-              route().current('calculationTypes.*')
+              route().current('calculationTypes.*') ||
+              route().current('calculationType.*')
             }
           >
             {auth.permissions.find((permission => permission.name === 'show_users')) &&
@@ -121,7 +122,7 @@ export default function Sidenav({ auth, user }) {
               </Sidebar.Item>
             }
             {auth.permissions.find((permission => permission.name === 'show_calculation_types')) &&
-              <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*')}>
+              <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*') || route().current('calculationType.*')}>
                 Calculation Types
               </Sidebar.Item>
             }
