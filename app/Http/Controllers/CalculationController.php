@@ -130,14 +130,31 @@ class CalculationController extends Controller
         return Redirect::route('calculation.create', $calculation);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $currentUser = auth()->user();
+        $search = $request->query('search');
 
-        $calculations = Calculation::where('organization_id', $currentUser->organization_id)->with(['user', 'calculationType'])->paginate(10);
+        $query = Calculation::where('organization_id', $currentUser->organization_id)
+            ->with(['user', 'calculationType']);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('calculationType', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    });
+            });
+        }
+
+        $calculations = $query->paginate(10);
 
         return Inertia::render('Calculator/Calculation/ListView', [
             'calculations' => $calculations,
+            'search' => $search,
         ]);
     }
 
