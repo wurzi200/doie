@@ -12,7 +12,7 @@ export default function CalculationTypeList({ auth, calculationTypes }) {
               Name
             </th>
             {/* <th scope={`col`} className={`px-6 py-3`}>
-              Type
+              Type test
             </th>
             <th scope={`col`} className={`px-6 py-3`}>
               Min Cost
