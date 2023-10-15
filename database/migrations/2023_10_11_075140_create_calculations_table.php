@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('residual');
             $table->decimal('interest');
             $table->integer('duration');
-            $table->integer('type');
+            $table->foreignId('calculationType')->constrained();
             $table->bigInteger('rate');
             $table->timestamps();
         });

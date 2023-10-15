@@ -1,33 +1,24 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import Select from '@/Components/Select';
+import SearchableDropdown from '@/Components/SearchableDropdown';
 import { TextInput } from 'flowbite-react';
-
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
-import SearchableDropdown from '@/Components/SearchableDropdown';
-
 import { backgroundSecondary, blockInvalidChar, border, textMain, textSecondary } from '@/constants';
-
 import { PiCurrencyEurBold, PiPercentBold } from 'react-icons/pi';
 import { useState } from 'react';
 
-export default function CreateCalculationForm({ organizations, roles, user }) {
+export default function CreateCalculationForm({ organizations, roles, user, calculationTypes }) {
   const [rate, setRate] = useState(0);
-
-  const types = [
-    { id: 1, name: 'Vorschüssig', unavailable: false },
-    { id: 2, name: 'Nachschüssig', unavailable: false },
-  ]
-
-  const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
+  const [InputErrors, setInputErrors] = useState({});
+  const { data, setData, put, errors, setError, clearErrors, processing, recentlySuccessful } = useForm({
+    calculationType: calculationTypes[0].id,
     cost: '123',
     special: '10',
     residual: '10',
     duration: '10',
     interest: '1',
-    type: 1,
     rate: '',
   });
 
@@ -42,18 +33,19 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
 
     axios.post(route('calculate'), data)
       .then(function (response) {
-        console.log(response.data);
         setRate(response.data);
         setData('rate', response.data)
+        clearErrors();
       })
       .catch(function (error) {
-        console.log(error.response);
+        clearErrors();
+        setError(error.response.data.errors);
       });
   }
 
   return (
     <form onSubmit={submit} className={`space-y-6`}>
-      <section className={`${backgroundSecondary} ${border} border p-4 lg:w-1/2 sm:p-6 shadow sm:rounded-lg`}>
+      <section className={`${backgroundSecondary} ${border} border p-4 sm:p-6 shadow sm:rounded-lg`}>
         <header>
           <h2 className={`${textMain} text-lg font-medium`}>Calculation</h2>
 
@@ -63,6 +55,20 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
         </header>
         <div className={`flex flex-wrap md:flex-nowrap`}>
           <div className={`w-full`}>
+            <div className={`mb-4`}>
+              <InputLabel htmlFor={`calculationType`} value={`Calculation Type`} />
+
+              <SearchableDropdown
+                id={`calculationType`}
+                options={calculationTypes}
+                className={`mt-1 block w-full`}
+                onChange={(e) => setData('calculationType', e.id)}
+                defaultId={data.calculationType}
+                required
+              />
+
+              <InputError message={errors.calculationType} className={`mt-2`} />
+            </div>
             <div className={`lg:flex`}>
               <div className={`w-full md:mr-2`}>
                 <div className={`mb-4`}>
@@ -146,21 +152,6 @@ export default function CreateCalculationForm({ organizations, roles, user }) {
                   />
 
                   <InputError message={errors.interest} className={`mt-2`} />
-                </div>
-                <div className={`mb-4`}>
-                  <InputLabel htmlFor={`type`} value={`Type`} />
-
-                  <Select
-                    id={`type`}
-                    options={types}
-                    type={`number`}
-                    className={`mt-1 block w-full`}
-                    onChange={(e) => setData('type', e.id)}
-                    selected={types.find(types => types.id === data.type)}
-                    required
-                  />
-
-                  <InputError message={errors.type} className={`mt-2`} />
                 </div>
               </div>
             </div>

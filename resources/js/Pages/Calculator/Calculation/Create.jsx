@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import CreateCalculationForm from './Partials/CreateCalculationForm';
 
-export default function Create({ auth, mustVerifyEmail, status, user, organizations, roles }) {
+export default function Create({ auth, mustVerifyEmail, status, user, organizations, roles, calculationTypes }) {
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -21,6 +21,7 @@ export default function Create({ auth, mustVerifyEmail, status, user, organizati
               user={user}
               organizations={organizations}
               roles={roles}
+              calculationTypes={calculationTypes}
             />
           </div>
         </div>

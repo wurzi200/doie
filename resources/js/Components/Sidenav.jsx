@@ -84,7 +84,13 @@ export default function Sidenav() {
           <Sidebar.Collapse
             icon={HiCog}
             label="Settings"
-            open={route().current('users.*') || route().current('user.*') || route().current('organizations.*') || route().current('roles.*') || route().current('role.*')}
+            open={route().current('users.*') ||
+              route().current('user.*') ||
+              route().current('organizations.*') ||
+              route().current('roles.*') ||
+              route().current('role.*') ||
+              route().current('calculationTypes.*')
+            }
           >
             <Sidebar.Item href={route('users.index')} active={route().current('users.*') || route().current('user.*')}>
               Users
@@ -95,7 +101,7 @@ export default function Sidenav() {
             <Sidebar.Item href={route('roles.index')} active={route().current('roles.*') || route().current('role.*')}>
               Roles
             </Sidebar.Item>
-            <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*') || route().current('calculationTypes.*')}>
+            <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*')}>
               Calculation Types
             </Sidebar.Item>
           </Sidebar.Collapse>

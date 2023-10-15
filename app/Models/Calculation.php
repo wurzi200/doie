@@ -17,7 +17,7 @@ class Calculation extends Model
         'interest',
         'residual',
         'special',
-        'type',
+        'calculationType',
         'rate'
     ];
 }
