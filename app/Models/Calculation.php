@@ -12,6 +12,7 @@ class Calculation extends Model
     protected $fillable = [
         'user_id',
         'organization_id',
+        'name',
         'cost',
         'duration',
         'interest',

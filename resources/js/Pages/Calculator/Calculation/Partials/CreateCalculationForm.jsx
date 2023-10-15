@@ -13,6 +13,7 @@ export default function CreateCalculationForm({ organizations, roles, user, calc
   const [rate, setRate] = useState(0);
   const [InputErrors, setInputErrors] = useState({});
   const { data, setData, put, errors, setError, clearErrors, processing, recentlySuccessful } = useForm({
+    name: '',
     calculationType: calculationTypes[0] ? calculationTypes[0].id : '',
     cost: '123',
     special: '10',
@@ -47,10 +48,33 @@ export default function CreateCalculationForm({ organizations, roles, user, calc
       <form onSubmit={submit} className={`space-y-6`}>
         <section className={`${backgroundSecondary} ${border} border p-4 sm:p-6 shadow sm:rounded-lg`}>
           <header>
+            <h2 className={`${textMain} text-lg font-medium`}>Calculation Name</h2>
+
+            <p className={`${textSecondary} mt-1 mb-4 text-sm`}>
+              add a Name to the Calculation
+            </p>
+          </header>
+          <div className={`mb-4`}>
+            <InputLabel htmlFor={`name`} value={`Name`} />
+
+            <TextInput
+              id={`name`}
+              type={`text`}
+              className={`mt-1 block w-full`}
+              value={data.name}
+              onChange={(e) => setData('name', e.target.value)}
+              required
+            />
+
+            <InputError message={errors.name} className={`mt-2`} />
+          </div>
+        </section>
+        <section className={`${backgroundSecondary} ${border} border p-4 sm:p-6 shadow sm:rounded-lg`}>
+          <header>
             <h2 className={`${textMain} text-lg font-medium`}>Calculation</h2>
 
             <p className={`${textSecondary} mt-1 mb-4 text-sm`}>
-              Calculation details
+              input the Calculation details
             </p>
           </header>
           <div className={`flex flex-wrap md:flex-nowrap`}>

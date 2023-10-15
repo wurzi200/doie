@@ -41,7 +41,7 @@ export default function CalculationList({ auth, calculations }) {
             return (
               <tr className={`${backgroundSecondary} ${border} ${textSecondary} border-b`} key={i}>
                 <th scope={`row`} className={`${textMain} px-6 py-4 whitespace-nowrap`}>
-                  {calculation.id}
+                  {calculation.name}
                 </th>
                 <td className={`px-6 py-4`}>
                   {calculation.cost / 100} €

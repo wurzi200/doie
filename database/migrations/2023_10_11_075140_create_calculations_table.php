@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('calculations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('organization_id')->constrained();
-            $table->foreignId('calculation_type_id')->constrained();
+            $table->string('name');
             $table->bigInteger('cost');
             $table->bigInteger('special');
             $table->bigInteger('residual');
             $table->decimal('interest');
             $table->integer('duration');
             $table->bigInteger('rate');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('organization_id')->constrained();
+            $table->foreignId('calculation_type_id')->constrained();
             $table->timestamps();
         });
     }
