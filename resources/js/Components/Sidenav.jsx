@@ -5,7 +5,7 @@ import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, Hi
 import { backgroundMain, backgroundSecondary, border, textMain } from '../constants';
 import { Link } from '@inertiajs/react';
 
-export default function Sidenav() {
+export default function Sidenav({ auth, user }) {
 
   const theme = {
     "root": {
@@ -64,22 +64,27 @@ export default function Sidenav() {
           >
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item
-            href={route('calculation.create')} active={route().current('calulation')}
-            icon={HiCalculator}
-          >
-            <p>
-              Calculator
-            </p>
-          </Sidebar.Item>
-          <Sidebar.Item
-            href={route('calculations.index')} active={route().current('calculations.*')}
-            icon={HiCalculator}
-          >
-            <p>
-              Calculations
-            </p>
-          </Sidebar.Item>
+          {auth.permissions.find((permission => permission.name === 'create_calculations')) &&
+            <Sidebar.Item
+              href={route('calculation.create')} active={route().current('calulation')}
+              icon={HiCalculator}
+            >
+              <p>
+                Calculator
+              </p>
+            </Sidebar.Item>
+          }
+          {auth.permissions.find((permission => permission.name === 'show_calculations')) &&
+
+            <Sidebar.Item
+              href={route('calculations.index')} active={route().current('calculations.*')}
+              icon={HiCalculator}
+            >
+              <p>
+                Calculations
+              </p>
+            </Sidebar.Item>
+          }
           <Sidebar.Item
             href="#"
             icon={HiOfficeBuilding}
@@ -100,18 +105,26 @@ export default function Sidenav() {
               route().current('calculationTypes.*')
             }
           >
-            <Sidebar.Item href={route('users.index')} active={route().current('users.*') || route().current('user.*')}>
-              Users
-            </Sidebar.Item>
-            <Sidebar.Item href={route('organizations.index')} active={route().current('organizations.*')}>
-              Organization
-            </Sidebar.Item>
-            <Sidebar.Item href={route('roles.index')} active={route().current('roles.*') || route().current('role.*')}>
-              Roles
-            </Sidebar.Item>
-            <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*')}>
-              Calculation Types
-            </Sidebar.Item>
+            {auth.permissions.find((permission => permission.name === 'show_users')) &&
+              <Sidebar.Item href={route('users.index')} active={route().current('users.*') || route().current('user.*')}>
+                Users
+              </Sidebar.Item>
+            }
+            {auth.permissions.find((permission => permission.name === 'show_organizations')) &&
+              <Sidebar.Item href={route('organizations.index')} active={route().current('organizations.*')}>
+                Organization
+              </Sidebar.Item>
+            }
+            {auth.permissions.find((permission => permission.name === 'show_roles')) &&
+              <Sidebar.Item href={route('roles.index')} active={route().current('roles.*') || route().current('role.*')}>
+                Roles
+              </Sidebar.Item>
+            }
+            {auth.permissions.find((permission => permission.name === 'show_calculation_types')) &&
+              <Sidebar.Item href={route('calculationTypes.index')} active={route().current('calculationTypes.*')}>
+                Calculation Types
+              </Sidebar.Item>
+            }
           </Sidebar.Collapse>
           <hr />
           <Sidebar.Item

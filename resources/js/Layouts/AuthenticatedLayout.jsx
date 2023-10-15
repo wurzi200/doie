@@ -15,7 +15,7 @@ export default function Authenticated({ auth, user, header, children }) {
             <div className="flex">
                 <div className='hidden md:block'>
                     <aside className="fixed left-0 top-0 z-30 pt-16 h-full">
-                        <Sidenav />
+                        <Sidenav auth={auth} user={user} />
                     </aside>
                 </div>
                 <div className="w-full md:ml-64 relative pt-16">

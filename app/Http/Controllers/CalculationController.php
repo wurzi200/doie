@@ -123,7 +123,7 @@ class CalculationController extends Controller
             'interest' => $request->interest,
             'residual' => money_parse_by_decimal($request->residual, $this->currency)->getAmount(),
             'special' => money_parse_by_decimal($request->special, $this->currency)->getAmount(),
-            'calculationType' => $request->calculationType,
+            'calculation_type_id' => $request->calculationType,
             'rate' => money($request->rate, $this->currency)->getAmount(),
         ]);
         return Redirect::route('calculation.create', $calculation);

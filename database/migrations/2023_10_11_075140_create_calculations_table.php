@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('organization_id')->constrained();
+            $table->foreignId('calculation_type_id')->constrained();
             $table->bigInteger('cost');
             $table->bigInteger('special');
             $table->bigInteger('residual');
             $table->decimal('interest');
             $table->integer('duration');
-            $table->foreignId('calculationType')->constrained();
             $table->bigInteger('rate');
             $table->timestamps();
         });
