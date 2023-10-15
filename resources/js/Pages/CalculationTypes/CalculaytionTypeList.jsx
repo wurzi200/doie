@@ -1,5 +1,5 @@
 import { backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
-import { BiEditAlt } from "react-icons/bi";
+import { BiEditAlt, BiTrash } from "react-icons/bi";
 
 export default function CalculationTypeList({ auth, calculationTypes }) {
 
@@ -11,7 +11,7 @@ export default function CalculationTypeList({ auth, calculationTypes }) {
             <th scope={`col`} className={`px-6 py-3`}>
               Name
             </th>
-            <th scope={`col`} className={`px-6 py-3`}>
+            {/* <th scope={`col`} className={`px-6 py-3`}>
               Type
             </th>
             <th scope={`col`} className={`px-6 py-3`}>
@@ -43,7 +43,7 @@ export default function CalculationTypeList({ auth, calculationTypes }) {
             </th>
             <th scope={`col`} className={`px-6 py-3`}>
               Max Duration
-            </th>
+            </th> */}
             <th scope={`col`} className={`px-6 py-3`}>
             </th>
           </tr>
@@ -55,7 +55,7 @@ export default function CalculationTypeList({ auth, calculationTypes }) {
                 <th scope={`row`} className={`${textMain} px-6 py-4 whitespace-nowrap`}>
                   {calculationType.name}
                 </th>
-                <td className={`px-6 py-4`}>
+                {/* <td className={`px-6 py-4`}>
                   {calculationType.type}
                 </td>
                 <td className={`px-6 py-4`}>
@@ -87,11 +87,16 @@ export default function CalculationTypeList({ auth, calculationTypes }) {
                 </td>
                 <td className={`px-6 py-4`}>
                   {calculationType.maxDuration}
-                </td>
-                <td className={`px-6 py-4 justify-end`}>
+                </td> */}
+                <td className={`px-6 py-4 flex justify-end`}>
                   {auth.permissions.find((permission => permission.name === 'edit_calculation_types')) &&
-                    <a href={route('calculationType.edit', calculationType.id)}>
+                    <a href={route('calculationType.edit', calculationType.id)} className="mr-4">
                       <BiEditAlt className={`${textSecondary} text-2xl`} />
+                    </a>
+                  }
+                  {auth.permissions.find((permission => permission.name === 'delete_calculation_types')) &&
+                    <a href={route('calculationType.destroy', calculationType.id)}>
+                      <BiTrash className={`${textSecondary} text-2xl`} />
                     </a>
                   }
                 </td>

@@ -83,4 +83,13 @@ class CalculationTypeController extends Controller
 
         return Redirect::route('calculationType.edit', $calculationTypeId);
     }
+
+    public function destroy($calculationTypeId)
+    {
+        $calculationType = CalculationType::findOrFail($calculationTypeId);
+
+        $calculationType->delete();
+
+        return Redirect::route('calculationTypes.index');
+    }
 }
