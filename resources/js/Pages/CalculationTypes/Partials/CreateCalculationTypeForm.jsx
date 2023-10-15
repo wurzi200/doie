@@ -40,28 +40,38 @@ export default function CreateCalculationTypeForm({ organizations, user }) {
     <form onSubmit={submit} className={`mt-6 space-y-6`}>
       <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
         <header>
-          <h2 className={`text-lg font-medium ${textMain}`}>Create a new Calculation Type</h2>
+          <h2 className={`text-lg font-medium ${textMain}`}>Calculation Type Name</h2>
 
           <p className={`mt-1 mb-4 text-sm ${textSecondary}`}>
-            Calculation Type details
+            add a Name for your Calculation Type
+          </p>
+        </header>
+        <div className={`mb-4`}>
+          <InputLabel htmlFor="name" value="Name" />
+
+          <TextInput
+            id="name"
+            value={data.name}
+            onChange={(e) => setData('name', e.target.value)}
+            type="text"
+            className={`mt-1 block w-full`}
+            required
+          />
+
+          <InputError message={errors.name} className={`mt-2`} />
+        </div>
+      </section>
+      <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
+        <header>
+          <h2 className={`text-lg font-medium ${textMain}`}>Calculation Type Values</h2>
+
+          <p className={`mt-1 mb-4 text-sm ${textSecondary}`}>
+            add min or max values for your Calculation Type
           </p>
         </header>
         <div className={`flex flex-wrap md:flex-nowrap`}>
           <div className={`w-full md:mr-4`}>
-            <div className={`mb-4`}>
-              <InputLabel htmlFor="name" value="Name" />
 
-              <TextInput
-                id="name"
-                value={data.name}
-                onChange={(e) => setData('name', e.target.value)}
-                type="text"
-                className={`mt-1 block w-full`}
-                required
-              />
-
-              <InputError message={errors.name} className={`mt-2`} />
-            </div>
 
             <div className={`mb-4`}>
               <InputLabel htmlFor="type" value="Type" />

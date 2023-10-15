@@ -9,9 +9,9 @@ export default function Edit({ auth, mustVerifyEmail, status, user, organization
         <AuthenticatedLayout
             auth={auth}
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit User: {user.name}</h2>}
         >
-            <Head title="Profile" />
+            <Head title="Edit User" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">

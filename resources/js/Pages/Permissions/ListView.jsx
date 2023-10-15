@@ -11,7 +11,7 @@ export default function UsersListView({ auth, permissions }) {
       user={auth.user}
       header={<h2 className={`font-semibold text-xl ${textMain} leading-tight`}>Permission</h2>}
     >
-      <Head title="All ToDos" />
+      <Head title="Permission" />
 
       <div className={`py-12`}>
         <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>

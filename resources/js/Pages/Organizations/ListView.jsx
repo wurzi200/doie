@@ -15,7 +15,7 @@ export default function OrganizationsListView({ auth, organizations }) {
       user={auth.user}
       header={<h2 className={`font-semibold text-xl leading-tight ${textMain}`}>Organizations</h2>}
     >
-      <Head title="All ToDos" />
+      <Head title="Organizations" />
 
       <div className="py-12">
         <div className="mx-auto sm:px-6 lg:px-8">

@@ -8,9 +8,9 @@ export default function Create({ auth, mustVerifyEmail, status, user, organizati
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
-      header={<h2 className={`font-semibold text-xl ${textMain} leading-tight`}>Profile</h2>}
+      header={<h2 className={`font-semibold text-xl ${textMain} leading-tight`}>Create a User</h2>}
     >
-      <Head title="Profile" />
+      <Head title="Create a User" />
 
       <div className={`py-12`}>
         <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6`}>
