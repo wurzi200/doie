@@ -40,9 +40,15 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/calculations', [CalculationController::class, 'index'])->name('calculations.index');
+    // Route::get('/calculations/{calculation}', [CalculationController::class, 'show'])->name('calculation.show');
     Route::get('/calculation/create', [CalculationController::class, 'create'])->name('calculation.create');
-    Route::post('/calculate', [CalculationController::class, 'calculate'])->name('calculate');
     Route::put('/calculation/store', [CalculationController::class, 'store'])->name('calculation.store');
+    Route::get('/calculations/{calculation}/edit', [CalculationController::class, 'edit'])->name('calculation.edit');
+    Route::patch('/calculations/{calculation}/update', [CalculationController::class, 'update'])->name('calculation.update');
+    Route::get('/calculations/{calculation}/delete', [CalculationController::class, 'destroy'])->name('calculation.destroy');
+
+    Route::post('/calculate', [CalculationController::class, 'calculate'])->name('calculate');
 
 
     Route::get('/calculationTypes', [CalculationTypeController::class, 'index'])->name('calculationTypes.index');

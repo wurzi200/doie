@@ -69,7 +69,15 @@ export default function Sidenav() {
             icon={HiCalculator}
           >
             <p>
-              Calculation
+              Calculator
+            </p>
+          </Sidebar.Item>
+          <Sidebar.Item
+            href={route('calculations.index')} active={route().current('calculations.*')}
+            icon={HiCalculator}
+          >
+            <p>
+              Calculations
             </p>
           </Sidebar.Item>
           <Sidebar.Item

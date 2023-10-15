@@ -20,4 +20,14 @@ class Calculation extends Model
         'calculationType',
         'rate'
     ];
+
+    public function calculationType()
+    {
+        return $this->belongsTo(CalculationType::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

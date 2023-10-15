@@ -26,6 +26,9 @@ class PermissionSeeder extends Seeder
             ['name' => 'create_calculation_types'],
             ['name' => 'edit_calculation_types'],
             ['name' => 'delete_calculation_types'],
+            ['name' => 'show_calculations'],
+            ['name' => 'create_calculations'],
+            ['name' => 'delete_calculations'],
         ];
 
         foreach ($permissions as $permission) {

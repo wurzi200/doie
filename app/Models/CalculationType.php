@@ -24,4 +24,9 @@ class CalculationType extends Model
         'type',
         'organization_id',
     ];
+
+    public function calculations()
+    {
+        return $this->hasMany(Calculation::class);
+    }
 }

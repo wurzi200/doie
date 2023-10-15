@@ -128,4 +128,29 @@ class CalculationController extends Controller
         ]);
         return Redirect::route('calculation.create', $calculation);
     }
+
+    public function index()
+    {
+        $currentUser = auth()->user();
+
+        $calculations = Calculation::where('organization_id', $currentUser->organization_id)->with(['user', 'calculationType'])->paginate(10);
+
+        return Inertia::render('Calculator/Calculation/ListView', [
+            'calculations' => $calculations,
+        ]);
+    }
+
+    public function destroy(Request $request, $calculationId)
+    {
+        $calculation = Calculation::find($calculationId);
+
+        if ($request->user()->organization_id != $calculation->organization_id) {
+            abort(403, 'Unauthorized action.');
+            return Redirect::route('calculations.index', $calculation);
+        }
+
+        $calculation->delete();
+
+        return Redirect::route('calculations.index', $calculation);
+    }
 }
