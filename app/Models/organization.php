@@ -25,4 +25,9 @@ class Organization extends Model
     {
         return $this->hasMany(Role::class, 'organization_id', 'id');
     }
+
+    public function calculations()
+    {
+        return $this->hasMany(Calculation::class);
+    }
 }
