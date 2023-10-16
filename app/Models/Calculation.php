@@ -31,4 +31,9 @@ class Calculation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }

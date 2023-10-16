@@ -1,5 +1,5 @@
 import { backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
-import { BiEditAlt, BiTrash } from "react-icons/bi";
+import { BiEditAlt, BiPrinter, BiTrash } from "react-icons/bi";
 
 export default function CalculationList({ auth, calculations }) {
 
@@ -64,7 +64,7 @@ export default function CalculationList({ auth, calculations }) {
                 <td className={`px-6 py-4`}>
                   {calculation.user.name}
                 </td>
-                <td className={`px-6 py-4 justify-end`}>
+                <td className={`px-6 py-4 justify-end flex`}>
                   {auth.permissions.find((permission => permission.name === 'edit_calculations')) &&
                     <a href={route('calculation.edit', calculation.id)}>
                       <BiEditAlt className={`${textSecondary} text-2xl`} />
@@ -73,6 +73,11 @@ export default function CalculationList({ auth, calculations }) {
                   {auth.permissions.find((permission => permission.name === 'delete_calculations')) &&
                     <a href={route('calculation.destroy', calculation.id)}>
                       <BiTrash className={`${textSecondary} text-2xl`} />
+                    </a>
+                  }
+                  {auth.permissions.find((permission => permission.name === 'print_calculations')) &&
+                    <a href={route('calculation.print', calculation.id)}>
+                      <BiPrinter className={`${textSecondary} text-2xl`} />
                     </a>
                   }
                 </td>
