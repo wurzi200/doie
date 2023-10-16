@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Address;
 use App\Models\CalculationType;
+use App\Models\Customer;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -26,10 +28,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(DefaultUserSeeder::class);
+        $this->call(GenderSeeder::class);
 
         \App\Models\User::factory(10)->create();
         \App\Models\Organization::factory(10)->create();
         CalculationType::factory()->count(10)->create();
+        Address::factory()->count(10)->create();
 
         $role = Role::where('name', 'super-admin-1')->first();
         $role->givePermissionTo(Permission::all());
