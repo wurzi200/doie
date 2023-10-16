@@ -15,6 +15,9 @@ export default function CalculationList({ auth, calculations }) {
               Cost
             </th>
             <th scope={`col`} className={`px-6 py-3`}>
+              Rate
+            </th>
+            <th scope={`col`} className={`px-6 py-3`}>
               Duration
             </th>
             <th scope={`col`} className={`px-6 py-3`}>
@@ -45,6 +48,9 @@ export default function CalculationList({ auth, calculations }) {
                 </th>
                 <td className={`px-6 py-4`}>
                   {calculation.cost / 100} €
+                </td>
+                <td className={`px-6 py-4`}>
+                  {calculation.rate / 100} €
                 </td>
                 <td className={`px-6 py-4`}>
                   {calculation.duration}
