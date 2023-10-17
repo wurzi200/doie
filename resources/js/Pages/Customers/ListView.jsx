@@ -37,7 +37,14 @@ export default function CustomersListView({ auth, customers }) {
           {customers &&
             <>
               <Pagination className={`mt-6`} links={customers.links} />
-              <List auth={auth} data={customers.data} editRoute={'customer.edit'} deleteRoute={'customer.delete'} fields={fields}></List>
+              <List
+                auth={auth}
+                data={customers.data}
+                editRoute={'customer.edit'}
+                deleteRoute={'customer.delete'}
+                fields={fields}
+                permission_name={'customers'}
+              />
               <Pagination className={`mt-6`} links={customers.links} />
             </>
           }

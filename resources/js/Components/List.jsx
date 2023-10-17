@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
 
-export default function List({ data, fields, editRoute, deleteRoute }) {
+export default function List({ auth, data, fields, editRoute, deleteRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -64,12 +64,12 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
                 );
               })}
               <td className={`px-6 py-4 text-right flex justify-end`}>
-                {editRoute &&
+                {editRoute && auth.permissions.find((permission => permission.name === `edit_${permission_name}`)) &&
                   <a href={route(editRoute, { id: item.id })} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
                     <BiEditAlt />
                   </a>
                 }
-                {deleteRoute &&
+                {deleteRoute && auth.permissions.find((permission => permission.name === `delete_${permission_name}`)) &&
                   <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700`}>
                     <BiTrash />
                   </button>

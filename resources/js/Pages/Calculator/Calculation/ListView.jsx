@@ -1,48 +1,57 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router, useRemember } from "@inertiajs/react";
-import CalculationList from "./CalculationList";
-import { BiPlus } from "react-icons/bi";
+import { Head } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
-import TextInput from "@/Components/TextInput";
-import PrimaryButton from "@/Components/PrimaryButton";
-import { useState } from "react";
-import axios from "axios";
+import { BiPlus } from "react-icons/bi";
 import Search from "@/Components/Search";
-import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
+import { backgroundSecondary, border, textMain } from "@/constants";
+import List from "@/Components/List";
 
-
-export default function CalculationListView({ auth, calculations }) {
+export default function CalculationsListView({ auth, calculations }) {
+  const fields = [
+    { name: 'name', label: 'Name' },
+    { name: 'description', label: 'Description' },
+    { name: 'result', label: 'Result' }
+  ];
 
   return (
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
+      header={<h2 className={`font-semibold text-xl leading-tight ${textMain}`}>Calculations</h2>}
     >
       <Head title="Calculations" />
 
-      <div className={`py-12`}>
-        <div className={`mx-auto sm:px-6 lg:px-8`}>
-          <div className={`${backgroundSecondary} ${border} ${textMain} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
-            <div className={`${textMain} p-6`}>Calculations</div>
-            <Search />
-            <div className={`m-auto mr-4`}>
-              {auth.permissions.find((permission => permission.name === 'create_calculations')) &&
-                <a href={route('calculation.create')} className={`text-gray-600`}>
-                  <BiPlus className={`${textMain} text-3xl`}>+</BiPlus>
+      <div className="py-12">
+        <div className="mx-auto sm:px-6 lg:px-8">
+          <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
+            <div className={`p-6 ${textMain}`}>Calculations</div>
+            {auth.user.roles.find((role => role.name === 'super-admin-1')) && <Search />}
+            <div className="m-auto mr-4">
+              {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
+                <a href={route('calculation.create')} className="">
+                  <BiPlus className={`text-3xl ${textMain}`}>+</BiPlus>
                 </a>
               }
             </div>
           </div>
           {calculations &&
             <>
-              <Pagination className={`mt-6`} links={calculations.links} />
-              <CalculationList auth={auth} calculations={calculations}></CalculationList>
-              <Pagination className={`mt-6`} links={calculations.links} />
+              <Pagination class={`mt-6`} links={calculations.links} />
+              <List
+                auth={auth}
+                data={calculations.data}
+                editRoute={'calculation.edit'}
+                deleteRoute={'calculation.destroy'}
+                fields={fields}
+                permission_name={'calculations'}
+              />
+              <Pagination class={`mt-6`} links={calculations.links} />
             </>
           }
+
         </div>
       </div>
 
-    </AuthenticatedLayout >
+    </AuthenticatedLayout>
   );
 }

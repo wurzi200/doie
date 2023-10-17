@@ -13,9 +13,8 @@ export default function UsersListView({ auth, users }) {
     { name: 'email', label: 'Email' },
     { name: 'organization.name', label: 'Organization' },
     { name: 'roles[0].name', label: 'Role' }
-
   ];
-  console.log(users);
+
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -39,7 +38,13 @@ export default function UsersListView({ auth, users }) {
           {users &&
             <>
               <Pagination className={`mt-6`} links={users.links} />
-              <List auth={auth} data={users.data} editRoute={'user.edit'} fields={fields}></List>
+              <List
+                auth={auth}
+                data={users.data}
+                editRoute={'user.edit'}
+                fields={fields}
+                permission_name={'users'}
+              />
               <Pagination className={`mt-6`} links={users.links} />
             </>
           }

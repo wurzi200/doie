@@ -1,12 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
-import RoleList from "./RoleList";
 import Pagination from "@/Components/Pagination";
 import { BiPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
+import List from "@/Components/List";
+import { Head } from "@inertiajs/react";
 
 
-export default function UsersListView({ auth, roles }) {
+export default function RoleListView({ auth, roles }) {
+  const fields = [
+    { name: 'display_name', label: 'Name' },
+  ];
+
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -30,7 +34,14 @@ export default function UsersListView({ auth, roles }) {
           {roles &&
             <>
               <Pagination className={`mt-6`} links={roles.links} />
-              <RoleList auth={auth} roles={roles}></RoleList>
+              <List
+                auth={auth}
+                data={roles.data}
+                editRoute={'role.edit'}
+                deleteRoute={'role.delete'}
+                fields={fields}
+                permission_name={'roles'}
+              />
               <Pagination className={`mt-6`} links={roles.links} />
             </>
           }

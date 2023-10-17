@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('calculation_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->constrained();
+            $table->foreignId('organization_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->bigInteger('minCost');
             $table->bigInteger('maxCost');

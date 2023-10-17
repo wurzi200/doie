@@ -1,13 +1,18 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
-import UsersList from "./OrganizationsList";
-import OrganizationsList from "./OrganizationsList";
+import { Head } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import { BiPlus } from "react-icons/bi";
 import Search from "@/Components/Search";
 import { backgroundSecondary, border, textMain } from "@/constants";
+import List from "@/Components/List";
 
-export default function OrganizationsListView({ auth, organizations }) {
+export default function OrganizationListView({ auth, organizations }) {
+  const fields = [
+    { name: 'name', label: 'Name' },
+    { name: 'email', label: 'Email' },
+    { name: 'phone', label: 'Phone' },
+    { name: 'address', label: 'Address' }
+  ];
 
   return (
     <AuthenticatedLayout
@@ -33,7 +38,13 @@ export default function OrganizationsListView({ auth, organizations }) {
           {organizations &&
             <>
               <Pagination class={`mt-6`} links={organizations.links} />
-              <OrganizationsList auth={auth} organizations={organizations}></OrganizationsList>
+              <List auth={auth}
+                data={organizations.data}
+                editRoute={'organization.edit'}
+                deleteRoute={'organization.delete'}
+                fields={fields}
+                permission_name={'organizations'}
+              />
               <Pagination class={`mt-6`} links={organizations.links} />
             </>
           }
