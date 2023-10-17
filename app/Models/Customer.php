@@ -18,4 +18,9 @@ class Customer extends Model
     {
         return $this->belongsTo(Gender::class);
     }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }

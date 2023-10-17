@@ -31,6 +31,7 @@ class CustomerFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'number' => $this->faker->phoneNumber,
             'gender_id' => rand(1, 5),
+            'organization_id' => rand(1, 10),
         ];
     }
 }

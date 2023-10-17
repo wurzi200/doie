@@ -85,6 +85,17 @@ export default function Sidenav({ auth, user }) {
               </p>
             </Sidebar.Item>
           }
+          {auth.permissions.find((permission => permission.name === 'show_customers')) &&
+
+            <Sidebar.Item
+              href={route('customers.index')} active={route().current('customers.*')}
+              icon={HiUser}
+            >
+              <p>
+                Customers
+              </p>
+            </Sidebar.Item>
+          }
           <Sidebar.Item
             href="#"
             icon={HiOfficeBuilding}

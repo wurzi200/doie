@@ -30,4 +30,9 @@ class Organization extends Model
     {
         return $this->hasMany(Calculation::class);
     }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

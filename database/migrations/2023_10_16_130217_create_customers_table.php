@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('number');
+            $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('gender_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
             $table->foreign('gender_id')->references('id')->on('genders')->onDelete('set null');
         });
     }
