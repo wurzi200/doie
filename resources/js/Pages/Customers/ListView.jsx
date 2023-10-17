@@ -7,7 +7,12 @@ import { Head } from "@inertiajs/react";
 
 
 export default function CustomersListView({ auth, customers }) {
-  const fields = ['first_name', 'email', 'number'];
+  const fields = [
+    { name: 'first_name', label: 'Name' },
+    { name: 'last_name', label: 'Lastname' },
+    { name: 'email', label: 'Email' },
+    { name: 'number', label: 'Number' },
+  ];
 
   return (
     <AuthenticatedLayout

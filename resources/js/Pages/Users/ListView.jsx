@@ -1,34 +1,37 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router, useRemember } from "@inertiajs/react";
-import UsersList from "./UsersList";
-import { BiUserPlus } from "react-icons/bi";
 import Pagination from "@/Components/Pagination";
-import TextInput from "@/Components/TextInput";
-import PrimaryButton from "@/Components/PrimaryButton";
-import { useState } from "react";
-import axios from "axios";
-import Search from "@/Components/Search";
+import { BiPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
+import List from "@/Components/List";
+import { Head } from "@inertiajs/react";
 
 
 export default function UsersListView({ auth, users }) {
+  const fields = [
+    { name: 'name', label: 'Name' },
+    { name: 'lastname', label: 'Lastname' },
+    { name: 'email', label: 'Email' },
+    { name: 'organization.name', label: 'Organization' },
+    { name: 'roles[0].name', label: 'Role' }
 
+  ];
+  console.log(users);
   return (
     <AuthenticatedLayout
       auth={auth}
       user={auth.user}
+      header={<h2 className={`${textMain} font-semibold text-xlß leading-tight`}>Users</h2>}
     >
       <Head title="Users" />
 
       <div className={`py-12`}>
         <div className={`mx-auto sm:px-6 lg:px-8`}>
-          <div className={`${backgroundSecondary} ${border} ${textMain} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
-            <div className={`${textMain} p-6`}>Users</div>
-            <Search />
+          <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
+            <div className={`${textMain} p-6 w-full`}>Users</div>
             <div className={`m-auto mr-4`}>
               {auth.permissions.find((permission => permission.name === 'create_users')) &&
-                <a href={route('user.create')} className={`text-gray-600`}>
-                  <BiUserPlus className={`${textMain} text-3xl`}>+</BiUserPlus>
+                <a href={route('user.create')} className={`${textMain} text-3xl`}>
+                  <BiPlus>+</BiPlus>
                 </a>
               }
             </div>
@@ -36,7 +39,7 @@ export default function UsersListView({ auth, users }) {
           {users &&
             <>
               <Pagination className={`mt-6`} links={users.links} />
-              <UsersList auth={auth} users={users}></UsersList>
+              <List auth={auth} data={users.data} editRoute={'user.edit'} fields={fields}></List>
               <Pagination className={`mt-6`} links={users.links} />
             </>
           }

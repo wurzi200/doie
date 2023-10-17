@@ -13,7 +13,6 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
 
   function confirmDelete() {
     if (deleteItemId) {
-      route(deleteRoute, { id: deleteItemId });
       setDeleteItemId(null);
       setShowDeleteModal(false);
     }
@@ -37,8 +36,8 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
             {fields.map(field => (
               <th key={field.name || field} scope={`col`} className={`px-6 py-3`}>{field.label || field}</th>
             ))}
-            {deleteRoute && editRoute &&
-              <th></th>
+            {deleteRoute || editRoute ?
+              <th></th> : ''
             }
           </tr>
         </thead>
@@ -66,9 +65,9 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
               })}
               <td className={`px-6 py-4 text-right flex justify-end`}>
                 {editRoute &&
-                  <button onClick={() => editItem(item)} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
+                  <a href={route(editRoute, { id: item.id })} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
                     <BiEditAlt />
-                  </button>
+                  </a>
                 }
                 {deleteRoute &&
                   <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700`}>
@@ -108,9 +107,9 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
                 </div>
               </div>
               <div className={`${backgroundTertiary} px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse`}>
-                <button onClick={confirmDelete} className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm`}>
+                <a onClick={confirmDelete} href={route(deleteRoute, { id: deleteItemId })} className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm`}>
                   Delete
-                </button>
+                </a>
                 <button onClick={cancelDelete} className={`mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 text-base font-medium ${textMain} hover:${backgroundTertiary} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm`}>
                   Cancel
                 </button>
@@ -119,6 +118,6 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
           </div>
         </div>
       }
-    </div>
+    </div >
   );
 }
