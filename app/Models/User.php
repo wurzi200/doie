@@ -61,9 +61,9 @@ class User extends Authenticatable
         return $this->belongsTo(Organization::class);
     }
 
-    public function role(): BelongsTo
+    public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->roles()->orderBy('id')->limit(1)->first();
     }
 
     public function calculations()

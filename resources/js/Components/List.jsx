@@ -35,7 +35,7 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
         <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
           <tr>
             {fields.map(field => (
-              <th key={field} scope={`col`} className={`px-6 py-3`}>{field}</th>
+              <th key={field.name || field} scope={`col`} className={`px-6 py-3`}>{field.label || field}</th>
             ))}
             {deleteRoute && editRoute &&
               <th></th>
@@ -45,22 +45,35 @@ export default function List({ data, fields, editRoute, deleteRoute }) {
         <tbody>
           {data.map(item => (
             <tr key={item.id} className={`${backgroundSecondary} ${border} ${textSecondary} border-b`}>
-              {fields.map(field => (
-                <td key={field} className={`px-6 py-4`}>{item[field]}</td>
-              ))}
+              {fields.map(field => {
+                const value = field.name.split('.').reduce((obj, key) => {
+                  if (obj) {
+                    if (key.includes('[')) {
+                      const [arrayKey, indexKey] = key.split(/[\[\]]+/);
+                      const array = obj[arrayKey];
+                      if (array) {
+                        const index = parseInt(indexKey);
+                        return array[index];
+                      }
+                    } else {
+                      return obj[key];
+                    }
+                  }
+                  return '';
+                }, item); return (
+                  <td key={field.name || field} className={`px-6 py-4`}>{value}</td>
+                );
+              })}
               <td className={`px-6 py-4 text-right flex justify-end`}>
                 {editRoute &&
-
                   <button onClick={() => editItem(item)} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
                     <BiEditAlt />
                   </button>
-
                 }
                 {deleteRoute &&
                   <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700`}>
                     <BiTrash />
                   </button>
-
                 }
               </td>
             </tr>
