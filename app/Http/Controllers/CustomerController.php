@@ -11,11 +11,23 @@ use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $currentUser = auth()->user();
 
-        $customers = Customer::where('organization_id', $currentUser->organization_id)->with('addresses')->paginate(10)->withQueryString();
+        $query = Customer::where('organization_id', $currentUser->organization_id)->with('addresses');
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', '%' . $search . '%')
+                    ->orWhere('last_name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('number', 'like', '%' . $search . '%');
+            });
+        }
+
+        $customers = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Customers/ListView', [
             'customers' => $customers
