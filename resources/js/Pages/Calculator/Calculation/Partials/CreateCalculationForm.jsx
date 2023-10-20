@@ -9,7 +9,7 @@ import { backgroundSecondary, blockInvalidChar, border, textMain, textSecondary 
 import { PiCurrencyEurBold, PiPercentBold } from 'react-icons/pi';
 import { useState } from 'react';
 
-export default function CreateCalculationForm({ organizations, roles, user, calculationTypes }) {
+export default function CreateCalculationForm({ calculationTypes }) {
   const [rate, setRate] = useState(0);
   const [InputErrors, setInputErrors] = useState({});
   const { data, setData, put, errors, setError, clearErrors, processing, recentlySuccessful } = useForm({

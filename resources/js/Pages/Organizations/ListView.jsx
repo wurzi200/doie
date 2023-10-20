@@ -9,9 +9,6 @@ import List from "@/Components/List";
 export default function OrganizationListView({ auth, organizations }) {
   const fields = [
     { name: 'name', label: 'Name' },
-    { name: 'email', label: 'Email' },
-    { name: 'phone', label: 'Phone' },
-    { name: 'address', label: 'Address' }
   ];
 
   return (

@@ -4,6 +4,7 @@ import { BiPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
 import List from "@/Components/List";
 import { Head } from "@inertiajs/react";
+import Search from "@/Components/Search";
 
 
 export default function UsersListView({ auth, users }) {
@@ -12,7 +13,7 @@ export default function UsersListView({ auth, users }) {
     { name: 'lastname', label: 'Lastname' },
     { name: 'email', label: 'Email' },
     { name: 'organization.name', label: 'Organization' },
-    { name: 'roles[0].name', label: 'Role' }
+    { name: 'roles[0].display_name', label: 'Role' }
   ];
 
   return (
@@ -26,7 +27,8 @@ export default function UsersListView({ auth, users }) {
       <div className={`py-12`}>
         <div className={`mx-auto sm:px-6 lg:px-8`}>
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
-            <div className={`${textMain} p-6 w-full`}>Users</div>
+            <div className={`${textMain} p-6`}>Users</div>
+            <Search />
             <div className={`m-auto mr-4`}>
               {auth.permissions.find((permission => permission.name === 'create_users')) &&
                 <a href={route('user.create')} className={`${textMain} text-3xl`}>

@@ -49,16 +49,16 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['user_has_permission:create_customers']], function () {
         Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
-        Route::post('/customers', [CustomerController::class, 'store'])->name('customer.store');
+        Route::put('/customer/store', [CustomerController::class, 'store'])->name('customer.store');
     });
 
     Route::group(['middleware' => ['user_has_permission:edit_customers']], function () {
-        Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
-        Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update');
+        Route::get('/customer/{customerId}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+        Route::put('/customers/{customerId}/update', [CustomerController::class, 'update'])->name('customer.update');
     });
 
     Route::group(['middleware' => ['user_has_permission:delete_customers']], function () {
-        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+        Route::get('/customer/{customer}/delete', [CustomerController::class, 'destroy'])->name('customer.delete');
     });
 
     Route::group(['middleware' => ['auth', 'user_has_permission:show_calculation_types']], function () {

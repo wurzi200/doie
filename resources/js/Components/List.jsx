@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
+import { HiPrinter } from 'react-icons/hi';
 
-export default function List({ auth, data, fields, editRoute, deleteRoute, permission_name }) {
+export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -55,12 +56,23 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, permi
                         return array[index];
                       }
                     } else {
+                      if (field.type === 'currency') {
+                        return obj[key] / 100 + ' €';
+                      }
+                      if (field.type === 'percent') {
+                        return obj[key] + ' %';
+                      }
                       return obj[key];
                     }
+
                   }
                   return '';
                 }, item); return (
-                  <td key={field.name || field} className={`px-6 py-4`}>{value}</td>
+                  <td key={field.name || field} className={`px-6 py-4`}>
+                    {
+                      value
+                    }
+                  </td>
                 );
               })}
               <td className={`px-6 py-4 text-right flex justify-end`}>
@@ -70,9 +82,14 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, permi
                   </a>
                 }
                 {deleteRoute && auth.permissions.find((permission => permission.name === `delete_${permission_name}`)) &&
-                  <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700`}>
+                  <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700 mr-4`}>
                     <BiTrash />
                   </button>
+                }
+                {printRoute && auth.permissions.find((permission => permission.name === `print_${permission_name}`)) &&
+                  <a href={route(printRoute, { id: item.id })} className={`text-2xl text-indigo-500 hover:text-indigo-700 mr-4`}>
+                    <HiPrinter />
+                  </a>
                 }
               </td>
             </tr>

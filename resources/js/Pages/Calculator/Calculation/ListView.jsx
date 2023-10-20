@@ -9,8 +9,12 @@ import List from "@/Components/List";
 export default function CalculationsListView({ auth, calculations }) {
   const fields = [
     { name: 'name', label: 'Name' },
-    { name: 'description', label: 'Description' },
-    { name: 'result', label: 'Result' }
+    { name: 'cost', label: 'Cost', type: 'currency' },
+    { name: 'rate', label: 'rate', type: 'currency' },
+    { name: 'special', label: 'special', type: 'currency' },
+    { name: 'residual', label: 'residual', type: 'currency' },
+    { name: 'interest', label: 'interest', type: 'percent' },
+    { name: 'duration', label: 'duration' },
   ];
 
   return (
@@ -42,6 +46,7 @@ export default function CalculationsListView({ auth, calculations }) {
                 data={calculations.data}
                 editRoute={'calculation.edit'}
                 deleteRoute={'calculation.destroy'}
+                printRoute={'calculation.print'}
                 fields={fields}
                 permission_name={'calculations'}
               />

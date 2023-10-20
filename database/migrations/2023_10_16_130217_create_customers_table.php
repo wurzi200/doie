@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('number');
             $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('gender_id')->nullable();
-            $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
