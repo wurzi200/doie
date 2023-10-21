@@ -3,7 +3,7 @@ import { backgroundSecondary, textMain } from '@/Constants';
 import CreateCustomerInformation from './Partials/CreateCustomerInformation';
 import { Head } from '@inertiajs/react';
 
-export default function Create({ auth }) {
+export default function Create({ auth, genders }) {
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -18,6 +18,7 @@ export default function Create({ auth }) {
             <CreateCustomerInformation
               className={`w-full`}
               auth={auth}
+              genders={genders}
             />
           </div>
         </div>

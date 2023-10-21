@@ -13,6 +13,7 @@ export default function CustomersListView({ auth, customers }) {
     { name: 'last_name', label: 'Lastname' },
     { name: 'email', label: 'Email' },
     { name: 'number', label: 'Number' },
+    { name: 'gender.name', label: 'Gender' },
   ];
 
   return (

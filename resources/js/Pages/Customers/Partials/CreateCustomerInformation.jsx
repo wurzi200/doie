@@ -5,13 +5,15 @@ import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import { backgroundSecondary, border, textMain, textSecondary } from '@/Constants';
 import { Head, useForm } from '@inertiajs/react';
+import Select from '@/Components/Select';
 
-export default function CreateCustomerInformation({ auth }) {
+export default function CreateCustomerInformation({ auth, genders }) {
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     first_name: '',
     last_name: '',
     email: '',
     number: '',
+    gender: 1
   });
 
   const handleSubmit = (e) => {
@@ -32,6 +34,21 @@ export default function CreateCustomerInformation({ auth }) {
         </header>
         <div className={`flex flex-wrap md:flex-nowrap`}>
           <div className={`w-full md:mr-4`}>
+            <div className={`mb-4 w-1/2 pr-2`}>
+              <InputLabel htmlFor="gender" value="Gender" />
+
+              <Select
+                id={`gender`}
+                options={genders}
+                type={`number`}
+                className={`mt-1 block w-full`}
+                onChange={(e) => setData('gender', e.id)}
+                selected={genders.find(genders => genders.id === data.gender)}
+                required
+              />
+
+              <InputError className={`mt-2`} message={errors.gender_id} />
+            </div>
             <div className='flex'>
               <div className={`mb-4 w-full`}>
                 <InputLabel htmlFor="first_name" value="First Name" />
@@ -103,6 +120,6 @@ export default function CreateCustomerInformation({ auth }) {
           )}
         </div>
       </section>
-    </form>
+    </form >
   );
 }

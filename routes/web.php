@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\CalculationTypeController;
@@ -55,6 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['user_has_permission:edit_customers']], function () {
         Route::get('/customer/{customerId}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
         Route::put('/customers/{customerId}/update', [CustomerController::class, 'update'])->name('customer.update');
+
+        Route::put('address/{customerId}/create', [AddressController::class, 'create'])->name('address.store');
+        Route::patch('address/{addressId}/edit', [AddressController::class, 'edit'])->name('address.edit');
+        Route::get('address/{addressId}/delete', [AddressController::class, 'delete'])->name('address.delete');
     });
 
     Route::group(['middleware' => ['user_has_permission:delete_customers']], function () {

@@ -16,6 +16,20 @@ class Address extends Model
      */
     protected $table = 'customer_addresses';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'street',
+        'postal',
+        'city',
+        'state',
+        'zip',
+        'country',
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

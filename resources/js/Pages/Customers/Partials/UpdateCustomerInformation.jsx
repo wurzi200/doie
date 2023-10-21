@@ -5,15 +5,18 @@ import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import { backgroundSecondary, border, textMain, textSecondary } from '@/Constants';
 import { Head, useForm } from '@inertiajs/react';
+import Select from '@/Components/Select';
 
-export default function UpdateCustomerInformation({ auth, customer }) {
+export default function UpdateCustomerInformation({ auth, customer, genders }) {
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm({
     first_name: customer.first_name,
     last_name: customer.last_name,
     email: customer.email,
     number: customer.number,
+    gender: customer.gender_id ? customer.gender_id : 1
   });
 
+  console.log(customer);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -21,7 +24,7 @@ export default function UpdateCustomerInformation({ auth, customer }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`mt-6 space-y-6`}>
+    <form onSubmit={handleSubmit} className={`mt-6 space-y-6 w-full`}>
       <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
         <header>
           <h2 className={`text-lg font-medium ${textMain}`}>Update Customer Information</h2>
@@ -32,6 +35,23 @@ export default function UpdateCustomerInformation({ auth, customer }) {
         </header>
         <div className={`flex flex-wrap md:flex-nowrap`}>
           <div className={`w-full md:mr-4`}>
+            <div className='flex'>
+              <div className={`mb-4 w-1/2`}>
+                <InputLabel htmlFor="gender" value="Gender" />
+
+                <Select
+                  id={`gender`}
+                  options={genders}
+                  type={`number`}
+                  className={`mt-1 block w-full`}
+                  onChange={(e) => setData('gender', e.id)}
+                  selected={genders.find(genders => genders.id === data.gender)}
+                  required
+                />
+
+                <InputError className={`mt-2`} message={errors.gender_id} />
+              </div>
+            </div>
             <div className='flex'>
               <div className={`mb-4 w-full`}>
                 <InputLabel htmlFor="first_name" value="First Name" />

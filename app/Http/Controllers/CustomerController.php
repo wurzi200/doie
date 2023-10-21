@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Gender;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,7 @@ class CustomerController extends Controller
     {
         $currentUser = auth()->user();
 
-        $query = Customer::where('organization_id', $currentUser->organization_id)->with('addresses');
+        $query = Customer::where('organization_id', $currentUser->organization_id)->with(['addresses', 'gender']);
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -23,7 +24,10 @@ class CustomerController extends Controller
                 $q->where('first_name', 'like', '%' . $search . '%')
                     ->orWhere('last_name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('number', 'like', '%' . $search . '%');
+                    ->orWhere('number', 'like', '%' . $search . '%')
+                    ->orWhereHas('gender', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
             });
         }
 
@@ -36,7 +40,11 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return Inertia::render('Customers/Create');
+        $genders = Gender::get();
+
+        return Inertia::render('Customers/Create', [
+            'genders' => $genders,
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -48,6 +56,8 @@ class CustomerController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:customers,email,NULL,id,organization_id,' . $currentUser->organization_id,
             'number' => 'nullable|string|max:255',
+            'gender' => 'required'
+
         ]);
 
         $customer = new Customer();
@@ -56,6 +66,8 @@ class CustomerController extends Controller
         $customer->email = $validatedData['email'];
         $customer->number = $validatedData['number'];
         $customer->organization_id = $currentUser->organization_id;
+        $customer->gender_id = $validatedData['gender'];
+
         $customer->save();
 
         return Redirect::to('/customers');
@@ -63,14 +75,16 @@ class CustomerController extends Controller
 
     public function edit(Request $request, $customerId)
     {
-        $customer = Customer::where('id', $customerId)->first();
+        $customer = Customer::where('id', $customerId)->with('addresses')->first();
+        $genders = Gender::get();
 
         if ($request->user()->organization_id != $customer->organization_id && !$request->user()->hasRole('super-admin-1')) {
             abort(403, 'Unauthorized action.');
         }
 
         return Inertia::render('Customers/Edit', [
-            'customer' => $customer
+            'customer' => $customer,
+            'genders' => $genders,
         ]);
     }
 
@@ -92,12 +106,14 @@ class CustomerController extends Controller
                 }),
             ],
             'number' => 'nullable|string|max:255',
+            'gender' => 'required'
         ]);
 
         $customer->first_name = $validatedData['first_name'];
         $customer->last_name = $validatedData['last_name'];
         $customer->email = $validatedData['email'];
         $customer->number = $validatedData['number'];
+        $customer->gender_id = $validatedData['gender'];
         $customer->save();
 
         return Redirect::route('customer.edit', $customerId);
