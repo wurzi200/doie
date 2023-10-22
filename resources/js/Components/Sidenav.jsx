@@ -96,14 +96,17 @@ export default function Sidenav({ auth, user }) {
               </p>
             </Sidebar.Item>
           }
-          <Sidebar.Item
-            href="#"
-            icon={HiOfficeBuilding}
-          >
-            <p>
-              Objects
-            </p>
-          </Sidebar.Item>
+          {auth.permissions.find((permission => permission.name === 'show_objects')) &&
+
+            <Sidebar.Item
+              href="#"
+              icon={HiOfficeBuilding}
+            >
+              <p>
+                Objects
+              </p>
+            </Sidebar.Item>
+          }
           <hr />
           <Sidebar.Collapse
             icon={HiCog}

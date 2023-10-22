@@ -4,8 +4,8 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
-import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from '@/Constants';
-import { Head, useForm } from '@inertiajs/react';
+import { backgroundSecondary, border, textMain, textSecondary } from '@/Constants';
+import { useForm } from '@inertiajs/react';
 import Select from '@/Components/Select';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 import { HiX } from 'react-icons/hi';
@@ -86,7 +86,7 @@ export default function CreateAddressInformation({ customer, countries, fields, 
 
               <button
                 type="button"
-                className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                className="text-2xl absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
                 onClick={onClose}
               >
                 <HiX />
