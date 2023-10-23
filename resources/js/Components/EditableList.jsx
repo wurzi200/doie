@@ -49,7 +49,6 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
       itemData[field] = editedItem[field];
     });
 
-    console.log(item);
     router.patch(route(editRoute, item.id), itemData);
 
     setEditedItem({});
@@ -70,6 +69,7 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
       return { ...prevState, [arrayKey]: newArray };
     });
   };
+
   return (
     <div className={`${border} relative border overflow-x-auto sm:rounded-lg mt-4`}>
 

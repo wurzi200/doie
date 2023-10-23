@@ -34,18 +34,20 @@ class AddressController extends Controller
         return Redirect::route('customer.edit', $customerId);
     }
 
-    public function edit(Request $request, $addressId)
+    public function edit(Request $request, $addressId): RedirectResponse
     {
         $address = Address::findOrFail($addressId);
+        $customerId = $address->customer->id;
 
         $validatedData = $request->validate([
             'street' => 'required|string|max:255',
-            'postal' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
         ]);
-
         $address->update($validatedData);
+
+        return Redirect::route('customer.edit', $customerId);
     }
 
     public function delete($addressId): RedirectResponse

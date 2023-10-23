@@ -10,12 +10,11 @@ import { useState } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function Edit({ auth, customer, genders }) {
-  const fields = [
+  const addressFields = [
     { name: 'street', label: 'Street' },
     { name: 'postal_code', label: 'Postal' },
     { name: 'city', label: 'City' },
     { name: 'country', label: 'Country' },
-
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,10 +62,9 @@ export default function Edit({ auth, customer, genders }) {
                   </div>
                   <CreateAddressInformation
                     customer={customer}
-                    fields={fields}
+                    fields={addressFields}
                     isOpen={isModalOpen}
                     onClose={handleClose}
-
                   />
                 </header>
                 <EditableList
@@ -74,7 +72,7 @@ export default function Edit({ auth, customer, genders }) {
                   data={customer.addresses}
                   editRoute={'address.edit'}
                   deleteRoute={'address.delete'}
-                  fields={fields}
+                  fields={addressFields}
                   permission_name={'customers'}
                 />
               </section>

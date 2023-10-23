@@ -16,7 +16,6 @@ export default function UpdateCustomerInformation({ auth, customer, genders }) {
     gender: customer.gender_id ? customer.gender_id : 1
   });
 
-  console.log(customer);
   const handleSubmit = (e) => {
     e.preventDefault();
 

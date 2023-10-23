@@ -23,7 +23,7 @@ class Address extends Model
      */
     protected $fillable = [
         'street',
-        'postal',
+        'postal_code',
         'city',
         'state',
         'zip',
