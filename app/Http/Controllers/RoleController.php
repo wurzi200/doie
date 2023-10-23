@@ -37,7 +37,6 @@ class RoleController extends Controller
 
     public function edit(Request $request, $roleId)
     {
-
         $role = Role::where('id', $roleId)->with('permissions')->first();
 
         if ($request->user()->organization_id != $role->organization_id && !$request->user()->hasRole('super-admin-1')) {

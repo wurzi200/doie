@@ -6,6 +6,7 @@ use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\CalculationTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +37,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('invite', [InviteController::class, 'invite'])->name('invite');
+Route::post('invite', [InviteController::class, 'process'])->name('process');
+// {token} is a required parameter that will be exposed to us in the controller method
+Route::get('accept/{token}', [InviteController::class, 'accept'])->name('accept');
+Route::put('registerInvitedUser', [InviteController::class, 'registerInvitedUser'])->name('registerInvitedUser');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');

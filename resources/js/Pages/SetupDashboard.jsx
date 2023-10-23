@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { Progress } from 'flowbite-react';
 
-export default function Dashboard({ auth }) {
+export default function SetupDashboard({ auth }) {
     return (
         <AuthenticatedLayout
             auth={auth}
@@ -9,7 +10,6 @@ export default function Dashboard({ auth }) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -17,6 +17,23 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
+            {
+                auth.user.organization_id === null &&
+                <div className='py-12'>
+                    <div className="mx-auto sm:px-6 lg:px-8 text-xl">
+                        <Progress
+                            labelProgress
+                            labelText
+                            progress={10}
+                            progressLabelPosition="inside"
+                            size="xl"
+                            textLabel="Flowbite"
+                            textLabelPosition="outside"
+                        />
+                    </div>
+                </div>
+
+            }
         </AuthenticatedLayout>
     );
 }
