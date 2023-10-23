@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/react';
 import PrimaryButton from './PrimaryButton';
 import { backgroundSecondary, border, textMain, textSecondary } from '@/constants';
 
-const InviteAdmin = () => {
+const InviteUser = () => {
   const { data, setData, post, processing, errors } = useForm({
     email: '',
   });
@@ -24,7 +24,7 @@ const InviteAdmin = () => {
       <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>
         <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
           <header>
-            <h2 className={`text-lg font-medium ${textMain}`}>Invite New Admin-Customer</h2>
+            <h2 className={`text-lg font-medium ${textMain}`}>Invite New User</h2>
 
             <p className={`mt-1 mb-4 text-sm ${textSecondary}`}>
             </p>
@@ -56,4 +56,4 @@ const InviteAdmin = () => {
   );
 };
 
-export default InviteAdmin;
+export default InviteUser;
