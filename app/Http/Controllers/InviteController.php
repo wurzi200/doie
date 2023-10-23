@@ -29,10 +29,18 @@ class InviteController extends Controller
         while (Invite::where('token', $token)->first());
 
         $currentUser = auth()->user();
+
+        if ($currentUser->hasRole('super-admin-1')) {
+            $type = 'admin';
+        } else {
+            $type = 'user';
+        }
+
         //create a new invite record
         $invite = Invite::create([
             'email' => $request->get('email'),
             'token' => $token,
+            'type' => $type,
             'organization_id' => $currentUser->organization_id,
         ]);
 
@@ -52,10 +60,16 @@ class InviteController extends Controller
             abort(404);
         }
 
+        if ($invite->type == 'admin') {
+            $organization_id = null;
+        } else {
+            $organization_id = $invite->organization_id;
+        }
+
         return Inertia::render('Auth/RegisterInvitedUser/RegisterInvitedUser', [
             'email' => $invite->email,
             'token' => $invite->token,
-            'organization_id' => $invite->organization_id,
+            'organization_id' => $organization_id,
         ]);
     }
 

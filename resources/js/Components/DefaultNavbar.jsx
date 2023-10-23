@@ -42,11 +42,24 @@ export default function NavbarWithDropdown({ auth, user }) {
               </Link>
             </div>
 
-            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <div className={`hidden space-x-8 sm:-my-px sm:ml-10 sm:flex`}>
               {user.roles.find((role => role.name === 'super-admin-1')) &&
-                <NavLink href={route('permissions.index')} active={route().current('permissions.*')}>
-                  Permissions
-                </NavLink>
+                <>
+                  <NavLink
+                    href={route('permissions.index')}
+                    active={route().current('permissions.*')}
+                    className={`${textMain} `}
+                  >
+                    Permissions
+                  </NavLink>
+                  <NavLink
+                    href={route('invite-admin.index')}
+                    active={route().current('invite-admin.*')}
+                    className={`${textMain} `}
+                  >
+                    Invite Admin
+                  </NavLink>
+                </>
               }
             </div>
           </div>

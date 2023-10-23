@@ -44,7 +44,6 @@ Route::post('invite', [InviteController::class, 'process'])->name('process');
 Route::get('accept/{token}', [InviteController::class, 'accept'])->name('accept');
 Route::put('registerInvitedUser', [InviteController::class, 'registerInvitedUser'])->name('registerInvitedUser');
 
-
 Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -168,6 +167,13 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
+
+    //invite
+    Route::group(['middleware' => ['auth', 'role:super-admin-1']], function () {
+        Route::get('/invite-admin', function () {
+            return Inertia::render('Invite/InviteAdmin');
+        })->name('invite-admin.index');
+    });
 });
 
 // Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');

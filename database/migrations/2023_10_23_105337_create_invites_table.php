@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('invites', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
+            $table->string('type');
             $table->string('token', 16)->unique();
             $table->unsignedBigInteger('organization_id');
             $table->timestamps();
