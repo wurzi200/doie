@@ -5,8 +5,6 @@ import { backgroundSecondary, backgroundTertiary, border, textMain, textSecondar
 export default function UpdateRolePermissionForm({ role, permissions }) {
 
   function togglePermission(permission, value) {
-
-
     const data = {
       role: role.id,
       permission: permission.name,

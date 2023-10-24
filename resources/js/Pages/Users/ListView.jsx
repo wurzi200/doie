@@ -32,7 +32,7 @@ export default function UsersListView({ auth, users }) {
       <Head title="Users" />
 
       <div className={`py-12`}>
-        <div className={`mx-auto sm:px-6 lg:px-8`}>
+        <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`${textMain} p-6`}>Users</div>
             <Search />

@@ -21,7 +21,7 @@ export default function CalculationTypeListView({ auth, calculationTypes }) {
       <Head title="Calculation Types" />
 
       <div className="py-12">
-        <div className="mx-auto sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`p-6 ${textMain}`}>Calculation Types</div>
             {auth.user.roles.find((role => role.name === 'super-admin-1')) && <Search />}

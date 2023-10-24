@@ -70,7 +70,7 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return Redirect::to('/customers');
+        return Redirect::route('customer.edit', $customer->id);
     }
 
     public function edit(Request $request, $customerId)

@@ -12,7 +12,7 @@ export default function Create({ auth, mustVerifyEmail, status, user, organizati
       <Head title="Create a new Calculation" />
 
       <div className="py-8">
-        <div className="mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
           <div>
             <CreateCalculationForm
               mustVerifyEmail={mustVerifyEmail}
