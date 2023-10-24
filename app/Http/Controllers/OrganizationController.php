@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
@@ -59,6 +60,9 @@ class OrganizationController extends Controller
         ]);
 
         $organization->save();
+
+        $roleController = new RoleController();
+        $roleController->createBasicRoles($organization->id);
 
         return Redirect::route('organizations.index');
     }

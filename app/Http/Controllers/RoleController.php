@@ -14,15 +14,62 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+
+    static function createBasicRoles($organization_id)
+    {
+        $roles = [
+            ['name' => 'user'],
+            ['name' => 'editor'],
+            ['name' => 'admin'],
+        ];
+
+        foreach ($roles as $role) {
+            $newRole = Role::create([
+                'name' => $role['name'] . '-' . $organization_id,
+                'display_name' => $role['name'],
+                'guard_name' => 'web',
+                'organization_id' => $organization_id,
+            ]);
+
+            $newRole->save();
+
+
+            if ($role['name'] === 'user') {
+                $permissions = Permission::where('name', 'like', 'show%')->get();
+
+                foreach ($permissions as $permission) {
+                    $newRole->givePermissionTo($permission);
+                }
+            }
+
+            if ($role['name'] === 'editor') {
+                $permissions = Permission::where(function ($query) {
+                    $query->where('name', 'like', 'show%')
+                        ->orWhere('name', 'like', 'edit%')
+                        ->orWhere('name', 'like', 'delete%');
+                })->get();
+
+                foreach ($permissions as $permission) {
+                    $newRole->givePermissionTo($permission);
+                }
+            }
+
+            if ($role['name'] === 'admin') {
+                $permissions = Permission::get();
+
+                foreach ($permissions as $permission) {
+                    $newRole->givePermissionTo($permission);
+                }
+            }
+        }
+    }
+
     public function index()
     {
         $currentUser = auth()->user();
 
-        if (checkIfSuperAdminAndOrganization()) {
-            $roles = Role::paginate('10');
-        } else {
-            $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
-        }
+        $roles = Role::where('organization_id', $currentUser->organization_id)->paginate('10');
+
         return Inertia::render('Roles/ListView', [
             'roles' => $roles
         ]);
