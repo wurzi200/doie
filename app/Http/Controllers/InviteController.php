@@ -118,6 +118,10 @@ class InviteController extends Controller
 
         $invite->delete();
 
+        Invite::where('organization_id', $request->organization_id)
+            ->where('email', $request->email)
+            ->delete();
+
         event(new Registered($user));
 
         Auth::login($user);
