@@ -94,6 +94,7 @@ class InviteController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'organization_id' => $request->organization_id ? $request->organization_id : null,
+            'tutorial_step' => 1,
             'password' => Hash::make($request->password),
         ]);
 

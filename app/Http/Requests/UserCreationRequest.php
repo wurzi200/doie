@@ -21,6 +21,7 @@ class UserCreationRequest extends FormRequest
       'lastname' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)],
       'organization_id' => ['required'],
+      'tutorial_step' => ['required'],
       'password' => ['required', 'confirmed', Password::defaults()],
     ];
   }

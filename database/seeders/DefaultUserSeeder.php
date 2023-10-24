@@ -19,6 +19,7 @@ class DefaultUserSeeder extends Seeder
             'email' => 'user@user.local',
             'email_verified_at' => now(),
             'organization_id' => 1,
+            'tutorial_step' => 999,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
         ])->assignRole('user-1');
 
@@ -28,6 +29,7 @@ class DefaultUserSeeder extends Seeder
             'email' => 'editor@editor.local',
             'email_verified_at' => now(),
             'organization_id' => 1,
+            'tutorial_step' => 999,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
         ])->assignRole('editor-1');
 
@@ -37,6 +39,7 @@ class DefaultUserSeeder extends Seeder
             'email' => 'admin@admin.local',
             'email_verified_at' => now(),
             'organization_id' => 1,
+            'tutorial_step' => 999,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
         ])->assignRole('admin-1');
 
@@ -46,6 +49,7 @@ class DefaultUserSeeder extends Seeder
             'email' => 'superadmin@superadmin.local',
             'email_verified_at' => now(),
             'organization_id' => 1,
+            'tutorial_step' => 999,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // hash for password "password"
         ])->assignRole('super-admin-1');
     }

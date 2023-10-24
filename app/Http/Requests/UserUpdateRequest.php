@@ -21,6 +21,7 @@ class UserUpdateRequest extends FormRequest
       'name' => ['string', 'max:255'],
       'lastname' => ['string', 'max:255'],
       'organization_id' => ['integer'],
+      'tutorial_step' => ['integer'],
       'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($userId)],
     ];
   }

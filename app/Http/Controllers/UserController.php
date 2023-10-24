@@ -143,6 +143,7 @@ class UserController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'organization_id' => $request->organization_id,
+            'tutorial_step' => 1,
             'password' => Hash::make($request->password),
         ]);
 
