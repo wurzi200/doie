@@ -38,16 +38,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('invite', [InviteController::class, 'invite'])->name('invite');
-Route::post('invite', [InviteController::class, 'process'])->name('process');
-// {token} is a required parameter that will be exposed to us in the controller method
 Route::get('accept/{token}', [InviteController::class, 'accept'])->name('accept');
 Route::put('registerInvitedUser', [InviteController::class, 'registerInvitedUser'])->name('registerInvitedUser');
 
 Route::get('/dashboard', function () {
     return Inertia::render('UserDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::middleware('auth')->group(function () {
 
@@ -124,6 +120,11 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'user_has_permission:create_users']], function () {
         Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
         Route::put('/user/store', [UserController::class, 'store'])->name('user.store');
+
+        //Invite Users
+        Route::get('invite', [InviteController::class, 'invite'])->name('invite');
+        Route::post('invite', [InviteController::class, 'process'])->name('process');
+        // {token} is a required parameter that will be exposed to us in the controller method
     });
 
     Route::group(['middleware' => ['auth', 'user_has_permission:edit_users']], function () {

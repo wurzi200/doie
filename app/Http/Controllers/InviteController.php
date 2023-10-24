@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rules;
 use App\Mail\InviteCreated;
 use App\Models\Invite;
+use App\Models\Organization;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -98,10 +99,21 @@ class InviteController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->role) {
-            $user->assignRole($request->role);
+        if ($request->organization_id) {
+            $user->assignRole('user' . '-' . $request->organization_id);
         } else {
-            $user->assignRole('newuser-0');
+            $organization = Organization::create([
+                'name' => $request->name . ' ' . $request->lastname,
+            ]);
+
+            $organization->save();
+
+            $roleController = new RoleController();
+            $roleController->createBasicRoles($organization->id);
+
+            $user->assignRole('admin' . '-' . $organization->id);
+            $user->organization_id = $organization->id;
+            $user->save();
         }
 
         $invite->delete();
