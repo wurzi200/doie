@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/react';
 import PrimaryButton from './PrimaryButton';
 import { backgroundSecondary, border, textMain, textSecondary } from '@/constants';
 
-const InviteUser = () => {
+const InviteAdmin = () => {
   const { data, setData, post, processing, errors } = useForm({
     email: '',
   });
@@ -20,11 +20,11 @@ const InviteUser = () => {
   };
 
   return (
-    <div className={``}>
+    <div className={`py-12`}>
       <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>
         <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
           <header>
-            <h2 className={`text-lg font-medium ${textMain}`}>Invite New Users</h2>
+            <h2 className={`text-lg font-medium ${textMain}`}>Invite New Admin</h2>
 
             <p className={`mt-1 mb-4 text-sm ${textSecondary}`}>
             </p>
@@ -45,7 +45,7 @@ const InviteUser = () => {
               <InputError errors={errors.email} />
             </div>
             <div className='mt-2'>
-              <PrimaryButton type="submit" disabled={processing} className='w-full'>
+              <PrimaryButton type="submit" disabled={processing}>
                 {processing ? 'Sending...' : 'Send Invite'}
               </PrimaryButton>
             </div>
@@ -56,4 +56,4 @@ const InviteUser = () => {
   );
 };
 
-export default InviteUser;
+export default InviteAdmin;

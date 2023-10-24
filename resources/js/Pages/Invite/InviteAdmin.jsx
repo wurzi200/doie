@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InviteUser from '@/Components/InviteUser';
+import InviteAdmin from '@/Components/InviteAdmin';
 
 export default function Dashboard({ auth }) {
   return (
@@ -10,7 +10,7 @@ export default function Dashboard({ auth }) {
       header={<h2 className="font-semibold text-xl leading-tight">Invite Admin</h2>}
     >
       <Head title="InviteAdmin" />
-      <InviteUser />
+      <InviteAdmin />
     </AuthenticatedLayout>
   );
 }

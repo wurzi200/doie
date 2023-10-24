@@ -1,11 +1,12 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Pagination from "@/Components/Pagination";
-import { BiPlus } from "react-icons/bi";
+import { BiMailSend, BiPlus, BiSend, BiUserPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
 import List from "@/Components/List";
 import { Head } from "@inertiajs/react";
 import Search from "@/Components/Search";
-
+import { useState } from "react";
+import InviteUserForm from "@/Components/InviteUser";
 
 export default function UsersListView({ auth, users }) {
   const fields = [
@@ -15,6 +16,12 @@ export default function UsersListView({ auth, users }) {
     { name: 'organization.name', label: 'Organization' },
     { name: 'roles[0].display_name', label: 'Role' }
   ];
+
+  const [showInviteForm, setShowInviteForm] = useState(false);
+
+  const handleInviteToggle = () => {
+    setShowInviteForm(!showInviteForm);
+  };
 
   return (
     <AuthenticatedLayout
@@ -29,14 +36,28 @@ export default function UsersListView({ auth, users }) {
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`${textMain} p-6`}>Users</div>
             <Search />
-            <div className={`m-auto mr-4`}>
-              {auth.permissions.find((permission => permission.name === 'create_users')) &&
-                <a href={route('user.create')} className={`${textMain} text-3xl`}>
-                  <BiPlus>+</BiPlus>
-                </a>
-              }
+            <div className={`m-auto mr-4 flex`}>
+              <div className={`m-auto mr-4`}>
+                {auth.permissions.find((permission => permission.name === 'create_users')) &&
+                  <a href="#" onClick={handleInviteToggle} className={`${textMain} text-3xl`}>
+                    <BiMailSend />
+                  </a>
+                }
+              </div>
+              <div className={`m-auto mr-4`}>
+                {auth.permissions.find((permission => permission.name === 'create_users')) &&
+                  <a href={route('user.create')} className={`${textMain} text-3xl`}>
+                    <BiUserPlus />
+                  </a>
+                }
+              </div>
             </div>
           </div>
+          {showInviteForm &&
+            <div className={'fixed z-50 right-0'}>
+              <InviteUserForm />
+            </div>
+          }
           {users &&
             <>
               <Pagination className={`mt-6`} links={users.links} />
@@ -52,7 +73,6 @@ export default function UsersListView({ auth, users }) {
           }
         </div>
       </div>
-
     </AuthenticatedLayout >
   );
 }

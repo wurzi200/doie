@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '../Layouts/AuthenticatedLayout';
 import { backgroundSecondary, border, textMain } from '../constants';
-import InviteUser from '@/Components/InviteUser';
+import InviteUser from '@/Components/InviteAdmin';
 
 export default function Dashboard({ auth }) {
   return (
