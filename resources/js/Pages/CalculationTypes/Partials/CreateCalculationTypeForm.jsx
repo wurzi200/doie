@@ -4,7 +4,6 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
-import SearchableDropdown from '@/Components/SearchableDropdown';
 import { backgroundSecondary, border, textMain, textSecondary, blockInvalidChar } from '@/Constants';
 import Select from '@/Components/Select';
 

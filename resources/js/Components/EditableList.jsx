@@ -108,10 +108,12 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
                   <td key={field.name || field} className={`px-6 py-4`}>
                     {isEditing ? (
                       <TextInput
+                        className={`block w-full`}
                         type="text"
                         name={field.name}
                         value={value}
                         onChange={field.name.includes('[') ? handleArrayInputChange : handleInputChange}
+                        required={field.required}
                       />
                     ) : (
                       value

@@ -16,7 +16,7 @@ class AddressController extends Controller
 
         $validatedData = $request->validate([
             'street' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
+            'postal_code' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
         ]);
@@ -41,7 +41,7 @@ class AddressController extends Controller
 
         $validatedData = $request->validate([
             'street' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
+            'postal_code' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
         ]);
