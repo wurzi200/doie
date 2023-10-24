@@ -46,17 +46,6 @@ export default function CreateRoleInformation({ organizations, user }) {
 
               <InputError className={`mt-2`} message={errors.name} />
             </div>
-            <div className={`mb-4`}>
-              <InputLabel htmlFor={`organization`} value={`Organization`} />
-
-              <SearchableDropdown
-                options={organizations}
-                onChange={(e) => setData('organization_id', e.id)}
-                defaultId={data.organization_id}
-              />
-
-              <InputError className={`mt-2`} message={errors.organozation_id} />
-            </div>
           </div>
         </div >
         <div className={`flex items-center gap-4 mt-4`}>
