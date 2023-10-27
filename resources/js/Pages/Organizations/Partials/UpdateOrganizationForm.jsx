@@ -37,7 +37,7 @@ export default function UpdateOrganizationForm({ organization, types }) {
   };
 
   return (
-    <form onSubmit={submit} className={`mt-6 space-y-6`}>
+    <form onSubmit={submit} className={`space-y-6`}>
       <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
         <header>
           <h2 className={`text-lg font-medium ${textMain}`}>{organization.name}</h2>

@@ -35,7 +35,13 @@ export default function Edit({ auth, organization, types, logoUrl }) {
               </div>
             </div>
             <div className='w-full md:w-2/3 pl-4'>
-              <div className='mb-4'>
+              <div className='mt-6'>
+                {/* <UpdateOrganizationForm
+                  organization={organization}
+                  types={types}
+                /> */}
+              </div>
+              <div className='mt-4'>
                 <UpdateOrganizationForm
                   organization={organization}
                   types={types}
