@@ -9,14 +9,14 @@ import CreateAddressInformation from '../Addresses/CreateAddressInformation';
 import { useState } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function Edit({ auth, customer, genders }) {
+export default function Edit({ auth, customer, genders, addresses }) {
   const addressFields = [
     { name: 'street', label: 'Street', required: true },
     { name: 'postal_code', label: 'Postal', required: true },
     { name: 'city', label: 'City', required: true },
     { name: 'country', label: 'Country', required: true },
   ];
-
+  console.log(addresses);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {

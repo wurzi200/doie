@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Address extends Model
 {
@@ -14,7 +17,7 @@ class Address extends Model
      *
      * @var string
      */
-    protected $table = 'customer_addresses';
+    protected $table = 'addresses';
 
     /**
      * The attributes that are mass assignable.
@@ -30,8 +33,8 @@ class Address extends Model
         'country',
     ];
 
-    public function customer()
+    public function customers(): MorphToMany
     {
-        return $this->belongsTo(Customer::class);
+        return $this->morphedByMany(Address::class, 'model', 'model_has_addresses', 'model_id', 'address_id');
     }
 }

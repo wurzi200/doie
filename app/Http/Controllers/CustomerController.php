@@ -14,9 +14,9 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        $currentUser = auth()->user();
+        $currentUser = $request->user();
 
-        $query = Customer::where('organization_id', $currentUser->organization_id)->with(['addresses', 'gender']);
+        $query = Customer::where('organization_id', $currentUser->organization_id)->with(['gender']);
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -75,16 +75,18 @@ class CustomerController extends Controller
 
     public function edit(Request $request, $customerId)
     {
-        $customer = Customer::where('id', $customerId)->with('addresses')->first();
-        $genders = Gender::get();
+        $customer = Customer::findOrFail($customerId);
 
         if ($request->user()->organization_id != $customer->organization_id && !$request->user()->hasRole('super-admin-1')) {
             abort(403, 'Unauthorized action.');
         }
 
+        $genders = Gender::all();
+        $adresses = $customer->addresses;
         return Inertia::render('Customers/Edit', [
             'customer' => $customer,
             'genders' => $genders,
+            'adresses' => $adresses
         ]);
     }
 

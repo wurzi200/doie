@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\ModelHasAddress;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,10 +26,9 @@ class AddressFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'customer_id' => function () {
-                return Customer::factory()->create()->id;
-            },
+        $customer = Customer::factory()->create();
+
+        $address = [
             'type' => $this->faker->randomElement(['Home', 'Work', 'Other']),
             'street' => $this->faker->streetAddress,
             'city' => $this->faker->city,
@@ -36,5 +36,15 @@ class AddressFactory extends Factory
             'postal_code' => $this->faker->postcode,
             'country' => $this->faker->country,
         ];
+
+        $addressModel = Address::create($address);
+
+        $modelHasAddress = new ModelHasAddress();
+        $modelHasAddress->address_id = $addressModel->id;
+        $modelHasAddress->model_type = 'App\Models\Customer';
+        $modelHasAddress->model_id = $customer->id;
+        $modelHasAddress->save();
+
+        return $address;
     }
 }

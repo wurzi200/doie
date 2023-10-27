@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customer_addresses', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
             $table->string('type');
             $table->string('street');
             $table->string('city');
@@ -21,7 +20,6 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('country');
             $table->timestamps();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer_addresses');
+        Schema::dropIfExists('addresses');
     }
 };
