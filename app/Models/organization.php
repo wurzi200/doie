@@ -20,6 +20,8 @@ class Organization extends Model
         'email',
         'establishment_date',
         'commercial_register_number',
+        'tax_number',
+        'vat_id',
     ];
 
     public function users(): HasMany

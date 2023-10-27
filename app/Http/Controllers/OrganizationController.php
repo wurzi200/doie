@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrganizationUpdateRequest;
 use App\Models\Organization;
+use App\Models\OrganizationType;
+use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -71,6 +75,7 @@ class OrganizationController extends Controller
     public function edit($organizationId)
     {
         $organization = Organization::where('id', $organizationId)->first();
+        $types = OrganizationType::get();
         $logoUrl = null;
 
         if ($organization->logo) {
@@ -79,6 +84,7 @@ class OrganizationController extends Controller
 
         return Inertia::render('Organizations/Edit', [
             'organization' => $organization,
+            'types' => $types,
             'logoUrl' => $logoUrl,
         ]);
     }
@@ -87,6 +93,10 @@ class OrganizationController extends Controller
     {
         $organization = Organization::where('id', $organizationId)->first();
         $organization->fill($request->validated());
+
+        // addDay() becaue datepicker is weird might change this later
+        $establishment_date = Carbon::parse($request->input('establishment_date'))->addDay()->format('Y-m-d');
+        $organization->establishment_date = $establishment_date;
 
         $organization->save();
 

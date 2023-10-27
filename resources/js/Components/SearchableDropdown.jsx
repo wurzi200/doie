@@ -22,7 +22,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
         <div className={`relative mt-1`}>
           <div className={`relative w-full cursor-default overflow-hidden rounded-md ${backgroundSecondary} text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm`}>
             <Combobox.Input
-              className={`${textSecondary} ${backgroundTertiary} ${border} border focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full`}
+              className={`${textMain} ${backgroundTertiary} ${border} border focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full`}
               displayValue={(option) => option.display_name ? option.display_name : option.name}
               onChange={(event) => setQuery(event.target.value)}
             />

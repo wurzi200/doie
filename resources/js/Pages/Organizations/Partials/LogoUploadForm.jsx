@@ -10,7 +10,7 @@ import { useState } from 'react';
 export default function LogoUploadForm({ organization, logoUrl }) {
 
   const { data, setData, post, errors, processing, progress, recentlySuccessful } = useForm({
-    logo: organization.logo,
+    logo: organization.logo ? organization.logo : '',
   });
 
   const submit = (e) => {
@@ -19,7 +19,7 @@ export default function LogoUploadForm({ organization, logoUrl }) {
   };
 
   return (
-    <form onSubmit={submit} className={`mt-6 space-y-6`}>
+    <form onSubmit={submit} className={`space-y-6`}>
       <section className={`p-4 sm:p-8 ${backgroundSecondary} ${border} border shadow sm:rounded-lg`}>
         <header>
           <h2 className={`text-lg font-medium ${textMain}`}>Logo</h2>
@@ -37,7 +37,7 @@ export default function LogoUploadForm({ organization, logoUrl }) {
           <InputError className={`mt-2`} message={errors.logo} />
         </div >
         <div className={`flex items-center gap-4 mt-4`}>
-          {data.logo.url != logoUrl &&
+          {data.logo &&
             <PrimaryButton disabled={progress}>Save</PrimaryButton>
           }
           <Transition
