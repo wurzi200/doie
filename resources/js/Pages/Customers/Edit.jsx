@@ -16,7 +16,6 @@ export default function Edit({ auth, customer, genders, addresses }) {
     { name: 'city', label: 'City', required: true },
     { name: 'country', label: 'Country', required: true },
   ];
-  console.log(addresses);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {

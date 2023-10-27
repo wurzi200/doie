@@ -35,6 +35,6 @@ class Address extends Model
 
     public function customers(): MorphToMany
     {
-        return $this->morphedByMany(Address::class, 'model', 'model_has_addresses', 'model_id', 'address_id');
+        return $this->morphedByMany(Customer::class, 'model', 'model_has_addresses', 'model_id', 'address_id');
     }
 }

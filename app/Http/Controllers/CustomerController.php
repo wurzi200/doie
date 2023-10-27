@@ -82,11 +82,11 @@ class CustomerController extends Controller
         }
 
         $genders = Gender::all();
-        $adresses = $customer->addresses;
+        $customer->addresses;
+
         return Inertia::render('Customers/Edit', [
             'customer' => $customer,
             'genders' => $genders,
-            'adresses' => $adresses
         ]);
     }
 
