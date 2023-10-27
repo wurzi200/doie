@@ -46,6 +46,6 @@ class Organization extends Model
 
     public function organizationType()
     {
-        return $this->belongsTo(OrganizationType::class);
+        return $this->belongsTo(OrganizationType::class, 'type', 'id');
     }
 }

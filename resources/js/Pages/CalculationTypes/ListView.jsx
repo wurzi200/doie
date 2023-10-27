@@ -24,9 +24,9 @@ export default function CalculationTypeListView({ auth, calculationTypes }) {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`p-6 ${textMain}`}>Calculation Types</div>
-            {auth.user.roles.find((role => role.name === 'super-admin-1')) && <Search />}
+            {auth.permissions.find((permission => permission.name === 'show_calculation_types')) && <Search />}
             <div className="m-auto mr-4">
-              {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
+              {auth.permissions.find((permission => permission.name === 'create_calculation_types')) &&
                 <a href={route('calculationType.create')} className="">
                   <BiPlus className={`text-3xl ${textMain}`}>+</BiPlus>
                 </a>

@@ -62,6 +62,10 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                       if (field.type === 'percent') {
                         return obj[key] + ' %';
                       }
+                      if (field.type === 'link') {
+                        return <a className='text-blue-600' href={`${obj[key]}`} target="_blank" rel="noopener noreferrer">
+                          {obj[key]}</a>
+                      }
                       return obj[key];
                     }
 

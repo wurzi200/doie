@@ -26,13 +26,13 @@ class OrganizationController extends Controller
             $organizations = Organization::where(function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
             })
-                ->paginate(10)->withQueryString();
+                ->with('organizationType')->paginate(10)->withQueryString();
         } else {
             $organizations = Organization::where('id', $currentUser->organization_id)
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%");
                 })
-                ->paginate(10)->withQueryString();
+                ->with('organizationType')->paginate(10)->withQueryString();
         }
 
         return Inertia::render('Organizations/ListView', [
