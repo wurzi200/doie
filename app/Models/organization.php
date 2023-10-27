@@ -14,6 +14,12 @@ class Organization extends Model
 
     protected $fillable = [
         'name',
+        'type',
+        'logo',
+        'website',
+        'email',
+        'establishment_date',
+        'commercial_register_number',
     ];
 
     public function users(): HasMany
@@ -34,5 +40,10 @@ class Organization extends Model
     public function customers()
     {
         return $this->hasMany(Customer::class);
+    }
+
+    public function organizationType()
+    {
+        return $this->belongsTo(OrganizationType::class);
     }
 }

@@ -6,5 +6,5 @@ export const TextInputStyle = "text-gray-900 dark:text-white bg-gray-50 dark:bg-
 export const textMain = "text-gray-900 dark:text-white";
 export const textSecondary = "text-gray-600 dark:text-gray-400";
 export const buttonStyle = "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 dark:bg-primary-600";
-
+export const buttonColor = "bg-blue-700 hover:bg-blue-800 dark:bg-primary-600";
 export const blockInvalidChar = e => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();

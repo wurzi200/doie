@@ -147,6 +147,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'user_has_permission:edit_organizations']], function () {
         Route::get('/organization/{organizationId}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
         Route::patch('/organization/{organizationId}/update', [OrganizationController::class, 'update'])->name('organization.update');
+        Route::post('/organization/{organizationId}/uploadLogo', [OrganizationController::class, 'uploadLogo'])->name('organization.uploadLogo');
+
         Route::get('/organization/{organizationId}/delete', [OrganizationController::class, 'delete'])->name('organization.delete');
     });
 

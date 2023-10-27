@@ -7,6 +7,7 @@ use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
@@ -70,9 +71,15 @@ class OrganizationController extends Controller
     public function edit($organizationId)
     {
         $organization = Organization::where('id', $organizationId)->first();
+        $logoUrl = null;
+
+        if ($organization->logo) {
+            $logoUrl = asset('storage/' . $organization->logo);
+        }
 
         return Inertia::render('Organizations/Edit', [
             'organization' => $organization,
+            'logoUrl' => $logoUrl,
         ]);
     }
 
@@ -82,6 +89,34 @@ class OrganizationController extends Controller
         $organization->fill($request->validated());
 
         $organization->save();
+
+        return Redirect::route('organization.edit', $organizationId);
+    }
+
+    public function uploadLogo(Request $request, $organizationId): RedirectResponse
+    {
+        $organization = Organization::where('id', $organizationId)->first();
+
+        $request->validate([
+            'logo' => 'required|image|max:6048',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $files = $request->allFiles();
+            $file = $files['logo'];
+            if ($organization->logo) {
+                Storage::disk('public')->delete($organization->logo);
+            }
+
+            $path = $file->store('uploads/logos', 'public');
+
+            $organization->logo = $path;
+            $organization->save();
+        }
+
+        // $organization->fill($request->validated());
+
+        // $organization->save();
 
         return Redirect::route('organization.edit', $organizationId);
     }
