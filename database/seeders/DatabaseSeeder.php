@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Address;
 use App\Models\CalculationType;
-use App\Models\Customer;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -29,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(DefaultUserSeeder::class);
         $this->call(GenderSeeder::class);
+        $this->call(OrganizationTypeSeeder::class);
 
         \App\Models\User::factory(10)->create();
         \App\Models\Organization::factory(10)->create();
