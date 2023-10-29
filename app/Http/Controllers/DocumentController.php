@@ -10,7 +10,7 @@ class DocumentController extends Controller
 {
     public function printCalculation($id)
     {
-        $calculation = Calculation::with('organization')->find($id);
+        $calculation = Calculation::with(['organization', 'customer'])->find($id);
 
         $pdf = Pdf::loadView('documents/calculation', compact('calculation'));
         // return view('documents/calculation', compact('calculation'));

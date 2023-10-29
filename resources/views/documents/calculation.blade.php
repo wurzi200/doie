@@ -51,7 +51,7 @@
   <div class="container">
     <h1>Leasing Offer</h1>
 
-    <p>Dear [Client Name],</p>
+    <p>Dear {{$calculation->customer->first_name }} {{$calculation->customer->last_name }},</p>
 
     <p>Thank you for your interest in our leasing services. We have prepared a detailed leasing offer for your consideration, which we believe will meet your requirements and budget.</p>
 
