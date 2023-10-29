@@ -88,7 +88,7 @@ export default function CreateCalculationForm({ calculationTypes }) {
             <h2 className={`${textMain} text-lg font-medium`}>Customer</h2>
 
             <p className={`${textSecondary} mt-1 mb-4 text-sm`}>
-              add a Customer to the Calculation
+              Search and add a Customer to the Calculation
             </p>
           </header>
           <div className={`mb-4`}>

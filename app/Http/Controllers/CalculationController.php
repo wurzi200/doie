@@ -115,11 +115,16 @@ class CalculationController extends Controller
         $this->validateRequestAgainstCalculationType($request, $calculationType);
         $currentUser = auth()->user();
 
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'customer_id' => 'required|integer',
+        ]);
+
         $calculation = Calculation::create([
             'user_id' => $currentUser->id,
             'organization_id' => $currentUser->organization_id,
-            'customer_id' => $request->customer_id,
-            'name' => $request->name,
+            'customer_id' => $validatedData['customer_id'],
+            'name' => $validatedData['name'],
             'cost' => money_parse_by_decimal($request->cost, $this->currency)->getAmount(),
             'duration' => $request->duration,
             'interest' => $request->interest,
