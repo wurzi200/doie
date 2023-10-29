@@ -88,6 +88,7 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
                             <InputLabel htmlFor="organization" value="Organization" />
 
                             <SearchableDropdown
+                                name={`name`}
                                 options={organizations}
                                 onChange={(e) => setData('organization_id', e.id)}
                                 defaultId={data.organization_id}
@@ -99,6 +100,7 @@ export default function UpdateUserInformation({ mustVerifyEmail, status, classNa
                             <InputLabel htmlFor="role" value="Role" />
 
                             <SearchableDropdown
+                                name={`display_name`}
                                 options={roles && roles}
                                 onChange={(e) => setData('role_id', e.id)}
                                 defaultId={data.role_id && data.role_id}

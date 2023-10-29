@@ -118,6 +118,7 @@ class CalculationController extends Controller
         $calculation = Calculation::create([
             'user_id' => $currentUser->id,
             'organization_id' => $currentUser->organization_id,
+            'customer_id' => $request->customer_id,
             'name' => $request->name,
             'cost' => money_parse_by_decimal($request->cost, $this->currency)->getAmount(),
             'duration' => $request->duration,

@@ -67,8 +67,8 @@ export default function UpdateOrganizationForm({ organization, types }) {
               <InputLabel htmlFor={`type`} value={`Type`} />
 
               <SearchableDropdown
+                name={`name`}
                 id={`type`}
-                name={`type`}
                 defaultId={data.type}
                 onChange={(e) => setData('type', e.id)}
                 options={types}

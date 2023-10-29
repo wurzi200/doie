@@ -3,15 +3,18 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 import { TextInput } from 'flowbite-react';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Link, router, useForm, usePage, useRemember } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import { backgroundSecondary, blockInvalidChar, border, textMain, textSecondary } from '@/constants';
 import { PiCurrencyEurBold, PiPercentBold } from 'react-icons/pi';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function CreateCalculationForm({ calculationTypes }) {
   const [rate, setRate] = useState(0);
-  const [InputErrors, setInputErrors] = useState({});
+
+  const [customers, setCustomers] = useState();
+
   const { data, setData, put, errors, setError, clearErrors, processing, recentlySuccessful } = useForm({
     name: '',
     calculationType: calculationTypes[0] ? calculationTypes[0].id : '',
@@ -21,7 +24,18 @@ export default function CreateCalculationForm({ calculationTypes }) {
     duration: '10',
     interest: '1',
     rate: '',
+    customer_id: '',
   });
+
+  function handleSearch(customerSearch) {
+    axios.get(route('customers.search', { search: customerSearch })).then((response) => {
+      setCustomers(response.data);
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const submit = (e) => {
     e.preventDefault();
 
@@ -71,6 +85,32 @@ export default function CreateCalculationForm({ calculationTypes }) {
         </section>
         <section className={`${backgroundSecondary} ${border} border p-4 sm:p-6 shadow sm:rounded-lg`}>
           <header>
+            <h2 className={`${textMain} text-lg font-medium`}>Customer</h2>
+
+            <p className={`${textSecondary} mt-1 mb-4 text-sm`}>
+              add a Customer to the Calculation
+            </p>
+          </header>
+          <div className={`mb-4`}>
+            <InputLabel htmlFor={`customer_id`} value={`Customer`} />
+
+            <SearchableDropdown
+              name={`first_name`}
+              id={`customer_id`}
+              options={customers || []}
+              className={`mt-1 block w-full`}
+              onChange={(e) => setData('customer_id', e.id)}
+              defaultId={data.customer_id || ''}
+              backendSearch={(e) => handleSearch(e)}
+              required
+            />
+
+            <InputError message={errors.customer_id} className={`mt-2`} />
+          </div>
+
+        </section>
+        <section className={`${backgroundSecondary} ${border} border p-4 sm:p-6 shadow sm:rounded-lg`}>
+          <header>
             <h2 className={`${textMain} text-lg font-medium`}>Calculation</h2>
 
             <p className={`${textSecondary} mt-1 mb-4 text-sm`}>
@@ -83,6 +123,7 @@ export default function CreateCalculationForm({ calculationTypes }) {
                 <InputLabel htmlFor={`calculationType`} value={`Calculation Type`} />
 
                 <SearchableDropdown
+                  name={'name'}
                   id={`calculationType`}
                   options={calculationTypes}
                   className={`mt-1 block w-full`}

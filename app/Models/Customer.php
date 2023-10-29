@@ -25,4 +25,9 @@ class Customer extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public function calculations()
+    {
+        return $this->hasMany(Calculation::class);
+    }
 }

@@ -12,6 +12,7 @@ class Calculation extends Model
     protected $fillable = [
         'user_id',
         'organization_id',
+        'customer_id',
         'name',
         'cost',
         'duration',
@@ -35,5 +36,10 @@ class Calculation extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['user_has_permission:show_customers']], function () {
         Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+        Route::get('/customers/search', [CustomerController::class, 'indexSearch'])->name('customers.search');
     });
 
     Route::group(['middleware' => ['user_has_permission:create_customers']], function () {

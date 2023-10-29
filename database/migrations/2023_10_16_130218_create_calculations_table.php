@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('rate');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('organization_id')->constrained();
+            $table->foreignId('customer_id')->constrained();
             $table->foreignId('calculation_type_id')->constrained();
             $table->timestamps();
         });

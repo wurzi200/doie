@@ -38,6 +38,30 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function indexSearch(Request $request)
+    {
+        $currentUser = $request->user();
+
+        $query = Customer::where('organization_id', $currentUser->organization_id)->with(['gender']);
+        $customers = [];
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+
+            if ($search != '') {
+                $query->where(function ($q) use ($search) {
+                    $q->where('first_name', 'like', '%' . $search . '%')
+                        ->orWhere('last_name', 'like', '%' . $search . '%');
+                });
+
+                $customers = $query->get();
+            }
+        }
+
+
+        return $customers;
+    }
+
     public function create()
     {
         $genders = Gender::get();

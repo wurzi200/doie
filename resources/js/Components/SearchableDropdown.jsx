@@ -3,14 +3,21 @@ import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from '@/Constants';
 
-export default function SearchableDropdown({ options, defaultId, onChange }) {
+export default function SearchableDropdown({ options, defaultId = '', onChange, name, backendSearch = null }) {
 
   const [query, setQuery] = useState('')
+
+  const handleKeyUp = (event) => {
+    if (backendSearch) {
+      backendSearch(event.target.value);
+    }
+  };
+
   const filteredoptions =
     query === ''
       ? options
       : options.filter((option) =>
-        option.name
+        option[name]
           .toLowerCase()
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
@@ -23,8 +30,9 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
           <div className={`relative w-full cursor-default overflow-hidden rounded-md ${backgroundSecondary} text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm`}>
             <Combobox.Input
               className={`${textMain} ${backgroundTertiary} ${border} border focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full`}
-              displayValue={(option) => option.display_name ? option.display_name : option.name}
+              displayValue={(option) => option[name] && option[name]}
               onChange={(event) => setQuery(event.target.value)}
+              onKeyUp={handleKeyUp}
             />
             <Combobox.Button className={`absolute inset-y-0 right-0 flex items-center pr-2`}>
               <ChevronUpDownIcon
@@ -61,7 +69,7 @@ export default function SearchableDropdown({ options, defaultId, onChange }) {
                           className={`block truncate ${selected ? 'font-medium' : 'font-normal'
                             }`}
                         >
-                          {option.display_name ? option.display_name : option.name}
+                          {option[name] && option[name]}
                         </span>
                         {selected ? (
                           <span

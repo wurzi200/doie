@@ -2,8 +2,6 @@ import { router } from "@inertiajs/react";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useState, useEffect } from "react";
-import { TextInputStyle, backgroundTertiary, border } from "@/constants";
-import { HiSearch } from "react-icons/hi";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
