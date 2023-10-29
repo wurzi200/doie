@@ -137,7 +137,7 @@ class CalculationController extends Controller
         $search = $request->query('search');
 
         $query = Calculation::where('organization_id', $currentUser->organization_id)
-            ->with(['user', 'calculationType']);
+            ->with(['user', 'calculationType', 'customer']);
 
         if ($search) {
             $query->where(function ($q) use ($search) {

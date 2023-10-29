@@ -15,6 +15,9 @@ export default function CalculationsListView({ auth, calculations }) {
     { name: 'residual', label: 'residual', type: 'currency' },
     { name: 'interest', label: 'interest', type: 'percent' },
     { name: 'duration', label: 'duration' },
+    { name: 'customer.first_name', label: 'Customer' },
+    { name: 'customer.last_name', label: ' ' },
+
   ];
 
   return (
