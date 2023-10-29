@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User;
 use Spatie\Permission\Models\Role;
 
@@ -47,5 +48,10 @@ class Organization extends Model
     public function organizationType()
     {
         return $this->belongsTo(OrganizationType::class, 'type', 'id');
+    }
+
+    public function addresses(): MorphToMany
+    {
+        return $this->morphToMany(Address::class, 'model', 'model_has_addresses', 'model_id', 'address_id');
     }
 }

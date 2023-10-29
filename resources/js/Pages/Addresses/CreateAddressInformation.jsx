@@ -10,7 +10,7 @@ import Select from '@/Components/Select';
 import SearchableDropdown from '@/Components/SearchableDropdown';
 import { HiX } from 'react-icons/hi';
 
-export default function CreateAddressInformation({ customer, countries, fields, isOpen, onClose }) {
+export default function CreateAddressInformation({ id, type, countries, fields, isOpen, onClose }) {
   const { data, setData, put, errors, processing, recentlySuccessful } = useForm(fields.reduce((acc, field) => {
     acc[field.name] = '';
     return acc;
@@ -19,7 +19,7 @@ export default function CreateAddressInformation({ customer, countries, fields, 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    put(route('address.store', customer.id), {
+    put(route('address.store', { id, type }), {
       onSuccess: () => {
         onClose();
       },
@@ -30,7 +30,7 @@ export default function CreateAddressInformation({ customer, countries, fields, 
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 mt-80 overflow-y-auto"
+        className="fixed inset-0 z-10 mt-80 overflow-hidden"
         onClose={onClose}
       >
         <div className="min-h-screen px-4 text-center">

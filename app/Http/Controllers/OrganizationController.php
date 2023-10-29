@@ -81,7 +81,7 @@ class OrganizationController extends Controller
         if ($organization->logo) {
             $logoUrl = asset('storage/' . $organization->logo);
         }
-
+        $organization->addresses;
         return Inertia::render('Organizations/Edit', [
             'organization' => $organization,
             'types' => $types,

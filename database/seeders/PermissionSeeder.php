@@ -35,6 +35,8 @@ class PermissionSeeder extends Seeder
             ['name' => 'create_customers'],
             ['name' => 'edit_customers'],
             ['name' => 'delete_customers'],
+            ['name' => 'edit_organization_addresses'],
+            ['name' => 'delete_organization_addresses'],
         ];
 
         foreach ($permissions as $permission) {

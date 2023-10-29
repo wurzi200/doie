@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class AddressController extends Controller
 {
-    public function create(Request $request, $customerId)
+    public function create(Request $request, $id, $type)
     {
         $validatedData = $request->validate([
             'street' => 'required|string|max:255',
@@ -31,11 +31,17 @@ class AddressController extends Controller
 
         $modelHasAddress = new ModelHasAddress();
         $modelHasAddress->address_id = $address->id;
-        $modelHasAddress->model_type = 'App\Models\Customer';
-        $modelHasAddress->model_id = $customerId;
+
+        if ($type == 'customer') {
+            $modelHasAddress->model_type = 'App\Models\Customer';
+        } else if ($type == 'organization') {
+            $modelHasAddress->model_type = 'App\Models\Organization';
+        }
+
+        $modelHasAddress->model_id = $id;
         $modelHasAddress->save();
 
-        return Redirect::route('customer.edit', $customerId);
+        return redirect()->back();
     }
 
 

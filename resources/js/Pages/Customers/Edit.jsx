@@ -16,6 +16,7 @@ export default function Edit({ auth, customer, genders, addresses }) {
     { name: 'city', label: 'City', required: true },
     { name: 'country', label: 'Country', required: true },
   ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
@@ -60,7 +61,8 @@ export default function Edit({ auth, customer, genders, addresses }) {
                     </PrimaryButton>
                   </div>
                   <CreateAddressInformation
-                    customer={customer}
+                    id={customer.id}
+                    type={'customer'}
                     fields={addressFields}
                     isOpen={isModalOpen}
                     onClose={handleClose}

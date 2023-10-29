@@ -47,6 +47,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
+    Route::put('address/{id}/{type}/create', [AddressController::class, 'create'])->name('address.store');
+    Route::patch('address/{addressId}/edit', [AddressController::class, 'edit'])->name('address.edit');
+    Route::get('address/{addressId}/delete', [AddressController::class, 'delete'])->name('address.delete');
+
     Route::group(['middleware' => ['user_has_permission:show_customers']], function () {
         Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
     });
@@ -59,10 +63,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['user_has_permission:edit_customers']], function () {
         Route::get('/customer/{customerId}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
         Route::put('/customers/{customerId}/update', [CustomerController::class, 'update'])->name('customer.update');
-
-        Route::put('address/{customerId}/create', [AddressController::class, 'create'])->name('address.store');
-        Route::patch('address/{addressId}/edit', [AddressController::class, 'edit'])->name('address.edit');
-        Route::get('address/{addressId}/delete', [AddressController::class, 'delete'])->name('address.delete');
     });
 
     Route::group(['middleware' => ['user_has_permission:delete_customers']], function () {
