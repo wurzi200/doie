@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Pagination from "@/Components/Pagination";
-import { BiMailSend, BiPlus, BiSend, BiUserPlus } from "react-icons/bi";
+import { BiMailSend, BiUserPlus } from "react-icons/bi";
 import { backgroundSecondary, border, textMain, textSecondary } from "@/constants";
 import List from "@/Components/List";
 import { Head } from "@inertiajs/react";

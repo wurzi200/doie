@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiCheck, BiEditAlt, BiTrash, BiX } from "react-icons/bi";
-import { HiPlus, HiPrinter } from 'react-icons/hi';
+import { HiPrinter } from 'react-icons/hi';
 import { router } from '@inertiajs/react'
 import TextInput from './TextInput';
 

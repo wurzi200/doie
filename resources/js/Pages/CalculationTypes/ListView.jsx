@@ -8,8 +8,7 @@ import List from "@/Components/List";
 
 export default function CalculationTypeListView({ auth, calculationTypes }) {
   const fields = [
-    { name: 'name', label: 'Name' },
-    { name: 'description', label: 'Description' }
+    { name: 'name', label: 'Name' }
   ];
 
   return (
