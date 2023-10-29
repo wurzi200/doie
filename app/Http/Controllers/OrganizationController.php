@@ -72,8 +72,12 @@ class OrganizationController extends Controller
         return Redirect::route('organizations.index');
     }
 
-    public function edit($organizationId)
+    public function edit(Request $request, $organizationId)
     {
+        if ($request->user()->organization_id != $organizationId && !$request->user()->hasRole('super-admin-1')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $organization = Organization::where('id', $organizationId)->first();
         $types = OrganizationType::get();
         $logoUrl = null;

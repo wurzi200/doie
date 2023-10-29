@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserCreationRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
