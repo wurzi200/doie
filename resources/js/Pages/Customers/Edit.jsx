@@ -9,7 +9,7 @@ import CreateAddressInformation from '../Addresses/CreateAddressInformation';
 import { useState } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function Edit({ auth, customer, genders, addresses }) {
+export default function Edit({ auth, customer, genders }) {
   const addressFields = [
     { name: 'street', label: 'Street', required: true },
     { name: 'postal_code', label: 'Postal', required: true },

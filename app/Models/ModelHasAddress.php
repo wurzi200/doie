@@ -14,14 +14,4 @@ class ModelHasAddress extends Model
         'model_type',
         'model_id',
     ];
-
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
-    }
-
-    public function model()
-    {
-        return $this->morphTo();
-    }
 }

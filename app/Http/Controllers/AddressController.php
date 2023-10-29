@@ -40,12 +40,10 @@ class AddressController extends Controller
 
         $modelHasAddress->model_id = $id;
         $modelHasAddress->save();
-
-        return redirect()->back();
     }
 
 
-    public function edit(Request $request, $addressId): RedirectResponse
+    public function edit(Request $request, $addressId)
     {
         $address = Address::findOrFail($addressId);
 
@@ -64,7 +62,7 @@ class AddressController extends Controller
         $address->state = 'test';
         $address->save();
 
-        return redirect()->back();
+        return back();
     }
 
     public function delete($addressId): RedirectResponse
@@ -73,6 +71,6 @@ class AddressController extends Controller
 
         $address->delete();
 
-        return redirect()->back();
+        return back();
     }
 }

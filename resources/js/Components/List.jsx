@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
 import { HiPrinter } from 'react-icons/hi';
+import { router } from '@inertiajs/react';
 
 export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -14,8 +15,11 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
 
   function confirmDelete() {
     if (deleteItemId) {
-      setDeleteItemId(null);
-      setShowDeleteModal(false);
+      router.get(route(deleteRoute, { id: deleteItemId })).then(() => {
+        setDeleteItemId(null);
+        setShowDeleteModal(false);
+        router.reload();
+      });
     }
   }
 
@@ -24,9 +28,9 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
     setShowDeleteModal(false);
   }
 
-  function editItem(item) {
-    route(editRoute, { id: item.id });
-  }
+  // function editItem(item) {
+  //   route(editRoute, { id: item.id });
+  // }
 
   return (
     <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
@@ -128,7 +132,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                 </div>
               </div>
               <div className={`${backgroundTertiary} px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse`}>
-                <a onClick={confirmDelete} href={route(deleteRoute, { id: deleteItemId })} className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm`}>
+                <a onClick={confirmDelete} className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm`}>
                   Delete
                 </a>
                 <button onClick={cancelDelete} className={`mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 text-base font-medium ${textMain} hover:${backgroundTertiary} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm`}>

@@ -93,7 +93,7 @@ class OrganizationController extends Controller
         ]);
     }
 
-    public function update(OrganizationUpdateRequest $request, $organizationId): RedirectResponse
+    public function update(OrganizationUpdateRequest $request, $organizationId)
     {
         $organization = Organization::where('id', $organizationId)->first();
         $organization->fill($request->validated());
@@ -103,8 +103,6 @@ class OrganizationController extends Controller
         $organization->establishment_date = $establishment_date;
 
         $organization->save();
-
-        return Redirect::route('organization.edit', $organizationId);
     }
 
     public function uploadLogo(Request $request, $organizationId): RedirectResponse
