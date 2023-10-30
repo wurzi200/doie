@@ -20,8 +20,6 @@ export default function UpdateOrganizationForm({ organization, types }) {
     establishment_date: organization.establishment_date ? organization.establishment_date : getFirstDateInRange(),
   });
 
-  console.log(data.establishment_date);
-
   function getFirstDateInRange() {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();

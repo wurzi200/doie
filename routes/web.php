@@ -48,7 +48,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::put('address/{id}/{type}/create', [AddressController::class, 'create'])->name('address.store');
-    Route::patch('address/{addressId}/edit', [AddressController::class, 'edit'])->name('address.edit');
+    Route::post('address/{addressId}/edit', [AddressController::class, 'edit'])->name('address.edit');
     Route::get('address/{addressId}/delete', [AddressController::class, 'delete'])->name('address.delete');
 
     Route::group(['middleware' => ['user_has_permission:show_customers']], function () {

@@ -44,13 +44,44 @@
     .signature p {
       margin-bottom: 5px;
     }
+
+    .logo-container {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 20px;
+      width: 150px;
+      height: 150px;
+      margin-left: 18.5rem;
+
+    }
+
+    .logo {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .logo-container img {
+      display: inline-block;
+      vertical-align: middle;
+
+    }
+
+    .headline {
+      display: inline-block;
+      vertical-align: middle;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Leasing Offer</h1>
-
+    <div class="header-container">
+      <h1 class="headline">Leasing Offer</h1>
+      <div class="logo-container">
+        <img src="{{ public_path('storage/' . $calculation->organization->logo) }}" alt="{{ $calculation->organization->name }} logo" class="logo">
+      </div>
+    </div>
     <p>Dear {{$calculation->customer->first_name }} {{$calculation->customer->last_name }},</p>
 
     <p>Thank you for your interest in our leasing services. We have prepared a detailed leasing offer for your consideration, which we believe will meet your requirements and budget.</p>

@@ -4,6 +4,7 @@ import { BiCheck, BiEditAlt, BiTrash, BiX } from "react-icons/bi";
 import { HiPrinter } from 'react-icons/hi';
 import { router } from '@inertiajs/react'
 import TextInput from './TextInput';
+import axios from 'axios';
 
 export default function EditableList({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -18,7 +19,7 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
 
   function confirmDelete() {
     if (deleteItemId) {
-      router.get(route(deleteRoute, { id: deleteItemId })).then(() => {
+      axios.get(route(deleteRoute, { id: deleteItemId })).then(() => {
         setDeleteItemId(null);
         setShowDeleteModal(false);
         router.reload();
@@ -52,8 +53,8 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
       itemData[field] = editedItem[field];
     });
 
-    router.patch(route(editRoute, item.id), itemData);
-
+    axios.post(route(editRoute, item.id), itemData);
+    router.reload();
     setEditedItem({});
   };
 
