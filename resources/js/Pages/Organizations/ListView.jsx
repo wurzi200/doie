@@ -8,7 +8,8 @@ import List from "@/Components/List";
 
 export default function OrganizationListView({ auth, organizations }) {
   const fields = [
-    { name: 'name', label: 'Name' },
+    { name: 'id', label: 'ID', sortable: true },
+    { name: 'name', label: 'Name', sortable: true },
     { name: 'organization_type.name', label: 'Type' },
     { name: 'email', label: 'Email' },
     { name: 'website', label: 'Website', type: 'link' },

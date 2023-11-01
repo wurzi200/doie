@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
 import { HiPrinter } from 'react-icons/hi';
@@ -7,6 +7,21 @@ import { router } from '@inertiajs/react';
 export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
+  const [sortOrder, setSortOrder] = useState("")
+  const [sortField, setSortField] = useState(null)
+
+  useEffect(() => {
+    const sortParam = new URLSearchParams(window.location.search).get(
+      "sort"
+    );
+    if (sortParam) {
+      const [field, order] = sortParam.split('|');
+      console.log(sortParam);
+      setSortField(field);
+      setSortOrder(order);
+    }
+  }, []);
+
 
   function deleteItem(item) {
     setDeleteItemId(item.id);
@@ -28,10 +43,28 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
     setShowDeleteModal(false);
   }
 
+  const handleSort = (field) => {
+    // If the field is the same as the current sort field, toggle the sort order
+    // Otherwise, set the sort order to 'asc'
+    const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortField(field);
+    setSortOrder(order);
+
+    router.get(
+      route(route().current()),
+      {
+        sort: field + '|' + order
+      },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
+  };
+
   // function editItem(item) {
   //   route(editRoute, { id: item.id });
   // }
-
   return (
     <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
 
@@ -39,7 +72,16 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
         <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
           <tr>
             {fields.map(field => (
-              <th key={field.name || field} scope={`col`} className={`px-6 py-3`}>{field.label || field}</th>
+              <th
+                key={field.label || field}
+                scope={`col`}
+                className={`px-6 py-3`}
+                style={field.sortable ? { cursor: 'pointer' } : null}
+                onClick={field.sortable ? () => handleSort(field.name || field) : null}
+              >
+                {field.label || field}
+                {sortField === (field.name || field) && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
             ))}
             {deleteRoute || editRoute ?
               <th></th> : ''

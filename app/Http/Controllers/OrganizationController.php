@@ -21,18 +21,40 @@ class OrganizationController extends Controller
     {
         $currentUser = auth()->user();
         $search = $request->query('search');
+        $sort = $request->query('sort');
+
+        // Split the sort parameter into field and order if it exists
+        $sortField = null;
+        $sortOrder = null;
+        if ($sort) {
+            [$sortField, $sortOrder] = explode('|', $sort);
+        }
 
         if (checkIfSuperAdminAndOrganization()) {
             $organizations = Organization::where(function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
-            })
-                ->with('organizationType')->paginate(10)->withQueryString();
+            });
+
+            $organizations = $organizations->orderBy('created_at', 'desc');
+
+            // Apply sorting if sort parameters exist
+            if ($sortField && $sortOrder) {
+                $organizations = $organizations->orderBy($sortField, $sortOrder);
+            }
+
+            $organizations = $organizations->with('organizationType')->paginate(10)->withQueryString();
         } else {
             $organizations = Organization::where('id', $currentUser->organization_id)
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%");
-                })
-                ->with('organizationType')->paginate(10)->withQueryString();
+                });
+
+            // Apply sorting if sort parameters exist
+            if ($sortField && $sortOrder) {
+                $organizations = $organizations->orderBy($sortField, $sortOrder);
+            }
+
+            $organizations = $organizations->with('organizationType')->paginate(10)->withQueryString();
         }
 
         return Inertia::render('Organizations/ListView', [
