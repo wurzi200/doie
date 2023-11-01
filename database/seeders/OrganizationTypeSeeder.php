@@ -14,7 +14,7 @@ class OrganizationTypeSeeder extends Seeder
     {
         $organizationTypes = [
             [
-                'name' => 'Einzelunternehmen (Nichtkaufleute/Kleingewerbetreibende)',
+                'name' => 'Einzelunternehmen',
                 'capital' => 'kein festes Kapital',
                 'minimum_deposit' => 'keine Mindesteinzahlung vorgeschrieben',
                 'founder_count' => '1',
@@ -25,7 +25,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'Einzelkaufleute (Kaufmann)',
+                'name' => 'Einzelkaufleute',
                 'capital' => 'kein festes Kapital',
                 'minimum_deposit' => 'keine Mindesteinzahlung vorgeschrieben',
                 'founder_count' => '1',
@@ -36,7 +36,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'GbR Gesellschaft Bürgerlichen Rechts (Nichtkaufleute/Kleingewerbetreibende)',
+                'name' => 'GbR',
                 'capital' => 'kein festes Kapital',
                 'minimum_deposit' => 'keine Mindesteinzahlung vorgeschrieben',
                 'founder_count' => 'mindestens 2 Gesellschaft und Gesellschafter (auch mit Privatvermögen) für Gesellschaftsschulden, gesamtschuldnerische Haftung',
@@ -47,7 +47,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'OHG Offene Handelsgesellschaft (Kaufmann)',
+                'name' => 'OHG',
                 'capital' => 'kein festes Kapital',
                 'minimum_deposit' => 'keine Mindesteinzahlung vorgeschrieben',
                 'founder_count' => 'mindestens 2 Gesellschaft und Gesellschafter (auch mit Privatvermögen) für Gesellschaftsschulden, gesamtschuldnerische Haftung',
@@ -58,7 +58,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'KG Kommanditgesellschaft (Kaufmann)',
+                'name' => 'KG',
                 'capital' => 'kein festes Kapital, jedoch Kommanditeinlagen für Kommanditisten (Höhe beliebig)',
                 'minimum_deposit' => '',
                 'founder_count' => 'mindestens 2 Gesellschaft und Gesellschafter (Komplementäre) unbeschränkt, Kommanditisten in Höhe der Einlage (Haftungsbeschränkung tritt in der Regel erst nach Eintragung im Handelsregister ein)',
@@ -69,7 +69,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'GmbH Gesellschaft mit beschränkter Haftung',
+                'name' => 'GmbH',
                 'capital' => 'Mindeststammkapital: 25.000 Euro, Mindesteinzahlung bei Gründung: 12.500 Euro',
                 'minimum_deposit' => '',
                 'founder_count' => 'mindestens 1, nur mit Gesellschaftsvermögen (Haftungsbeschränkung tritt erst nach Eintragung in das Handelsregister ein), ggf. persönliche Haftung des Geschäftsführers',
@@ -80,7 +80,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'UG (haftungsbeschränkt) Unternehmergesellschaft',
+                'name' => 'UG',
                 'capital' => 'Mindeststammkapital: 1 Euro, vollständige Einzahlung bei Gründung erforderlich, nur Bargründung möglich',
                 'minimum_deposit' => '',
                 'founder_count' => 'mindestens 1, nur mit Gesellschaftsvermögen (Haftungsbeschränkung tritt erst nach Eintragung in das Handelsregister ein), ggf. persönliche Haftung des Geschäftsführers',
@@ -91,7 +91,7 @@ class OrganizationTypeSeeder extends Seeder
                 'contract_formalities' => '',
             ],
             [
-                'name' => 'AG Aktiengesellschaft',
+                'name' => 'AG',
                 'capital' => 'Mindestgrundkapital: 50.000 Euro',
                 'minimum_deposit' => '',
                 'founder_count' => 'mindestens 1, nur mit Gesellschaftsvermögen (Haftungsbeschränkung tritt erst nach Eintragung in das Handelsregister ein), ggf. persönliche Haftung des Vorstandes',

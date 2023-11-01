@@ -126,10 +126,6 @@ class OrganizationController extends Controller
             $organization->save();
         }
 
-        // $organization->fill($request->validated());
-
-        // $organization->save();
-
         return Redirect::route('organization.edit', $organizationId);
     }
 

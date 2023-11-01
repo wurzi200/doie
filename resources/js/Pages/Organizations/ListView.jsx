@@ -12,7 +12,7 @@ export default function OrganizationListView({ auth, organizations }) {
     { name: 'organization_type.name', label: 'Type' },
     { name: 'email', label: 'Email' },
     { name: 'website', label: 'Website', type: 'link' },
-    { name: 'establishment_date', label: 'Establishment Date' },
+    { name: 'establishment_date', label: 'Establishment Date', type: 'date' },
   ];
 
   return (

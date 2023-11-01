@@ -60,15 +60,18 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                         return array[index];
                       }
                     } else {
-                      if (field.type === 'currency') {
+                      if (field.type === 'currency' && obj[key] !== null) {
                         return obj[key] / 100 + ' €';
                       }
-                      if (field.type === 'percent') {
+                      if (field.type === 'percent' && obj[key] !== null) {
                         return obj[key] + ' %';
                       }
-                      if (field.type === 'link') {
+                      if (field.type === 'date' && obj[key] !== null) {
+                        return new Date(obj[key]).toLocaleDateString();
+                      }
+                      if (field.type === 'link' && obj[key] !== null) {
                         return <a className='text-blue-600' href={`${obj[key]}`} target="_blank" rel="noopener noreferrer">
-                          {obj[key]}</a>
+                          Link</a>
                       }
                       return obj[key];
                     }
