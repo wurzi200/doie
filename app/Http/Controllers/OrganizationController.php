@@ -39,7 +39,9 @@ class OrganizationController extends Controller
 
             // Apply sorting if sort parameters exist
             if ($sortField && $sortOrder) {
-                $organizations = $organizations->orderBy($sortField, $sortOrder);
+                if ($sortOrder == 'asc' || $sortOrder == 'desc') {
+                    $organizations = $organizations->orderBy($sortField, $sortOrder);
+                }
             }
 
             $organizations = $organizations->with('organizationType')->paginate(10)->withQueryString();

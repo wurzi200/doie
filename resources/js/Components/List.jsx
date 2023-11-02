@@ -57,6 +57,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
       },
       {
         preserveState: true,
+        preserveScroll: true,
         replace: true,
       }
     );
@@ -79,8 +80,8 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                 style={field.sortable ? { cursor: 'pointer' } : null}
                 onClick={field.sortable ? () => handleSort(field.name || field) : null}
               >
-                {field.label || field}
                 {sortField === (field.name || field) && (sortOrder === 'asc' ? '↑' : '↓')}
+                {field.label || field}
               </th>
             ))}
             {deleteRoute || editRoute ?
