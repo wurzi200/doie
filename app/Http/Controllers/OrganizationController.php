@@ -22,6 +22,7 @@ class OrganizationController extends Controller
         $currentUser = auth()->user();
         $search = $request->query('search');
         $sort = $request->query('sort');
+        $organization_type_filter = $request->query('organization_type');
 
         // Split the sort parameter into field and order if it exists
         $sortField = null;
@@ -44,6 +45,12 @@ class OrganizationController extends Controller
                 }
             }
 
+            if ($organization_type_filter) {
+                $organizations = $organizations->whereHas('organizationType', function ($query) use ($organization_type_filter) {
+                    $query->where('name', $organization_type_filter);
+                });
+            }
+
             $organizations = $organizations->with('organizationType')->paginate(10)->withQueryString();
         } else {
             $organizations = Organization::where('id', $currentUser->organization_id)
@@ -60,7 +67,8 @@ class OrganizationController extends Controller
         }
 
         return Inertia::render('Organizations/ListView', [
-            'organizations' => $organizations
+            'organizations' => $organizations,
+            'organization_types' => OrganizationType::get(),
         ]);
     }
 

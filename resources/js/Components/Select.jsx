@@ -3,13 +3,16 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { backgroundTertiary, border, textMain, textSecondary } from '../constants'
 
-export default function Select({ options, selected, onChange }) {
+export default function Select({ options, selected, onChange, clearable }) {
   return (
     <div className={`top-16 w-full`}>
       <Listbox value={selected} onChange={onChange} className={`${border} border rounded-lg`}>
         <div className={`relative mt-1`}>
           <Listbox.Button className={`relative w-full cursor-default rounded-lg py-2.5 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm ${backgroundTertiary} ${textMain}`}>
-            <span className={`block truncate `}>{selected.name}</span>
+            <span className={`block truncate `}>
+              {selected?.name ? selected.name : (selected || 'Select...')}
+            </span>
+
             <span className={`pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 ${textSecondary}`}>
               <ChevronUpDownIcon
                 className={`h-5 w-5 ${textSecondary}`}

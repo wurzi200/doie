@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
-import { HiPrinter } from 'react-icons/hi';
+import { HiFilter, HiOutlineFilter, HiPrinter, HiX } from 'react-icons/hi';
 import { router } from '@inertiajs/react';
 import TextInput from './TextInput';
 import PrimaryButton from './PrimaryButton';
+import Select from './Select';
+import { FaFilter } from 'react-icons/fa';
 
-export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name, searchable }) {
+export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name, searchable, filters }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [sortOrder, setSortOrder] = useState("")
-  const [sortField, setSortField] = useState(null)
+  const [sortField, setSortField] = useState("")
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterValues, setFilterValues] = useState({});
+  const [showFilters, setShowFilters] = useState(false);
 
 
   useEffect(() => {
@@ -71,11 +75,11 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
     setSortField(field);
     setSortOrder(order);
 
-    setFilter({ sort: field + '|' + order, search: searchTerm });
+    setFilter({ sort: field + '|' + order, search: searchTerm, ...filterValues });
   };
 
   const handleSearch = () => {
-    setFilter({ sort: sortField + '|' + sortOrder, search: searchTerm });
+    setFilter({ sort: sortField + '|' + sortOrder, search: searchTerm, ...filterValues });
   };
 
   const handleInputChange = (event) => {
@@ -91,6 +95,22 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
   // function editItem(item) {
   //   route(editRoute, { id: item.id });
   // }
+
+  const handleFilterChange = (name, value) => {
+    // Create a new object with the updated filter values
+    const newFilterValues = { ...filterValues, [name]: value };
+
+    // Update the state of the filter
+    setFilterValues(newFilterValues);
+
+    // Update the URL
+    setFilter({ sort: sortField + '|' + sortOrder, search: searchTerm, ...newFilterValues });
+  };
+
+  const toggleFilters = () => {
+    setShowFilters(prevShowFilters => !prevShowFilters);
+  };
+
   return (
     <>
       {searchable &&
@@ -105,7 +125,30 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
           <PrimaryButton className="my-4 " onClick={handleSearch}>
             Search
           </PrimaryButton>
+          <button onClick={toggleFilters} className={`text-xl text-blue-500 ml-4`}>
+            <FaFilter />
+          </button>
         </div>}
+      {showFilters && filters && filters.map(filter => (
+        <div key={filter.name} className={`${textMain}`}>
+          <label>{filter.label}</label>
+          {
+            <div className="flex">
+              <Select
+                id={filter.name}
+                options={filter.data}
+                type={filter.name}
+                className={`mt-1 block w-full`}
+                onChange={e => handleFilterChange(filter.name, e.name)}
+                selected={filterValues[filter.name] ? filterValues[filter.name] : ''}
+                required
+              />
+              <PrimaryButton onClick={() => handleFilterChange(filter.name, '')} className='ml-2 mt-1'>Clear</PrimaryButton>
+
+            </div>
+          }
+        </div>
+      ))}
       <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
         <table className={`w-full text-md text-left`}>
           <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>

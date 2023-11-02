@@ -6,14 +6,17 @@ import Search from "@/Components/Search";
 import { backgroundSecondary, border, textMain } from "@/constants";
 import List from "@/Components/List";
 
-export default function OrganizationListView({ auth, organizations }) {
+export default function OrganizationListView({ auth, organizations, organization_types }) {
   const fields = [
-    { name: 'id', label: 'ID', sortable: true },
     { name: 'name', label: 'Name', sortable: true },
     { name: 'organization_type.name', label: 'Type' },
-    { name: 'email', label: 'Email' },
-    { name: 'website', label: 'Website', type: 'link' },
-    { name: 'establishment_date', label: 'Establishment Date', type: 'date' },
+    { name: 'email', label: 'Email', sortable: true },
+    { name: 'website', label: 'Website', type: 'link', sortable: true },
+    { name: 'establishment_date', label: 'Establishment Date', sortable: true, type: 'date' },
+  ];
+
+  const filters = [
+    { name: 'organization_type', label: 'Types', data: organization_types, type: 'select' },
   ];
 
   return (
@@ -43,6 +46,7 @@ export default function OrganizationListView({ auth, organizations }) {
               <List auth={auth}
                 fields={fields}
                 data={organizations.data}
+                filters={filters}
                 editRoute={'organization.edit'}
                 deleteRoute={'organization.delete'}
                 permission_name={'organizations'}
