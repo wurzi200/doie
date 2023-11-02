@@ -130,7 +130,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
           </button>
         </div>}
       {showFilters && filters && filters.map(filter => (
-        <div key={filter.name} className={`${textMain}`}>
+        <div key={filter.name} className={`${textMain} mt-4`}>
           <label>{filter.label}</label>
           {
             <div className="flex">

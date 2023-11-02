@@ -15,8 +15,15 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $currentUser = $request->user();
+        $gender_filter = $request->query('gender');
 
         $query = Customer::where('organization_id', $currentUser->organization_id)->with(['gender']);
+
+        if ($gender_filter) {
+            $query->whereHas('gender', function ($q) use ($gender_filter) {
+                $q->where('name', $gender_filter);
+            });
+        }
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -34,7 +41,8 @@ class CustomerController extends Controller
         $customers = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Customers/ListView', [
-            'customers' => $customers
+            'customers' => $customers,
+            'genders' => Gender::all(),
         ]);
     }
 
