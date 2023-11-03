@@ -24,7 +24,6 @@ export default function RoleListView({ auth, roles }) {
         <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`${textMain} p-6`}>Roles</div>
-            <Search />
             <div className={`m-auto mr-4`}>
               {auth.permissions.find((permission => permission.name === 'create_roles')) &&
                 <a href={route('role.create')} className={`${textMain} text-3xl`}>
@@ -43,6 +42,7 @@ export default function RoleListView({ auth, roles }) {
                 deleteRoute={'role.delete'}
                 fields={fields}
                 permission_name={'roles'}
+                searchable
               />
               <Pagination className={`mt-6`} links={roles.links} />
             </>

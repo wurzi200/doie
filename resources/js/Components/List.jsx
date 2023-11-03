@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
-import { HiFilter, HiOutlineFilter, HiPrinter, HiX } from 'react-icons/hi';
+import { HiPrinter } from 'react-icons/hi';
 import { router } from '@inertiajs/react';
 import TextInput from './TextInput';
 import PrimaryButton from './PrimaryButton';
@@ -113,42 +113,51 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
 
   return (
     <>
-      {searchable &&
-        <div className={`${backgroundSecondary} ${border} relative border overflow-x-auto sm:rounded-lg mt-4`}>
-          <TextInput
-            className={`border m-4`}
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
-          <PrimaryButton className="my-4 " onClick={handleSearch}>
-            Search
-          </PrimaryButton>
-          <button onClick={toggleFilters} className={`text-xl text-blue-500 ml-4`}>
-            <FaFilter />
-          </button>
-        </div>}
-      {showFilters && filters && filters.map(filter => (
-        <div key={filter.name} className={`${textMain} mt-4`}>
-          <label>{filter.label}</label>
-          {
-            <div className="flex">
-              <Select
-                id={filter.name}
-                options={filter.data}
-                type={filter.name}
-                className={`mt-1 block w-full`}
-                onChange={e => handleFilterChange(filter.name, e.name)}
-                selected={filterValues[filter.name] ? filterValues[filter.name] : ''}
-                required
-              />
-              <PrimaryButton onClick={() => handleFilterChange(filter.name, '')} className='ml-2 mt-1'>Clear</PrimaryButton>
-
+      <div className='flex flex-col sm:flex-row'>
+        {searchable &&
+          <div className={`${backgroundSecondary} ${border} relative border overflow-x-auto sm:rounded-lg mt-4 w-full`}>
+            <TextInput
+              className={`border m-4`}
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
+            <PrimaryButton className="my-4 " onClick={handleSearch}>
+              Search
+            </PrimaryButton>
+          </div>}
+        {filters &&
+          <button onClick={toggleFilters} className={`text-md text-blue-500 h-full ml-4`}>
+            <div className={`${backgroundSecondary} ${border} relative border overflow-x-auto sm:rounded-lg mt-4 w-11 h-11 flex items-center justify-center mr-4`}>
+              <FaFilter />
             </div>
-          }
-        </div>
-      ))}
+          </button>
+        }
+      </div>
+      <div className='relative'>
+        {showFilters && (
+          <div className={`${backgroundSecondary} ${border} absolute right-0 mt-2 w-64 p-2 border rounded shadow z-10`}>
+            {filters && filters.map(filter => (
+              <div key={filter.name} className={`${textMain} mt-4`}>
+                <label>{filter.label}</label>
+                <div className="flex">
+                  <Select
+                    id={filter.name}
+                    options={filter.data}
+                    type={filter.name}
+                    className={`mt-1 block w-full`}
+                    onChange={e => handleFilterChange(filter.name, e.name)}
+                    selected={filterValues[filter.name] ? filterValues[filter.name] : ''}
+                    required
+                  />
+                  <PrimaryButton onClick={() => handleFilterChange(filter.name, '')} className='ml-2 mt-1'>Clear</PrimaryButton>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
         <table className={`w-full text-md text-left`}>
           <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>

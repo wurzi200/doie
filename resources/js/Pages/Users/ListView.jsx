@@ -35,7 +35,6 @@ export default function UsersListView({ auth, users }) {
         <div className={`max-w-7xl mx-auto sm:px-6 lg:px-8`}>
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`${textMain} p-6`}>Users</div>
-            <Search />
             <div className={`m-auto mr-4 flex`}>
               <div className={`m-auto mr-4`}>
                 {auth.permissions.find((permission => permission.name === 'create_users')) &&
@@ -60,13 +59,14 @@ export default function UsersListView({ auth, users }) {
           }
           {users &&
             <>
-              <Pagination className={`mt-6`} links={users.links} />
               <List
+                links={users.links}
                 auth={auth}
                 data={users.data}
                 editRoute={'user.edit'}
                 fields={fields}
                 permission_name={'users'}
+                searchable
               />
               <Pagination className={`mt-6`} links={users.links} />
             </>
