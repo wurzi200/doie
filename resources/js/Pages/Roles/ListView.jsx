@@ -34,7 +34,6 @@ export default function RoleListView({ auth, roles }) {
           </div>
           {roles &&
             <>
-              <Pagination className={`mt-6`} links={roles.links} />
               <List
                 auth={auth}
                 data={roles.data}

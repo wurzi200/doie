@@ -31,7 +31,6 @@ export default function OrganizationListView({ auth, organizations, organization
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className={`${backgroundSecondary} ${border} border overflow-hidden shadow-sm sm:rounded-lg flex`}>
             <div className={`p-6 ${textMain}`}>Organizations</div>
-            {/* {auth.user.roles.find((role => role.name === 'super-admin-1')) && <Search />} */}
             <div className="m-auto mr-4">
               {auth.user.roles.find((role => role.name === 'super-admin-1')) &&
                 <a href={route('organization.create')} className="">
@@ -42,7 +41,6 @@ export default function OrganizationListView({ auth, organizations, organization
           </div>
           {organizations &&
             <>
-              <Pagination class={`mt-6`} links={organizations.links} />
               <List auth={auth}
                 fields={fields}
                 data={organizations.data}

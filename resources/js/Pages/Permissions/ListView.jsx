@@ -21,7 +21,6 @@ export default function UsersListView({ auth, permissions }) {
           {
             permissions &&
             <>
-              <Pagination className={`mt-6`} links={permissions.links} />
               <PermissionList permissions={permissions}></PermissionList>
               <Pagination className={`mt-6`} links={permissions.links} />
             </>

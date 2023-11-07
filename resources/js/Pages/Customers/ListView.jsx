@@ -42,7 +42,6 @@ export default function CustomersListView({ auth, customers, genders }) {
           </div>
           {customers &&
             <>
-              <Pagination className={`mt-6`} links={customers.links} />
               <List
                 auth={auth}
                 data={customers.data}

@@ -33,7 +33,6 @@ export default function CalculationTypeListView({ auth, calculationTypes }) {
           </div>
           {calculationTypes &&
             <>
-              <Pagination class={`mt-6`} links={calculationTypes.links} />
               <List
                 searchable
                 auth={auth}

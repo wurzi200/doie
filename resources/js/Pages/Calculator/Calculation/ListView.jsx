@@ -42,7 +42,6 @@ export default function CalculationsListView({ auth, calculations }) {
           </div>
           {calculations &&
             <>
-              <Pagination class={`mt-6`} links={calculations.links} />
               <List
                 auth={auth}
                 data={calculations.data}
