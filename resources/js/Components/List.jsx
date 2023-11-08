@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { backgroundMain, backgroundSecondary, backgroundTertiary, border, textMain, textSecondary } from "@/constants";
-import { BiEditAlt, BiTrash } from "react-icons/bi";
-import { HiPrinter } from 'react-icons/hi';
+import { BiEditAlt, BiFilterAlt, BiTrash } from "react-icons/bi";
+import { HiOutlineFilter, HiPrinter } from 'react-icons/hi';
 import { router } from '@inertiajs/react';
 import TextInput from './TextInput';
 import PrimaryButton from './PrimaryButton';
@@ -15,8 +15,6 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
   const [sortField, setSortField] = useState("")
   const [searchTerm, setSearchTerm] = useState("");
   const [filterValues, setFilterValues] = useState({});
-  const [showFilters, setShowFilters] = useState(false);
-
 
   useEffect(() => {
     const sortParam = new URLSearchParams(window.location.search).get(
@@ -107,41 +105,36 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
     setFilter({ sort: sortField + '|' + sortOrder, search: searchTerm, ...newFilterValues });
   };
 
-  const toggleFilters = () => {
-    setShowFilters(prevShowFilters => !prevShowFilters);
-  };
+  const clearFilter = () => {
+    setFilterValues({});
+    setFilter({ sort: '' + '|' + '', search: '' });
+  }
 
   return (
     <>
       <div className='flex flex-col sm:flex-row'>
-        {searchable &&
-          <div className={`${backgroundSecondary} ${border} relative border overflow-x-auto sm:rounded-lg mt-4 w-full`}>
-            <TextInput
-              className={`border m-4`}
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-            />
-            <PrimaryButton className="my-4 " onClick={handleSearch}>
-              Search
-            </PrimaryButton>
-          </div>}
-        {filters &&
-          <button onClick={toggleFilters} className={`text-md text-blue-500 h-full ml-4`}>
-            <div className={`${backgroundSecondary} ${border} relative border overflow-x-auto sm:rounded-lg mt-4 w-11 h-11 flex items-center justify-center mr-4`}>
-              <FaFilter />
-            </div>
-          </button>
-        }
-      </div>
-      <div className='relative'>
-        {showFilters && (
-          <div className={`${backgroundSecondary} ${border} absolute right-0 mt-2 w-64 p-2 border rounded shadow z-10`}>
+        <div className={`${backgroundSecondary} ${border} relative border sm:rounded-lg mt-4 w-full flex`}>
+          <div className=''>
+            {searchable &&
+              <>
+                <TextInput
+                  className={`border m-4`}
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                />
+                <PrimaryButton className="my-4" onClick={handleSearch}>
+                  Search
+                </PrimaryButton>
+              </>
+            }
+          </div>
+          <div>
             {filters && filters.map(filter => (
-              <div key={filter.name} className={`${textMain} mt-4`}>
-                <label>{filter.label}</label>
-                <div className="flex">
+              <div key={filter.name} className={`${textMain} m-4 z-50 w-full`}>
+                {/* <label>{filter.label}</label> */}
+                <div className="">
                   <Select
                     id={filter.name}
                     options={filter.data}
@@ -151,95 +144,97 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                     selected={filterValues[filter.name] ? filterValues[filter.name] : ''}
                     required
                   />
-                  <PrimaryButton onClick={() => handleFilterChange(filter.name, '')} className='ml-2 mt-1'>Clear</PrimaryButton>
                 </div>
               </div>
             ))}
           </div>
-        )}
+          <PrimaryButton onClick={() => clearFilter()} className='my-4 ml-8'>Clear</PrimaryButton>
+        </div>
       </div>
       <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
-        <table className={`w-full text-md text-left`}>
-          <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
-            <tr>
-              {fields.map(field => (
-                <th
-                  key={field.label || field}
-                  scope={`col`}
-                  className={`px-6 py-3`}
-                  style={field.sortable ? { cursor: 'pointer' } : null}
-                  onClick={field.sortable ? () => handleSort(field.name || field) : null}
-                >
-                  {sortField === (field.name || field) && (sortOrder === 'asc' ? '↑' : '↓')}
-                  {field.label || field}
-                </th>
-              ))}
-              {deleteRoute || editRoute ?
-                <th></th> : ''
-              }
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(item => (
-              <tr key={item.id} className={`${backgroundSecondary} ${border} ${textSecondary} border-b`}>
-                {fields.map(field => {
-                  const value = field.name.split('.').reduce((obj, key) => {
-                    if (obj) {
-                      if (key.includes('[')) {
-                        const [arrayKey, indexKey] = key.split(/[\[\]]+/);
-                        const array = obj[arrayKey];
-                        if (array) {
-                          const index = parseInt(indexKey);
-                          return array[index];
-                        }
-                      } else {
-                        if (field.type === 'currency' && obj[key] !== null) {
-                          return obj[key] / 100 + ' €';
-                        }
-                        if (field.type === 'percent' && obj[key] !== null) {
-                          return obj[key] + ' %';
-                        }
-                        if (field.type === 'date' && obj[key] !== null) {
-                          return new Date(obj[key]).toLocaleDateString();
-                        }
-                        if (field.type === 'link' && obj[key] !== null) {
-                          return <a className='text-blue-600' href={`${obj[key]}`} target="_blank" rel="noopener noreferrer">
-                            Link</a>
-                        }
-                        return obj[key];
-                      }
-
-                    }
-                    return '';
-                  }, item); return (
-                    <td key={field.name || field} className={`px-6 py-4`}>
-                      {
-                        value
-                      }
-                    </td>
-                  );
-                })}
-                <td className={`px-6 py-4 text-right flex justify-end`}>
-                  {editRoute && auth.permissions.find((permission => permission.name === `edit_${permission_name}`)) &&
-                    <a href={route(editRoute, { id: item.id })} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
-                      <BiEditAlt />
-                    </a>
-                  }
-                  {deleteRoute && auth.permissions.find((permission => permission.name === `delete_${permission_name}`)) &&
-                    <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700 mr-4`}>
-                      <BiTrash />
-                    </button>
-                  }
-                  {printRoute && auth.permissions.find((permission => permission.name === `print_${permission_name}`)) &&
-                    <a href={route(printRoute, { id: item.id })} className={`text-2xl text-indigo-500 hover:text-indigo-700 mr-4`}>
-                      <HiPrinter />
-                    </a>
-                  }
-                </td>
+        {data.length === 0 && <div className={`p-6 ${backgroundSecondary} ${textMain}`}>No items found</div>}
+        {data.length > 0 &&
+          <table className={`w-full text-md text-left`}>
+            <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
+              <tr>
+                {fields.map(field => (
+                  <th
+                    key={field.label || field}
+                    scope={`col`}
+                    className={`px-6 py-3`}
+                    style={field.sortable ? { cursor: 'pointer' } : null}
+                    onClick={field.sortable ? () => handleSort(field.name || field) : null}
+                  >
+                    {sortField === (field.name || field) && (sortOrder === 'asc' ? '↑' : '↓')}
+                    {field.label || field}
+                  </th>
+                ))}
+                {deleteRoute || editRoute || filters ?
+                  <th></th> : ''
+                }
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map(item => (
+                <tr key={item.id} className={`${backgroundSecondary} ${border} ${textSecondary} border-b`}>
+                  {fields.map(field => {
+                    const value = field.name.split('.').reduce((obj, key) => {
+                      if (obj) {
+                        if (key.includes('[')) {
+                          const [arrayKey, indexKey] = key.split(/[\[\]]+/);
+                          const array = obj[arrayKey];
+                          if (array) {
+                            const index = parseInt(indexKey);
+                            return array[index];
+                          }
+                        } else {
+                          if (field.type === 'currency' && obj[key] !== null) {
+                            return obj[key] / 100 + ' €';
+                          }
+                          if (field.type === 'percent' && obj[key] !== null) {
+                            return obj[key] + ' %';
+                          }
+                          if (field.type === 'date' && obj[key] !== null) {
+                            return new Date(obj[key]).toLocaleDateString();
+                          }
+                          if (field.type === 'link' && obj[key] !== null) {
+                            return <a className='text-blue-600' href={`${obj[key]}`} target="_blank" rel="noopener noreferrer">
+                              Link</a>
+                          }
+                          return obj[key];
+                        }
+
+                      }
+                      return '';
+                    }, item); return (
+                      <td key={field.name || field} className={`px-6 py-4`}>
+                        {
+                          value
+                        }
+                      </td>
+                    );
+                  })}
+                  <td className={`px-6 py-4 text-right flex justify-end`}>
+                    {editRoute && auth.permissions.find((permission => permission.name === `edit_${permission_name}`)) &&
+                      <a href={route(editRoute, { id: item.id })} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
+                        <BiEditAlt />
+                      </a>
+                    }
+                    {deleteRoute && auth.permissions.find((permission => permission.name === `delete_${permission_name}`)) &&
+                      <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700 mr-4`}>
+                        <BiTrash />
+                      </button>
+                    }
+                    {printRoute && auth.permissions.find((permission => permission.name === `print_${permission_name}`)) &&
+                      <a href={route(printRoute, { id: item.id })} className={`text-2xl text-indigo-500 hover:text-indigo-700 mr-4`}>
+                        <HiPrinter />
+                      </a>
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>}
         {showDeleteModal &&
           <div className={`fixed z-10 inset-0 overflow-y-auto`}>
             <div className={`flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0`}>
