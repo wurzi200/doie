@@ -8,7 +8,7 @@ import PrimaryButton from './PrimaryButton';
 import Select from './Select';
 import { FaFilter } from 'react-icons/fa';
 
-export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name, searchable, filters }) {
+export default function List({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name, searchable, filters, handleEdit }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [sortOrder, setSortOrder] = useState("")
@@ -41,7 +41,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
 
   function confirmDelete() {
     if (deleteItemId) {
-      router.get(route(deleteRoute, { id: deleteItemId })).then(() => {
+      axios.delete(route(deleteRoute, { id: deleteItemId })).then(() => {
         setDeleteItemId(null);
         setShowDeleteModal(false);
         router.reload();
@@ -148,7 +148,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
               </div>
             ))}
           </div>
-          <PrimaryButton onClick={() => clearFilter()} className='my-4 ml-8'>Clear</PrimaryButton>
+          {filters && <PrimaryButton onClick={() => clearFilter()} className='my-4 ml-8'>Clear</PrimaryButton>}
         </div>
       </div>
       <div className={`${border} relative border overflow-x-auto shadow-md sm:rounded-lg mt-4`}>
@@ -169,7 +169,7 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                     {field.label || field}
                   </th>
                 ))}
-                {deleteRoute || editRoute || filters ?
+                {deleteRoute || editRoute || handleEdit || filters ?
                   <th></th> : ''
                 }
               </tr>
@@ -219,6 +219,11 @@ export default function List({ auth, data, fields, editRoute, deleteRoute, print
                       <a href={route(editRoute, { id: item.id })} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
                         <BiEditAlt />
                       </a>
+                    }
+                    {handleEdit && auth.permissions.find((permission => permission.name === `edit_${permission_name}`)) &&
+                      <button onClick={() => handleEdit(item)} className={`text-2xl text-blue-500 hover:text-blue-700 mr-4`}>
+                        <BiEditAlt />
+                      </button>
                     }
                     {deleteRoute && auth.permissions.find((permission => permission.name === `delete_${permission_name}`)) &&
                       <button onClick={() => deleteItem(item)} className={`text-2xl text-red-500 hover:text-red-700 mr-4`}>

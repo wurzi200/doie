@@ -11,21 +11,41 @@ import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function Edit({ auth, customer, genders }) {
   const addressFields = [
+    { name: 'addressType', label: 'Type', required: true, },
     { name: 'street', label: 'Street', required: true },
+    { name: 'houseNumber', label: 'HouseNumber', required: true },
     { name: 'postal_code', label: 'Postal', required: true },
     { name: 'city', label: 'City', required: true },
     { name: 'country', label: 'Country', required: true },
   ];
 
+  const [editedItem, setEditedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
+  function handleEdit(item) {
+    setEditedItem(item);
+    handleModalOpen('secondModal');
+  }
 
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
+  const [modals, setModals] = useState({
+    firstModal: false,
+    secondModal: false,
+    // Add more modals as needed
+  });
+
+  function handleModalOpen(modalName) {
+    setModals(prevModals => ({
+      ...prevModals,
+      [modalName]: true
+    }));
+  }
+
+  function handleModalClose(modalName) {
+    setModals(prevModals => ({
+      ...prevModals,
+      [modalName]: false
+    }));
+  }
 
   return (
     <AuthenticatedLayout
@@ -55,7 +75,7 @@ export default function Edit({ auth, customer, genders }) {
                   </p>
                   <div className='flex justify-end'>
                     <PrimaryButton
-                      onClick={handleModalOpen}
+                      onClick={() => handleModalOpen('firstModal')}
                     >
                       Add Address
                     </PrimaryButton>
@@ -63,19 +83,27 @@ export default function Edit({ auth, customer, genders }) {
                   <CreateAddressInformation
                     id={customer.id}
                     type={'customer'}
-                    fields={addressFields}
-                    isOpen={isModalOpen}
-                    onClose={handleClose}
+                    isOpen={modals.firstModal}
+                    onClose={() => handleModalClose('firstModal')}
                   />
                 </header>
-                <EditableList
-                  auth={auth}
-                  data={customer.addresses}
-                  editRoute={'address.edit'}
-                  deleteRoute={'address.delete'}
-                  fields={addressFields}
-                  permission_name={'customers'}
-                />
+                <>
+                  <List
+                    auth={auth}
+                    data={customer.addresses}
+                    handleEdit={handleEdit}
+                    fields={addressFields}
+                    permission_name={'customers'}
+                    deleteRoute={'address.delete'}
+                  />
+                  <CreateAddressInformation
+                    isEditMode={true}
+                    isOpen={modals.secondModal}
+                    type={'customer'}
+                    item={editedItem}
+                    onClose={() => handleModalClose('secondModal')}
+                  />
+                </>
               </section>
             </div>
           </div>

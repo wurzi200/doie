@@ -36,13 +36,13 @@ class OrganizationController extends Controller
                 $query->where('name', 'like', "%$search%");
             });
 
-            $organizations = $organizations->orderBy('created_at', 'desc');
-
             // Apply sorting if sort parameters exist
             if ($sortField && $sortOrder) {
                 if ($sortOrder == 'asc' || $sortOrder == 'desc') {
                     $organizations = $organizations->orderBy($sortField, $sortOrder);
                 }
+            } else {
+                $organizations = $organizations->orderBy('created_at', 'desc');
             }
 
             if ($organization_type_filter) {

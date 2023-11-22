@@ -5,6 +5,7 @@ import { HiPrinter } from 'react-icons/hi';
 import { router } from '@inertiajs/react'
 import TextInput from './TextInput';
 import axios from 'axios';
+import Select from './Select';
 
 export default function EditableList({ auth, data, fields, editRoute, deleteRoute, printRoute, permission_name }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -63,6 +64,16 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
     setEditedItem(prevState => ({ ...prevState, [name]: value }));
   };
 
+  const handleSelectChange = (event) => {
+    console.log(event);
+    const { name, value } = event;
+
+    setEditedItem(prevState => ({
+      ...prevState,
+      [name]: event.value
+    }));
+  }
+
   const handleArrayInputChange = (event) => {
     const { name, value } = event.target;
     const [arrayKey, indexKey] = name.split(/[\[\]]+/);
@@ -81,7 +92,7 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
         <thead className={`${backgroundTertiary} ${textMain} text-sm uppercase`}>
           <tr>
             {fields.map(field => (
-              <th key={field.name || field} scope={`col`} className={`px-6 py-3`}>{field.label || field}</th>
+              <th key={field.name || field} scope={`col`} className={`px-1 py-3`}>{field.label || field}</th>
             ))}
             {deleteRoute || editRoute || addRoute ?
               <th></th> : ''
@@ -108,24 +119,37 @@ export default function EditableList({ auth, data, fields, editRoute, deleteRout
                   }
                   return '';
                 }, item);
+
                 return (
-                  <td key={field.name || field} className={`px-6 py-4`}>
+                  <td key={field.name || field} className={`px-1 py-4`}>
                     {isEditing ? (
-                      <TextInput
-                        className={`block w-full`}
-                        type="text"
-                        name={field.name}
-                        value={value}
-                        onChange={field.name.includes('[') ? handleArrayInputChange : handleInputChange}
-                        required={field.required}
-                      />
+                      field.type === 'select' ? (
+                        <Select
+                          className={`block w-full`}
+                          name={field.name}
+                          options={field.options}
+                          onChange={handleSelectChange}
+                          value={value}
+                          selected={field.options.find(option => option.name === value)}
+                          required={field.required}
+                        />
+                      ) : (
+                        <TextInput
+                          className={`block w-full`}
+                          type="text"
+                          name={field.name}
+                          value={value}
+                          onChange={field.name.includes('[') ? handleArrayInputChange : handleInputChange}
+                          required={field.required}
+                        />
+                      )
                     ) : (
                       value
                     )}
                   </td>
                 );
               })}
-              <td className={`px-6 py-5 text-right flex justify-end`}>
+              <td className={`px-1 py-5 text-right flex justify-end`}>
                 {editingItemId === item.id ? (
                   <>
                     <button onClick={() => handleSave(item)} className={`text-3xl text-green-500 hover:text-green-700 mr-4`}>

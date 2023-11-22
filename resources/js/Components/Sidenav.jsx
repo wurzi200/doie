@@ -155,6 +155,10 @@ export default function Sidenav({ auth, user }) {
             href={route('logout')}
             method={"post"}
             as="button"
+            onClick={(e) => {
+              // Clear access token from localStorage
+              localStorage.removeItem('accessToken');
+            }}
           >
             <Sidebar.Item
               icon={HiLogout}

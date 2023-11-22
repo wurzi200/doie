@@ -29,8 +29,9 @@ class AddressFactory extends Factory
         $customer = Customer::factory()->create();
 
         $address = [
-            'type' => $this->faker->randomElement(['Home', 'Work', 'Other']),
-            'street' => $this->faker->streetAddress,
+            'addressType' => $this->faker->randomElement(['company', 'billing', 'delivery']),
+            'street' => $this->faker->streetName,
+            'houseNumber' => $this->faker->buildingNumber,
             'city' => $this->faker->city,
             'state' => $this->faker->stateAbbr,
             'postal_code' => $this->faker->postcode,

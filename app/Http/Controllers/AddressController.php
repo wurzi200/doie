@@ -7,7 +7,6 @@ use App\Models\Customer;
 use App\Models\ModelHasAddress;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class AddressController extends Controller
 {
@@ -18,14 +17,17 @@ class AddressController extends Controller
             'postal_code' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
+            'addressType' => 'required|string|max:255',
+            'houseNumber' => 'required|string|max:255',
         ]);
 
         $address = new Address();
         $address->street = $validatedData['street'];
+        $address->houseNumber = $validatedData['houseNumber'];
         $address->postal_code = $validatedData['postal_code'];
         $address->city = $validatedData['city'];
         $address->country = $validatedData['country'];
-        $address->type = 'test';
+        $address->addressType = $validatedData['addressType'];
         $address->state = 'test';
         $address->save();
 
@@ -52,25 +54,28 @@ class AddressController extends Controller
             'postal_code' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
+            'addressType' => 'required|string|max:255',
+            'houseNumber' => 'required|string|max:255',
         ]);
 
         $address->street = $validatedData['street'];
+        $address->houseNumber = $validatedData['houseNumber'];
         $address->postal_code = $validatedData['postal_code'];
         $address->city = $validatedData['city'];
         $address->country = $validatedData['country'];
-        $address->type = 'test';
+        $address->addressType = $validatedData['addressType'];
         $address->state = 'test';
         $address->save();
 
         return back();
     }
 
-    public function delete($addressId): RedirectResponse
+    public function delete($addressId)
     {
         $address = Address::findOrFail($addressId);
 
         $address->delete();
 
-        return back();
+        return response()->json(['status' => 'success', 'message' => 'Address deleted successfully']);
     }
 }
